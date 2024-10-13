@@ -1,59 +1,20 @@
 # Site Settings
 title: "My AI Notes"
-name: "Shyaam's AI Blog"
 author: Shyaam Prasadh
-twitter_username: shyaam_ml
-baseurl: "/myAInotes" # Adjust this based on your repository name
 description: "Documenting my learning and insights on AI, Deep Learning, and AI Alignment."
-profile_url: "https://sprasadhpy.github.io"
+baseurl: "/myAInotes"  # Adjust based on your repository name
+url: "https://sprasadhpy.github.io"
 
 # Build settings
 markdown: kramdown
 highlighter: rouge
-excerpt_separator: <!--more-->
 
 # Plugins
 plugins:
   - jekyll-feed
-  - jekyll-archives
   - jekyll-seo-tag
 
 # Exclude files from build
 exclude:
   - Gemfile
   - Gemfile.lock
-
-# Kramdown settings for markdown processing
-kramdown:
-  input: GFM  # GitHub Flavored Markdown
-  auto_ids: true
-  syntax_highlighter: rouge
-
-# Table of contents settings
-toc_levels: 1..4
-
-# SEO settings
-seo:
-  twitter:
-    card: summary
-    creator: "@shyaam_ml"
-    site: "@shyaam_ml"
-
-# Optional: Pagination for blog posts
-paginate: 5  # Number of posts per page
-paginate_path: "/page:num/"
-
-# Optional: Social media links
-social_links:
-  github: "https://github.com/sprasadhpy"
-  linkedin: "https://linkedin.com/in/shyaam-prasadh"
-
-# Jekyll archives settings (optional)
-jekyll-archives:
-  enabled:
-    - categories
-    - tags
-  layout: archive
-  permalinks:
-    category: /:name/
-    tag: /tag/:name/
