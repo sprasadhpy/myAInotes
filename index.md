@@ -10,8 +10,6 @@ Here, I document key insights and breakthroughs in deep learning and AI alignmen
 ## Blog Posts
 
 <ul>
-  {% for post in site.posts %}
-    <li><a href="{{ post.url }}">{{ post.title }}</a> - {{ post.date | date: "%B %d, %Y" }}</li>
-  {% endfor %}
+  <li><a href="https://github.com/sprasadhpy/myAInotes/blob/gh-pages/_posts/2024-10-12.md">View Markdown - Beyond Preferences in AI Alignment</a> - October 12, 2024</li>
+  <!-- Add more posts here -->
 </ul>
-
