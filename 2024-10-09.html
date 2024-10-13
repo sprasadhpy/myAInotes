@@ -59,6 +59,13 @@
       text-align: center;
       font-size: 0.9em;
     }
+    /* Additional styles for reading time and visit count */
+    .meta-info {
+      font-size: 0.9em;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #666;
+    }
   </style>
 </head>
 <body>
@@ -66,6 +73,12 @@
 <header>
   <h1>Beyond Preference in AI Alignment</h1>
 </header>
+
+<!-- Meta information section -->
+<div class="meta-info">
+  <span id="estimated-reading-time"></span> | 
+  <span id="visit-count"></span>
+</div>
 
 <div class="content">
   <h2>Problems</h2>
@@ -95,8 +108,30 @@
 </div>
 
 <footer>
-  <p>&copy; (c) 2024 my AI notes</p>
+  <p>&copy; 2024 my AI notes</p>
 </footer>
+
+<!-- JavaScript for estimated reading time and visit count -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Calculate estimated reading time
+    const content = document.querySelector('.content').innerText;
+    const words = content.split(/\s+/).length;
+    const readingSpeed = 250; // words per minute
+    const readingTime = Math.ceil(words / readingSpeed);
+    document.getElementById('estimated-reading-time').textContent = `Estimated Reading Time: ${readingTime} minute(s)`;
+
+    // Track number of visits
+    let visitCount = localStorage.getItem('visitCount');
+    if (!visitCount) {
+      visitCount = 1; // First visit
+    } else {
+      visitCount = parseInt(visitCount) + 1;
+    }
+    localStorage.setItem('visitCount', visitCount);
+    document.getElementById('visit-count').textContent = `Number of Visits: ${visitCount}`;
+  });
+</script>
 
 </body>
 </html>
