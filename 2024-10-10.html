@@ -117,15 +117,57 @@
     
     <li><strong>Experiment 5: Adversarial training improves robustness</strong>. Training networks on adversarial examples can improve their robustness. On the MNIST dataset, a network trained with adversarial examples achieved a test error of less than 1.2%. Continuously retraining on <strong>hard examples</strong> makes networks more resistant to vulnerabilities.</li>
 </ul>
-
 <p>
-    For me the most interesting section is   (4.3) on <strong>Spectral Analysis of Instability</strong> which explains how to measure and control the instability of DNNs by analyzing the spectral properties of each layer - the operator norm of the weight matrices. The network is represented as a series of transformations across multiple layers, denoted as: 
-    <strong>φ(x) = φK(φK−1(...φ1(x;W1);W2)...;WK)</strong>, where <strong>φk</strong> represents the function mapping from layer <strong>k-1</strong> to layer <strong>k</strong>, and <strong>Wk</strong> are the trained weights of layer <strong>k</strong>. The instability is measured using the <strong>Lipschitz constant</strong> <strong>Lk</strong> of each layer, defined as: 
-    <strong>∀x,r, ||φk(x;Wk)−φk(x+r;Wk)|| ≤ Lk ||r||</strong>. The overall instability is determined by the product of the Lipschitz constants of all layers: 
-    <strong>L = ∏Kk=1 Lk</strong>. In rectified layers (ReLU), the mapping is defined as <strong>φk(x; Wk, bk) = max(0, Wk x + bk)</strong>, and the <strong>operator norm</strong> of <strong>Wk</strong>, denoted as <strong>||Wk||</strong>, provides an upper bound for the Lipschitz constant. Pooling layers are contractive, and the output change is bounded by <strong>||φk(x)−φk(x+r)|| ≤ ||r||</strong>. Contrast-normalization layers scale changes in input by a factor <strong>γ ∈ [0.5, 1]</strong>. The operator norm for convolutional layers is computed using Fourier transform and Parseval's theorem, with the formula: 
-    <strong>||W|| = supξ ||A(ξ)||</strong>, where <strong>A(ξ)</strong> is a matrix derived from the Fourier transform of convolutional kernels. This spectral analysis quantifies network instability and helps mitigate vulnerabilities through control of the Lipschitz constants and operator norms.
+    For me, the most interesting section is (4.3) on <strong>Spectral Analysis of Instability</strong>, which explains how to measure and control the instability of DNNs by analyzing the spectral properties of each layer — specifically, the operator norm of the weight matrices. The network is represented as a series of transformations across multiple layers, denoted as:
 </p>
 
+<p>
+    <strong>φ(x) = φK(φK−1(...φ1(x;W1);W2)...;WK)</strong>,
+</p>
+
+<p>
+    where <strong>φk</strong> represents the function mapping from layer <strong>k-1</strong> to layer <strong>k</strong>, and <strong>Wk</strong> are the trained weights of layer <strong>k</strong>. The instability is measured using the <strong>Lipschitz constant</strong> <strong>Lk</strong> of each layer, defined as:
+</p>
+
+<p>
+    <strong>∀x,r, ||φk(x;Wk)−φk(x+r;Wk)|| ≤ Lk ||r||</strong>.
+</p>
+
+<p>
+    The overall instability is determined by the product of the Lipschitz constants of all layers:
+</p>
+
+<p>
+    <strong>L = ∏Kk=1 Lk</strong>.
+</p>
+
+<p>
+    In rectified layers (ReLU), the mapping is defined as:
+</p>
+
+<p>
+    <strong>φk(x; Wk, bk) = max(0, Wk x + bk)</strong>,
+</p>
+
+<p>
+    and the <strong>operator norm</strong> of <strong>Wk</strong>, denoted as <strong>||Wk||</strong>, provides an upper bound for the Lipschitz constant. Pooling layers are contractive, and the output change is bounded by:
+</p>
+
+<p>
+    <strong>||φk(x)−φk(x+r)|| ≤ ||r||</strong>.
+</p>
+
+<p>
+    Contrast-normalization layers scale changes in input by a factor <strong>γ ∈ [0.5, 1]</strong>. The operator norm for convolutional layers is computed using Fourier transform and Parseval's theorem, with the formula:
+</p>
+
+<p>
+    <strong>||W|| = supξ ||A(ξ)||</strong>,
+</p>
+
+<p>
+    where <strong>A(ξ)</strong> is a matrix derived from the Fourier transform of convolutional kernels. This spectral analysis quantifies network instability and helps mitigate vulnerabilities through control of the Lipschitz constants and operator norms.
+</p>
 
 
 
