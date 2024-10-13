@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Intriguing Properties of Neural Networks</title>
   <link rel="stylesheet" href="/assets/css/style.css"> <!-- Link your CSS here -->
-  
+
   <style>
-    /* Inline styles if you don't want a separate CSS file */
     body {
       font-family: 'Arial', sans-serif;
       line-height: 1.8;
@@ -79,29 +78,36 @@
 </div>
 
 <div class="content">
-  <h2>Key Properties</h2>
+  <p><strong>Intriguing Properties of Neural Networks</strong> outlines several key properties that demonstrate counterintuitive behaviors in deep neural networks (DNN) and those properties are listed below:</p>
+  
   <ul>
-    <li><strong>Semantic Information is Distributed:</strong> Results show that semantic information is distributed across the entire activation space of high-level layers, not tied to individual neurons.</li>
-    <li><strong>Adversarial Examples via Input Sensitivity:</strong> DNNs are highly sensitive to small input perturbations, called adversarial examples, which can cause misclassifications. These examples can generalize across different networks, demonstrating non-random behavior.</li>
-    <li><strong>Network Blind Spots:</strong> Small input perturbations can lead to large output changes, demonstrating the instability of networks. Early layers can exhibit significant instability, quantified using the operator norm of weight matrices.</li>
-    <li><strong>Lipschitz Constants and Instability:</strong> The upper bounds on the Lipschitz constants reveal instability levels, with larger constants indicating more potential instability in layers.</li>
-    <li><strong>Adversarial Training for Robustness:</strong> Continuously introducing adversarial examples in training can improve robustness and reduce test errors.</li>
-    <li><strong>Universality in Vulnerability:</strong> The vulnerability of networks is related to the nature of their learned representations, not overfitting to specific data subsets.</li>
-    <li><strong>Non-Smooth Decision Boundaries:</strong> Networks have non-smooth decision boundaries, making them vulnerable to adversarial perturbations.</li>
-    <li><strong>Hard-Negative Mining in CV:</strong> The process of finding adversarial examples is linked to hard-negative mining, where difficult-to-classify examples are emphasized during training.</li>
+    <li>1) Semantic Information is Distributed : Results of this study show that semantic information is not tied to individual neurons (in the network. Instead, distributed across the entire activation space of high-level layers. Demonstrated by the fact that random linear combinations of units similar to individual units.</li>
+    <li>2) Adversarial Examples via Input sensitivity : DNNs are sensitive to small, imperceptible perturbations in the input data. Called adversarial examples, can cause the network to misclassify inputs that would otherwise be correctly classified. The same adversarial perturbations that cause one network to misclassify can also cause other networks (universality ??) , although trained on different subsets of data to misclassify the same input. Explain the Non- Random nature of adversarial examples. Key fact : Adversarial examples generated on one neural network can generalize to other network - even if those networks have different architectures, hyperparameters, trained on different datasets.</li>
+    <li>3) The networks are shown to have intrinsic "blind spots" where small perturbations in input space can lead to large changes in output. Instability is robust across different network architectures and training sets. The authors used spectral analysis to show that the instability of a network can be quantified by the <strong>operator norm</strong> of its weight matrices.  The results show that early layers of a network can already exhibit significant instability, meaning that small changes in input can propagate and amplify through the network.</li>
+    <li>4) The upper bounds on the <strong>Lipschitz constants</strong> for each layer were computed, revealing how much the output of each layer can change in response to small changes in the input. Large Lipschitz constants indicate layers with more instability.</li>
+    <li>5) The paper also explores the idea of training NNs using adversarial examples to improve their robustness. The authors found that continuously introducing adversarial examples into the training set can help reduce test errors and make the model more resistant to adversarial attacks. Similar to model collapse paper https://openreview.net/pdf?id=5B2K4LRgmz ( I will explain this later in a separate post )</li>
+  </ul>
+
+  <p>Key fact :  Adversarial examples generated for higher layers of the network are more useful for improving robustness than those generated for the input or lower layers.</p>
+
+  <ul>
+    <li>6) Universality represent in the point 2  suggests that the network's vulnerability is related to the fundamental nature of its learned representations rather than overfitting to specific data.</li>
+    <li>6) The widespread nature of semantic information makes it harder to interpret neural networks by simply looking at individual units, as the information is encoded in the overall pattern of activations, not in specific neurons ( Need more results in the mechanistic interpretability )</li>
+    <li>7) The network’s decision boundaries are found to be non-smooth. This non-smoothness contributes to the ease with which adversarial examples can fool the network and also, targeted perturbations can push inputs across these boundaries.</li>
+    <li>8) The process of identifying and optimizing adversarial examples is related to the technique of hard-negative mining used in CV domain. Hard-negative mining involves identifying difficult-to-classify examples in the training set that the model consistently gets wrong, and emphasizing them during training to improve the model's performance.</li>
   </ul>
 
   <h2>Experiments</h2>
   <ul>
-    <li><strong>Experiment 1:</strong> Semantic information is not confined to individual neurons. The authors analyzed neuron activations in higher layers using random linear combinations.</li>
-    <li><strong>Experiment 2:</strong> Adversarial examples demonstrate the fundamental weakness in how neural networks represent data, leading to misclassification across different networks.</li>
-    <li><strong>Experiment 3:</strong> Adversarial examples generated for one network remained effective in causing errors in networks trained on different subsets of data.</li>
-    <li><strong>Experiment 4:</strong> Spectral analysis showed that early layers could exhibit significant instability, propagating and amplifying through the network.</li>
-    <li><strong>Experiment 5:</strong> Training networks with adversarial examples improved their robustness, achieving less than 1.2% test error on the MNIST dataset.</li>
+    <li>Experiment 1 :Semantic information is not confined to individual neurons. The authors trained NNs on datasets such as MNIST  and ImageNet. They analyzed the activation of individual neurons in higher layers of the network and identified what input patterns maximally activate these neurons : natural basis analysis. they performed the same analysis using random linear combinations of neuron activations . Instead of looking at one neuron’s activation, they looked at activations in random directions in the feature space.</li>
+    <li>Experiment 2: Fundamental weakness of the way neural networks represent data. The authors generated adversarial examples for different neural networks trained on MNIST and ImageNet. These adversarial examples were created by adding small, imperceptible perturbations to images that would cause the network to misclassify them. The perturbations were found by maximizing the prediction error.</li>
+    <li>Experiment 3: Adversarial examples generated for one network were often still effective in causing errors in networks trained on a different subset of the data( Universality). The authors trained neural networks on different subsets of MNIST (splitting it into two disjoint datasets :  P1 and P2) and generated adversarial examples for one subset of the data.</li>
+    <li>Experiment 4: Spectral Analysis of Instability. The authors performed a spectral analysis on the network’s layers. For each layer, they computed its operator norm (largest singular value of the weight matrix) and used them to calculate the Lipschitz constant of each layer. The analysis showed that the early layers of a neural network can have significant instability that can propagate and amplify through layers leading to vulnerabilities in the model.</li>
+    <li>Experiment 5: Training networks on adversarial examples can improve their robustness. On the MNIST dataset, a network trained with adversarial examples achieved a test error of less than 1.2%. Continuously retraining on hard examples, networks can become more resistant to these vulnerabilities.</li>
   </ul>
 
   <div class="paper-source">
-    <p>For more details, see the original paper: <a href="https://openreview.net/pdf?id=5B2K4LRgmz" target="_blank">Model Collapse (OpenReview: 5B2K4LRgmz)</a></p>
+    <p>For more details, see the original paper: <a href="https://arxiv.org/pdf/1312.6199" target="_blank">Intriguing properties of neural networks</a></p>
   </div>
 </div>
 
@@ -132,4 +138,3 @@
 
 </body>
 </html>
-
