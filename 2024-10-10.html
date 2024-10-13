@@ -1,1 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intriguing Properties of Neural Networks</title>
+  <link rel="stylesheet" href="/assets/css/style.css"> <!-- Link your CSS here -->
+  
+  <style>
+    /* Inline styles if you don't want a separate CSS file */
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.8;
+      color: #333;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #4a90e2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin: 0;
+    }
+    .content {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    h2 {
+      color: #4a90e2;
+    }
+    ul {
+      list-style-type: disc;
+      margin-left: 20px;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #4a90e2;
+      color: white;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 0.85em;
+    }
+    .paper-source {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.9em;
+    }
+    .meta-info {
+      font-size: 0.9em;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Intriguing Properties of Neural Networks</h1>
+</header>
+
+<div class="meta-info">
+  <span id="estimated-reading-time"></span> | 
+  <span id="visit-count"></span>
+</div>
+
+<div class="content">
+  <h2>Key Properties</h2>
+  <ul>
+    <li><strong>Semantic Information is Distributed:</strong> Results show that semantic information is distributed across the entire activation space of high-level layers, not tied to individual neurons.</li>
+    <li><strong>Adversarial Examples via Input Sensitivity:</strong> DNNs are highly sensitive to small input perturbations, called adversarial examples, which can cause misclassifications. These examples can generalize across different networks, demonstrating non-random behavior.</li>
+    <li><strong>Network Blind Spots:</strong> Small input perturbations can lead to large output changes, demonstrating the instability of networks. Early layers can exhibit significant instability, quantified using the operator norm of weight matrices.</li>
+    <li><strong>Lipschitz Constants and Instability:</strong> The upper bounds on the Lipschitz constants reveal instability levels, with larger constants indicating more potential instability in layers.</li>
+    <li><strong>Adversarial Training for Robustness:</strong> Continuously introducing adversarial examples in training can improve robustness and reduce test errors.</li>
+    <li><strong>Universality in Vulnerability:</strong> The vulnerability of networks is related to the nature of their learned representations, not overfitting to specific data subsets.</li>
+    <li><strong>Non-Smooth Decision Boundaries:</strong> Networks have non-smooth decision boundaries, making them vulnerable to adversarial perturbations.</li>
+    <li><strong>Hard-Negative Mining in CV:</strong> The process of finding adversarial examples is linked to hard-negative mining, where difficult-to-classify examples are emphasized during training.</li>
+  </ul>
+
+  <h2>Experiments</h2>
+  <ul>
+    <li><strong>Experiment 1:</strong> Semantic information is not confined to individual neurons. The authors analyzed neuron activations in higher layers using random linear combinations.</li>
+    <li><strong>Experiment 2:</strong> Adversarial examples demonstrate the fundamental weakness in how neural networks represent data, leading to misclassification across different networks.</li>
+    <li><strong>Experiment 3:</strong> Adversarial examples generated for one network remained effective in causing errors in networks trained on different subsets of data.</li>
+    <li><strong>Experiment 4:</strong> Spectral analysis showed that early layers could exhibit significant instability, propagating and amplifying through the network.</li>
+    <li><strong>Experiment 5:</strong> Training networks with adversarial examples improved their robustness, achieving less than 1.2% test error on the MNIST dataset.</li>
+  </ul>
+
+  <div class="paper-source">
+    <p>For more details, see the original paper: <a href="https://openreview.net/pdf?id=5B2K4LRgmz" target="_blank">Model Collapse (OpenReview: 5B2K4LRgmz)</a></p>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2024 my AI notes</p>
+</footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Calculate estimated reading time
+    const content = document.querySelector('.content').innerText;
+    const words = content.split(/\s+/).length;
+    const readingSpeed = 250; // words per minute
+    const readingTime = Math.ceil(words / readingSpeed);
+    document.getElementById('estimated-reading-time').textContent = `Estimated Reading Time: ${readingTime} minute(s)`;
+
+    // Track number of visits
+    let visitCount = localStorage.getItem('visitCount');
+    if (!visitCount) {
+      visitCount = 1; // First visit
+    } else {
+      visitCount = parseInt(visitCount) + 1;
+    }
+    localStorage.setItem('visitCount', visitCount);
+    document.getElementById('visit-count').textContent = `Number of Visits: ${visitCount}`;
+  });
+</script>
+
+</body>
+</html>
 
