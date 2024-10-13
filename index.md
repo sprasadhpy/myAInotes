@@ -10,7 +10,9 @@ Here, I document key insights and breakthroughs in deep learning and AI alignmen
 ## Blog Posts
 
 <ul>
-  <li><a href="https://github.com/sprasadhpy/myAInotes/_posts/sample.html">Beyond Preferences in AI Alignment</a> - October 12, 2024</li>
 
+<ul>
+  <li><a href="https://sprasadhpy.github.io/myAInotes/sample.html">Beyond Preferences in AI Alignment</a> - October 12, 2024</a></li>
+</ul>
 
 </ul>
