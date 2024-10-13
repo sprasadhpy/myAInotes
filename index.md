@@ -21,6 +21,6 @@ Here, I document key insights and breakthroughs in deep learning and AI alignmen
   </li>
   <li>
     <a href="https://sprasadhpy.github.io/myAInotes/2024-10-10.html">Intriguing Properties of NNs</a> - October 10, 2024 
-    <span style="font-size: 0.85em;"> | Tags: <a href="/tags/Deep-Learning">Deep Learning </a> 
+    <span style="font-size: 0.85em;"> | Tags: <a href="/tags/Deep-Learning">Deep Learning</a></span>
   </li>
 </ul>
