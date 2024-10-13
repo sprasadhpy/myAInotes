@@ -9,7 +9,7 @@ Here, I document key insights and breakthroughs in deep learning and AI alignmen
 
 <!-- Meta information for reading time and visit count -->
 <div class="meta-info">
-  <span id="estimated-reading-time"></span> | 
+  <span id="estimated-reading-time"></span> 
   <span id="visit-count"></span>
 </div>
 
