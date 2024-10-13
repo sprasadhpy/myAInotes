@@ -1,0 +1,61 @@
+<!-- default.html layout -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }}</title>
+  <link rel="stylesheet" href="/assets/css/style.css"> <!-- Link your CSS file here -->
+  <style>
+    .meta-info {
+      font-size: 0.9em;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>{{ page.title }}</h1>
+</header>
+
+<!-- Meta information section for reading time and visits -->
+<div class="meta-info">
+  <span id="estimated-reading-time"></span> | 
+  <span id="visit-count"></span>
+</div>
+
+<div class="content">
+  {{ content }}
+</div>
+
+<footer>
+  <p>&copy; 2024 My AI Notes</p>
+</footer>
+
+<!-- JavaScript for estimated reading time and visit count -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Calculate estimated reading time
+    const content = document.querySelector('.content').innerText;
+    const words = content.split(/\s+/).length;
+    const readingSpeed = 250; // words per minute
+    const readingTime = Math.ceil(words / readingSpeed);
+    document.getElementById('estimated-reading-time').textContent = `Estimated Reading Time: ${readingTime} minute(s)`;
+
+    // Track number of visits
+    let visitCount = localStorage.getItem('visitCount');
+    if (!visitCount) {
+      visitCount = 1; // First visit
+    } else {
+      visitCount = parseInt(visitCount) + 1;
+    }
+    localStorage.setItem('visitCount', visitCount);
+    document.getElementById('visit-count').textContent = `Number of Visits: ${visitCount}`;
+  });
+</script>
+
+</body>
+</html>
