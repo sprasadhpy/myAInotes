@@ -1,0 +1,2 @@
+# myAInotes
+my AI notes
