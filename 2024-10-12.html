@@ -292,7 +292,26 @@
   <li><a href="https://arxiv.org/abs/2301.00079" target="_blank">Black Box Auditing Is Insufficient for Rigorous Audits</a> (Casper et al., 2023)</li>
 </ul>
 
-    
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Calculate estimated reading time
+    const content = document.querySelector('.content').innerText;
+    const words = content.split(/\s+/).length;
+    const readingSpeed = 250; // words per minute
+    const readingTime = Math.ceil(words / readingSpeed);
+    document.getElementById('estimated-reading-time').textContent = `Estimated Reading Time: ${readingTime} minute(s)`;
+
+    // Track number of visits
+    let visitCount = localStorage.getItem('visitCount');
+    if (!visitCount) {
+      visitCount = 1; // First visit
+    } else {
+      visitCount = parseInt(visitCount) + 1;
+    }
+    localStorage.setItem('visitCount', visitCount);
+    document.getElementById('visit-count').textContent = `Number of Visits: ${visitCount}`;
+  });
+</script>  
     
   </main>
   <footer>
