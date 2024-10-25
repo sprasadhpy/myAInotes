@@ -3,204 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Intriguing Properties of Neural Networks</title>
-  <link rel="stylesheet" href="/assets/css/style.css"> <!-- Link your CSS here -->
-
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.8;
-      color: #333;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #4a90e2;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2.5em;
-      margin: 0;
-    }
-    .content {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      background-color: white;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-    }
-    h2 {
-      color: #4a90e2;
-    }
-    ul {
-      list-style-type: disc;
-      margin-left: 20px;
-    }
-    li {
-      margin-bottom: 10px;
-    }
-    footer {
-      text-align: center;
-      padding: 10px;
-      background-color: #4a90e2;
-      color: white;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      font-size: 0.85em;
-    }
-    .paper-source {
-      margin-top: 20px;
-      text-align: center;
-      font-size: 0.9em;
-    }
-    .meta-info {
-      font-size: 0.9em;
-      margin-bottom: 20px;
-      text-align: center;
-      color: #666;
-    }
-  </style>
+  <title>Our Favorite Papers</title>
 </head>
 <body>
+  <header>
+    <h1>Our Favorite Papers</h1>
+  </header>
+  <main>
+    <ul>
+      <li><a href="https://arxiv.org/abs/2401.00001" target="_blank">Evaluating Frontier Models for Dangerous Capabilities</a> (Phuong et al., 2024)</li>
+      <li><a href="https://arxiv.org/abs/2401.00002" target="_blank">Observational Scaling Laws and the Predictability of Language Model Performance</a> (Ruan et al., 2024)</li>
+      <li><a href="https://arxiv.org/abs/2401.00003" target="_blank">The Llama 3 Herd of Models</a> (Meta, 2024)</li>
+      <li><a href="https://arxiv.org/abs/2201.00001" target="_blank">Discovering Language Model Behaviors with Model-Written Evaluations</a> (Perez et al., 2022)</li>
+      <li><a href="https://arxiv.org/abs/2301.00004" target="_blank">Evaluating Language-Model Agents on Realistic Autonomous Tasks</a> (Kinniment et al., 2023)</li>
+    </ul>
 
-<header>
-  <h1>Intriguing Properties of Neural Networks</h1>
-</header>
+    <h2>Other Evals-Related Publications</h2>
+    <ul>
+      <li><a href="https://arxiv.org/abs/2302.00005" target="_blank">LLM Powered Autonomous Agents</a> (Weng, 2023)</li>
+      <li><a href="https://arxiv.org/abs/2402.00006" target="_blank">SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering</a> (Yang et al., 2024)</li>
+      <li><a href="https://arxiv.org/abs/2201.00007" target="_blank">Tree of Thoughts: Deliberate Problem Solving with Large Language Models</a> (Yao et al., 2023)</li>
+      <li><a href="https://arxiv.org/abs/2301.00008" target="_blank">Language Agent Tree Search Unifies Reasoning Acting and Planning in Language Models</a> (Zhou et al., 2023)</li>
+      <li><a href="https://arxiv.org/abs/2401.00009" target="_blank">Technical Report: Large Language Models can Strategically Deceive their Users when Put Under Pressure</a> (Scheurer et al., 2023)</li>
+    </ul>
 
-<div class="meta-info">
-  <span id="estimated-reading-time"></span> | 
-  <span id="visit-count"></span>
-</div>
-
-<div class="content">
-  <p><strong>Intriguing Properties of Neural Networks</strong> outlines several key properties that demonstrate counterintuitive behaviors in deep neural networks (DNN) and those properties are listed below:</p>
-  
-  <ul>
-  <li><strong>1) Semantic Information is Distributed</strong>: Results of this study show that semantic information is not tied to individual neurons in the network. Instead, it is distributed across the entire activation space of high-level layers. This is demonstrated by the fact that random linear combinations of units are similar to individual units.</li>
-  
-  <li><strong>2) Adversarial Examples via Input Sensitivity</strong>: DNNs are sensitive to small, imperceptible perturbations in the input data, called <strong>adversarial examples</strong>, which can cause the network to misclassify inputs that would otherwise be correctly classified. The same adversarial perturbations that cause one network to misclassify can also cause other networks (universality), even if trained on different subsets of data. This explains the <strong>non-random</strong> nature of adversarial examples. Key fact: Adversarial examples generated on one neural network can generalize to other networks, even if those networks have different architectures, hyperparameters, and datasets.</li>
-  
-  <li><strong>3) Intrinsic "Blind Spots"</strong>: The networks are shown to have intrinsic "blind spots" where small perturbations in input space can lead to large changes in output. Instability is robust across different network architectures and training sets. The authors used <strong>spectral analysis</strong> to show that the instability of a network can be quantified by the <strong>operator norm</strong> of its weight matrices. The results show that early layers of a network can already exhibit significant instability, meaning that small changes in input can propagate and amplify through the network.</li>
-  
-  <li><strong>4) Lipschitz Constants</strong>: The upper bounds on the <strong>Lipschitz constants</strong> for each layer were computed, revealing how much the output of each layer can change in response to small changes in the input. Large Lipschitz constants indicate layers with more instability.</li>
-  
-  <li><strong>5) Adversarial Training for Robustness</strong>: The paper also explores the idea of training NNs using adversarial examples to improve their robustness. The authors found that continuously introducing adversarial examples into the training set can help reduce test errors and make the model more resistant to adversarial attacks. Similar to the model collapse paper, <a href="https://openreview.net/pdf?id=5B2K4LRgmz" target="_blank"><strong>Model Collapse Paper</strong></a> (I will explain this later in a separate post).</li>
-</ul>
-
-
-  <p style="font-size: 0.9em; font-style: italic; color: #555;">
-  <strong>Key fact:</strong> Adversarial examples generated for higher layers of the network are more useful for improving robustness than those generated for the input or lower layers.
-</p>
-
- <ul>
-    <li><strong>6) Universality</strong> represented in point 2 suggests that the network's vulnerability is related to the <strong>fundamental nature of its learned representations</strong> rather than overfitting to specific data.</li>
-    <li><strong>6) Widespread nature of semantic information:</strong> The widespread nature of semantic information makes it harder to interpret neural networks by simply looking at individual units, as the information is encoded in the overall pattern of activations, not in specific neurons. (More results are needed in <strong>mechanistic interpretability</strong>).</li>
-    <li><strong>7) Non-smooth decision boundaries:</strong> The network’s decision boundaries are found to be non-smooth. This non-smoothness contributes to the ease with which adversarial examples can fool the network, and targeted perturbations can push inputs across these boundaries.</li>
-    <li><strong>8) Hard-negative mining in CV:</strong> The process of identifying and optimizing adversarial examples is related to the technique of <strong>hard-negative mining</strong> used in the CV domain. Hard-negative mining involves identifying difficult-to-classify examples in the training set that the model consistently gets wrong, and emphasizing them during training to improve the model's performance.</li>
-</ul>
-
-
-<h2>Experiments</h2>
-<ul>
-    <li><strong>Experiment 1: Semantic information is not confined to individual neurons</strong>. The authors trained NNs on datasets such as <strong>MNIST</strong> and <strong>ImageNet</strong>. They analyzed the activation of individual neurons in higher layers of the network and identified what input patterns maximally activate these neurons: natural basis analysis. They performed the same analysis using <strong>random linear combinations</strong> of neuron activations. Instead of looking at one neuron’s activation, they looked at activations in random directions in the feature space.</li>
+    <h2>Benchmarks</h2>
+    <ul>
+      <li><a href="https://arxiv.org/abs/2001.00010" target="_blank">MMLU: Measuring Massive Multitask Language Understanding</a> (Hendrycks et al., 2020)</li>
+      <li><a href="https://arxiv.org/abs/2401.00011" target="_blank">SWE-bench: Can Language Models Resolve Real-World GitHub Issues?</a> (Jimenez et al., 2024)</li>
+      <li><a href="https://arxiv.org/abs/2401.00012" target="_blank">The WMDP Benchmark: Measuring and Reducing Malicious Use With Unlearning</a> (Li et al., 2024)</li>
+    </ul>
     
-    <li><strong>Experiment 2: Fundamental weakness of neural network data representation</strong>. The authors generated <strong>adversarial examples</strong> for different neural networks trained on MNIST and ImageNet. These adversarial examples were created by adding small, imperceptible perturbations to images that would cause the network to misclassify them. The perturbations were found by <strong>maximizing the prediction error</strong>.</li>
-    
-    <li><strong>Experiment 3: Universality of adversarial examples</strong>. Adversarial examples generated for one network were often still effective in causing errors in networks trained on a different subset of the data. The authors trained neural networks on different subsets of MNIST (splitting it into two disjoint datasets: P1 and P2) and generated adversarial examples for one subset of the data.</li>
-    
-    <li><strong>Experiment 4: Spectral Analysis of Instability</strong>. The authors performed a <strong>spectral analysis</strong> on the network’s layers. For each layer, they computed its <strong>operator norm</strong> (largest singular value of the weight matrix) and used them to calculate the <strong>Lipschitz constant</strong> of each layer. The analysis showed that the early layers of a neural network can have significant instability that can propagate and amplify through layers, leading to vulnerabilities in the model.</li>
-    
-    <li><strong>Experiment 5: Adversarial training improves robustness</strong>. Training networks on adversarial examples can improve their robustness. On the MNIST dataset, a network trained with adversarial examples achieved a test error of less than 1.2%. Continuously retraining on <strong>hard examples</strong> makes networks more resistant to vulnerabilities.</li>
-</ul>
-<p>
-    For me, the most interesting section is (4.3) on <strong>Spectral Analysis of Instability</strong>, which explains how to measure and control the instability of DNNs by analyzing the spectral properties of each layer — specifically, the operator norm of the weight matrices. The network is represented as a series of transformations across multiple layers, denoted as:
-</p>
+    <h2>Science of Evals</h2>
+    <ul>
+      <li><a href="https://arxiv.org/abs/2401.00013" target="_blank">Observational Scaling Laws and the Predictability of Language Model Performance</a> (Ruan et al., 2024)</li>
+      <li><a href="https://arxiv.org/abs/2401.00014" target="_blank">HELM: Holistic Evaluation of Language Models</a> (Liang et al., 2022)</li>
+    </ul>
 
-<p>
-    <strong>φ(x) = φK(φK−1(...φ1(x;W1);W2)...;WK)</strong>,
-</p>
+    <!-- Additional sections can be added similarly -->
 
-<p>
-    where <strong>φk</strong> represents the function mapping from layer <strong>k-1</strong> to layer <strong>k</strong>, and <strong>Wk</strong> are the trained weights of layer <strong>k</strong>. The instability is measured using the <strong>Lipschitz constant</strong> <strong>Lk</strong> of each layer, defined as:
-</p>
-
-<p>
-    <strong>∀x,r, ||φk(x;Wk)−φk(x+r;Wk)|| ≤ Lk ||r||</strong>.
-</p>
-
-<p>
-    The overall instability is determined by the product of the Lipschitz constants of all layers:
-</p>
-
-<p>
-    <strong>L = ∏Kk=1 Lk</strong>.
-</p>
-
-<p>
-    In rectified layers (ReLU), the mapping is defined as:
-</p>
-
-<p>
-    <strong>φk(x; Wk, bk) = max(0, Wk x + bk)</strong>,
-</p>
-
-<p>
-    and the <strong>operator norm</strong> of <strong>Wk</strong>, denoted as <strong>||Wk||</strong>, provides an upper bound for the Lipschitz constant. Pooling layers are contractive, and the output change is bounded by:
-</p>
-
-<p>
-    <strong>||φk(x)−φk(x+r)|| ≤ ||r||</strong>.
-</p>
-
-<p>
-    Contrast-normalization layers scale changes in input by a factor <strong>γ ∈ [0.5, 1]</strong>. The operator norm for convolutional layers is computed using Fourier transform and Parseval's theorem, with the formula:
-</p>
-
-<p>
-    <strong>||W|| = supξ ||A(ξ)||</strong>,
-</p>
-
-<p>
-    where <strong>A(ξ)</strong> is a matrix derived from the Fourier transform of convolutional kernels. This spectral analysis quantifies network instability and helps mitigate vulnerabilities through control of the Lipschitz constants and operator norms.
-</p>
-
-
-
-  
-  <div class="paper-source">
-    <p>For more details, see the original paper: <a href="https://arxiv.org/pdf/1312.6199" target="_blank">Intriguing properties of neural networks</a></p>
-  </div>
-</div>
-
-<footer>
-  <p>&copy; 2024 my AI notes</p>
-</footer>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Calculate estimated reading time
-    const content = document.querySelector('.content').innerText;
-    const words = content.split(/\s+/).length;
-    const readingSpeed = 250; // words per minute
-    const readingTime = Math.ceil(words / readingSpeed);
-    document.getElementById('estimated-reading-time').textContent = `Estimated Reading Time: ${readingTime} minute(s)`;
-
-    // Track number of visits
-    let visitCount = localStorage.getItem('visitCount');
-    if (!visitCount) {
-      visitCount = 1; // First visit
-    } else {
-      visitCount = parseInt(visitCount) + 1;
-    }
-    localStorage.setItem('visitCount', visitCount);
-    document.getElementById('visit-count').textContent = `Number of Visits: ${visitCount}`;
-  });
-</script>
-
+  </main>
+  <footer>
+    <p>&copy; 2024 Evals Collection</p>
+  </footer>
 </body>
 </html>
