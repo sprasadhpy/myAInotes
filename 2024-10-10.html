@@ -117,6 +117,108 @@
     
     <li><strong>Experiment 5: Adversarial training improves robustness</strong>. Training networks on adversarial examples can improve their robustness. On the MNIST dataset, a network trained with adversarial examples achieved a test error of less than 1.2%. Continuously retraining on <strong>hard examples</strong> makes networks more resistant to vulnerabilities.</li>
 </ul>
+
+  <h1>Cross-Model Generalization of Adversarial Examples ( Source Table 2 in the paper) </h1>
+  <p>The table below displays the error rates for distorted examples fed into each model, along with the average distortion relative to the original training set.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>FC10(10<sup>-4</sup>)</th>
+        <th>FC10(10<sup>-2</sup>)</th>
+        <th>FC10(1)</th>
+        <th>FC100-100-10</th>
+        <th>FC200-200-10</th>
+        <th>AE400-10</th>
+        <th>Average Distortion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>FC10(10<sup>-4</sup>)</td>
+        <td>100%</td>
+        <td>11.7%</td>
+        <td>22.7%</td>
+        <td>2%</td>
+        <td>3.9%</td>
+        <td>2.7%</td>
+        <td>0.062</td>
+      </tr>
+      <tr>
+        <td>FC10(10<sup>-2</sup>)</td>
+        <td>87.1%</td>
+        <td>100%</td>
+        <td>35.2%</td>
+        <td>35.9%</td>
+        <td>27.3%</td>
+        <td>9.8%</td>
+        <td>0.1</td>
+      </tr>
+      <tr>
+        <td>FC10(1)</td>
+        <td>71.9%</td>
+        <td>76.2%</td>
+        <td>100%</td>
+        <td>48.1%</td>
+        <td>47%</td>
+        <td>34.4%</td>
+        <td>0.14</td>
+      </tr>
+      <tr>
+        <td>FC100-100-10</td>
+        <td>28.9%</td>
+        <td>13.7%</td>
+        <td>21.1%</td>
+        <td>100%</td>
+        <td>6.6%</td>
+        <td>2%</td>
+        <td>0.058</td>
+      </tr>
+      <tr>
+        <td>FC200-200-10</td>
+        <td>38.2%</td>
+        <td>14%</td>
+        <td>23.8%</td>
+        <td>20.3%</td>
+        <td>100%</td>
+        <td>2.7%</td>
+        <td>0.065</td>
+      </tr>
+      <tr>
+        <td>AE400-10</td>
+        <td>23.4%</td>
+        <td>16%</td>
+        <td>24.8%</td>
+        <td>9.4%</td>
+        <td>6.6%</td>
+        <td>100%</td>
+        <td>0.086</td>
+      </tr>
+      <tr>
+        <td>Gaussian noise, stddev=0.1</td>
+        <td>5.0%</td>
+        <td>10.1%</td>
+        <td>18.3%</td>
+        <td>0%</td>
+        <td>0%</td>
+        <td>0.8%</td>
+        <td>0.1</td>
+      </tr>
+      <tr>
+        <td>Gaussian noise, stddev=0.3</td>
+        <td>15.6%</td>
+        <td>11.3%</td>
+        <td>22.7%</td>
+        <td>5%</td>
+        <td>4.3%</td>
+        <td>3.1%</td>
+        <td>0.3</td>
+      </tr>
+    </tbody>
+  </table>
+
+  
 <p>
     For me, the most interesting section is (4.3) on <strong>Spectral Analysis of Instability</strong>, which explains how to measure and control the instability of DNNs by analyzing the spectral properties of each layer — specifically, the operator norm of the weight matrices. The network is represented as a series of transformations across multiple layers, denoted as:
 </p>
