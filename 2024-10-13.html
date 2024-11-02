@@ -65,11 +65,28 @@
     <h2>Overview</h2>
     <p>The Panacea project focuses on developing methodologies to align AI systems with human values by using advanced preference optimization and robust evaluation metrics. It explores scalable oversight mechanisms and safety protocols for AI systems, particularly those with language model-based architectures.</p>
 
+    <h2>Key Points</h2>
+    <ul>
+      <li>Panacea reframes alignment for large language models (LLMs) as a multi-dimensional preference optimization problem allowing it to adapt to various human preferences without additional tuning.</li>
+      <li>Utilizes singular value decomposition (SVD)-based low-rank adaptation (LORA) to guide the model with a low-dimensional preference vector simplifying preference-based behavior control.</li>
+      <li>Captures the entire Pareto front of preference dimensions, ensuring no preference can improve without negatively impacting another.</li>
+      <li>Demonstrated superior performance in experiments by covering diverse complex human preferences across multiple tasks, including helpfulness, harmlessness, and conciseness.</li>
+      <li>Exhibits scalability- with no performance saturation even in high-dimensional (up to 10-dimensional) preference alignment challenges.</li>
+    </ul>
+
     <h2>Core Contributions</h2>
-    <p>Key contributions include the development of preference-aligned objective functions, the introduction of alignment benchmarks, and extensive evaluation strategies that ensure AI model behaviors remain in line with ethical standards.</p>
+    <ul>
+      <li>Introduced a multi-dimensional alignment paradigm to overcome limitations of traditional single-objective alignment and addressing inconsistent labeling and model biases.</li>
+      <li>Developed Panacea a single model that adapts in real-time to any preference vector - achieving Pareto-optimal alignment across all dimensions.</li>
+      <li>Provided theoretical and empirical validation of Panacea’s scalability and efficiency in representing a wide range of human preferences in LLMs.</li>
+    </ul>
 
     <h2>Read More</h2>
-    <p>For a detailed breakdown of the Panacea project, visit the repository:</p>
+    <p>For the original paper, visit the link on arXiv:</p>
+    <ul>
+      <li><a href="https://arxiv.org/abs/2402.02030" target="_blank">Panacea on arXiv</a></li>
+    </ul>
+    <p>For a detailed review of the paper, visit my repo:</p>
     <ul>
       <li><a href="https://github.com/sprasadhpy/myAInotes/blob/shyaam_papers/Panacea.md" target="_blank">Panacea on GitHub</a></li>
     </ul>
@@ -79,3 +96,4 @@
   </footer>
 </body>
 </html>
+
