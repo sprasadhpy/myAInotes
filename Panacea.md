@@ -428,7 +428,8 @@ This objective encourages the model to maximize rewards from human feedback whil
    - **Conclusion**: Panacea outperforms RS under DPO in terms of accuracy for both dimensions, regardless of the aggregation method used.
 
 
-![Panacea Results Diagram](https://github.com/sprasadhpy/myAInotes/blob/shyaam_papers/3d.png?raw=true)
+![Panacea Results Diagram](https://github.com/sprasadhpy/myAInotes/blob/shyaam_papers/3d.png?raw=true){: style="width:300px;" }
+
 
 
 This section evaluates Panacea’s ability to balance helpfulness, harmlessness, and conciseness in alignment tasks, particularly in chat applications where different user preferences may require flexible trade-offs.
