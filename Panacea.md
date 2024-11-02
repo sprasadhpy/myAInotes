@@ -59,12 +59,13 @@ To generate responses that adapt to specific user preferences (e.g., helpfulness
 
 ### Numerical Example :Injection Process of Panacea using SVD and LoRA
 
-
 Suppose we have a weight matrix \( W \) from one layer of the model. Let’s assume it’s a simple \( 3 \times 3 \) matrix:
 
 \[
 W = \begin{bmatrix} 4 & 1 & 3 \\ 2 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}
 \]
+
+### Singular Value Decomposition (SVD)
 
 We apply Singular Value Decomposition (SVD) to decompose this matrix into three matrices: \( U \), \( \Sigma \), and \( V^T \):
 
@@ -79,11 +80,29 @@ Where:
 
 Let’s assume that after applying SVD, we obtain:
 
-\[
-U = \begin{bmatrix} 0.58 & -0.58 & 0.58 \\ 0.43 & 0.71 & 0.57 \\ 0.69 & 0.0 & -0.69 \end{bmatrix}, \quad
-\Sigma = \begin{bmatrix} 12 & 0 & 0 \\ 0 & 4 & 0 \\ 0 & 0 & 2 \end{bmatrix}, \quad
-V^T = \begin{bmatrix} 0.58 & 0.58 & 0.58 \\ -0.58 & 0.71 & 0.57 \\ 0.58 & -0.0 & -0.69 \end{bmatrix}
-\]
+**Matrix \( U \):**
+
+|      |      |      |
+|------|------|------|
+| 0.58 | -0.58| 0.58 |
+| 0.43 | 0.71 | 0.57 |
+| 0.69 | 0.0  | -0.69|
+
+**Matrix \( \Sigma \):**
+
+|     |     |     |
+|-----|-----|-----|
+| 12  | 0   | 0   |
+| 0   | 4   | 0   |
+| 0   | 0   | 2   |
+
+**Matrix \( V^T \):**
+
+|      |      |      |
+|------|------|------|
+| 0.58 | 0.58 | 0.58 |
+| -0.58| 0.71 | 0.57 |
+| 0.58 | -0.0 | -0.69|
 
 ## Embedding the Preference Vector
 
@@ -97,9 +116,13 @@ Panacea injects this preference vector into the singular values matrix \( \Sigma
 
 To modify \( \Sigma \), we inject \( \lambda \) into the second and third positions:
 
-\[
-\Sigma' = \begin{bmatrix} 12 & 0 & 0 \\ 0 & 0.5 \times 0.8 & 0 \\ 0 & 0 & 0.5 \times 0.2 \end{bmatrix} = \begin{bmatrix} 12 & 0 & 0 \\ 0 & 0.4 & 0 \\ 0 & 0 & 0.1 \end{bmatrix}
-\]
+**Modified \( \Sigma' \):**
+
+|     |     |     |
+|-----|-----|-----|
+| 12  | 0   | 0   |
+| 0   | 0.4 | 0   |
+| 0   | 0   | 0.1 |
 
 ## Reconstructing the Adapted Matrix
 
@@ -111,15 +134,23 @@ W' = U \Sigma' V^T
 
 ### Step 1: Calculate \( U \times \Sigma' \)
 
-\[
-U \Sigma' = \begin{bmatrix} 0.58 & -0.58 & 0.58 \\ 0.43 & 0.71 & 0.57 \\ 0.69 & 0.0 & -0.69 \end{bmatrix} \begin{bmatrix} 12 & 0 & 0 \\ 0 & 0.4 & 0 \\ 0 & 0 & 0.1 \end{bmatrix} = \begin{bmatrix} 6.96 & -0.23 & 0.058 \\ 5.16 & 0.28 & 0.057 \\ 8.28 & 0.0 & -0.069 \end{bmatrix}
-\]
+**Result of \( U \Sigma' \):**
+
+|       |       |        |
+|-------|-------|--------|
+| 6.96  | -0.23 | 0.058  |
+| 5.16  | 0.28  | 0.057  |
+| 8.28  | 0.0   | -0.069 |
 
 ### Step 2: Calculate \( (U \Sigma') \times V^T \)
 
-\[
-W' = \begin{bmatrix} 6.96 & -0.23 & 0.058 \\ 5.16 & 0.28 & 0.057 \\ 8.28 & 0.0 & -0.069 \end{bmatrix} \begin{bmatrix} 0.58 & 0.58 & 0.58 \\ -0.58 & 0.71 & 0.57 \\ 0.58 & -0.0 & -0.69 \end{bmatrix} = \begin{bmatrix} 4.53 & 3.82 & 3.24 \\ 4.21 & 4.65 & 4.12 \\ 5.27 & 5.22 & 5.46 \end{bmatrix}
-\]
+**Adapted Matrix \( W' \):**
+
+|      |      |      |
+|------|------|------|
+| 4.53 | 3.82 | 3.24 |
+| 4.21 | 4.65 | 4.12 |
+| 5.27 | 5.22 | 5.46 |
 
 ## Final Adapted Weight Matrix
 
