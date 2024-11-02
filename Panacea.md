@@ -292,3 +292,9 @@ To put it simply this theorem states that Panacea is capable of adapting to a wi
 
 
 
+
+
+
+
+
+
