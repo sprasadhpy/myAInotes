@@ -181,13 +181,88 @@ Traditional AI has limitations -  which treats alignment as a single-objective o
   - The interpolated model may not provide the best possible alignment due to limited exposure to combinations of preferences making it challenging to guarantee optimal solutions
 
 
-How Panacea addresses the limitations of both AlignDiff and Rewarded Soups through the following innovations:
+How Panacea addresses the limitations of both AlignDiff and Rewarded Soups:
 
 1. Panacea explicitly traverses the *preference simplex*, the multi-dimensional space that represents all possible trade-offs between preferences. This approach exposes Panacea to a variety of preference combinations during training, enabling it to learn how to handle not only extreme cases but also balanced preferences. The preference simplex is a geometric shape (e.g., a triangle in 2D, a tetrahedron in 3D) that contains all possible combinations of preferences. Panacea learns to navigate this shape and adapt to different trade-offs between preferences.
 
-2: Panacea recovers the entire Pareto front, the set of all possible Pareto-optimal solutions across varying preference combinations. This allows the model to generate responses that are more precisely aligned with individual user preferences.model has  the flexibility to cater to diverse user needs in a balanced way.
+2: Panacea recovers the entire Pareto front the set of all possible Pareto-optimal solutions across varying preference combinations. This allows the model to generate responses that are more precisely aligned with individual user preferences.model has  the flexibility to cater to diverse user needs in a balanced way.
 
-Overall Panacea’s approach enables a more nuanced and adaptable alignment with human preferences by learning to handle both extremes and intermediate combinations ultimately providing responses that are finely tuned to specific user requirements.
+
+
+MDPO is a method designed to align large language models (LLMs) to complex human preferences across multiple dimensions. Below are key concepts and equations explained in simplified terms.
+
+Human preferences in interacting with AI systems are multi-dimensional, covering aspects like helpfulness, harmlessness, and humor. MDPO optimizes these preferences simultaneously, balancing potential conflicts (e.g., a more helpful response might be less concise).
+
+The MDPO problem is to maximize performance across all preference dimensions. Mathematically:
+
+\[
+\max J(\pi_{\theta}) = (J_1(\pi_{\theta}), J_2(\pi_{\theta}), \dots, J_m(\pi_{\theta}))
+\]
+
+Where:
+- \( J_i(\pi_{\theta}) \): Performance measure for dimension \( i \) (e.g., helpfulness or harmlessness).
+- \( \pi_{\theta} \): The policy, representing the LLM being trained, with parameters \( \theta \).
+- \( \theta \in \Theta \): The set of trainable parameters.
+- \( \Pi \): The policy space (all possible models).
+
+Each preference dimension has a distinct objective function:
+
+- **(a) SFT Objective \( J_{\text{SFT},i}(\pi_{\theta}) \):**
+   - Learns from labeled data \((x, y)\), maximizing the likelihood of generating correct output \( y \) given input \( x \):
+   
+   \[
+   J_{\text{SFT},i}(\pi_{\theta}) = \mathbb{E}_{(x,y) \sim D_i} [\log \pi_{\theta}(y|x)]
+   \]
+
+   Here, \( D_i \) is the dataset for dimension \( i \), and \( \pi_{\theta}(y|x) \) is the probability of generating \( y \) given \( x \).
+
+- **(b) RLHF Objective \( J_{\text{RLHF},i}(\pi_{\theta}) \):**
+   - Learns from rewards \( r_i(x, y) \), with a KL-divergence term to keep the model close to a reference model \( \pi_{\text{ref}} \):
+   
+   \[
+   J_{\text{RLHF},i}(\pi_{\theta}) = \mathbb{E}_{x \sim D} \mathbb{E}_{y \sim \pi_{\theta}(\cdot | x)} [r_i(x, y)] - \beta D_{\text{KL}}[\pi_{\theta}(\cdot | x) || \pi_{\text{ref}}(\cdot | x)]
+   \]
+
+   Here, \( r_i(x, y) \) represents the reward for the response, and \( \beta \) is a scaling factor controlling deviation from the reference model.
+
+- **(c)  (DPO) Objective \( J_{\text{DPO},i}(\pi_{\theta}) \):**
+   - Compares two responses for the same input, aiming to prefer the "better" response while staying close to the reference model:
+   
+   \[
+   J_{\text{DPO},i}(\pi_{\theta}) = \mathbb{E}_{(x, y_w, y_l) \sim D_i} [\log \sigma(\beta (\log \pi_{\text{ref}}(y_w | x) - \log \pi_{\text{ref}}(y_l | x)))]
+   \]
+
+ Here, \( y_w \) and \( y_l \) are the "better" and "worse" responses, respectively, and \( \sigma \) is the sigmoid function.
+
+Because optimizing all dimensions perfectly is impossible (improving one might worsen another), MDPO seeks Pareto-optimal solutions.
+
+A solution is Pareto-optimal if no other solution can improve one preference dimension without worsening another. Formally, for two solutions \( \theta_a \) and \( \theta_b \):
+
+\[
+J(\pi_{\theta_a}) \succ J(\pi_{\theta_b})
+\]
+
+This means \( \theta_a \) dominates \( \theta_b \) if:
+- \( J_i(\pi_{\theta_a}) \geq J_i(\pi_{\theta_b}) \) for all dimensions \( i \),
+- and there exists at least one dimension \( j \) where \( J_j(\pi_{\theta_a}) > J_j(\pi_{\theta_b}) \).
+
+The Pareto Set (PS) is the set of all Pareto-optimal solutions, representing optimal trade-offs between preferences. The Pareto Front (PF) is the image of the Pareto set in objective space, showing trade-offs between performance measures.
+
+Human preferences are represented by a preference vector \( \lambda = (\lambda_1, \dots, \lambda_m) \), where:
+- \( \lambda_i \geq 0 \): Weight for dimension \( i \).
+- \( \sum_{i=1}^{m} \lambda_i = 1 \): The total weight is normalized.
+
+The preference simplex \( \Delta_m \) is the space of all possible preference vectors, representing different trade-offs among preferences. MDPO seeks Pareto-optimal solutions for every possible preference vector.
+
+ For each training batch, Panacea samples a preference vector from the simplex and optimizes the model based on that vector. During inference, the model adapts to the user’s specified preference vector, ensuring Pareto-aligned behavior.
+
+Panacea uses singular value decomposition (SVD) combined with low-rank adaptation (LoRA). The preference vector is embedded into the singular values of the SVD-decomposed weight matrices, scaled with learnable factors to adjust model behavior dynamically.
+
+
+
+
+
+
 
 
 
