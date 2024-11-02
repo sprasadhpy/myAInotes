@@ -406,6 +406,8 @@ The DPO objective makes the model more likely to generate responses that align w
 This objective encourages the model to maximize rewards from human feedback while maintaining similarity to a reference model such as a pre-trained model.
 
 
+![Panacea Results Diagram](https://github.com/sprasadhpy/myAInotes/blob/shyaam_papers/Panacea2.png?raw=true)
+
 
 
 
