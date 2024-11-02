@@ -150,11 +150,22 @@ Decomposition:
 U: Defines the new set of orthogonal axes (left singular vectors).
 Σ: Scales (stretches or shrinks) along each axis.
 V^T: Defines how to rotate the data back to its original coordinate system.
-*************************************************************************
+
+A matrix is considered **low-rank** when its rank is smaller than the matrix’s total number of rows or columns. This indicates redundancy or dependency among the rows or columns.
+
+###### Determining Low-Rank vs. Full-Rank
+
+If a matrix has rank **r** and dimensions **m × n** (where **m** represents the rows and **n** the columns):
+
+- If **r < min(m, n)**, the matrix is a **low-rank matrix**.
+- If **r = min(m, n)**, the matrix is a **full-rank matrix**.
+
+Understanding the rank helps in analyzing the dimensional limitations and the dependency structure within the matrix.
+
+****************************************************************************
 
 
-
-
+Traditional AI has limitations -  which treats alignment as a single-objective optimization task focusing on one scalar goal (e.g., helpfulness or safety) with simple labels indicating "better" or "worse" outcomes. This approach is critiqued for oversimplifying human preferences and  which are often multi-dimensional and conflicting (e.g., helpfulness vs. conciseness). Panacea’s Multi-Dimensional Preference Optimization (MDPO) is introduced to tackle this issue by treating alignment as a multi-dimensional problem. Unlike single-objective methods MDPO optimizes multiple human preferences simultaneously, such as safety, humor, and formality and  finding Pareto-optimal solutions where no preference dimension can be improved without compromising another. This enables Panacea to recover the full Pareto front  of optimal solutions  offering a comprehensive set of trade-offs that better align model responses to the diverse preferences of human users. To be noted that  Panacea outperforms other approaches like AlignDiff and Rewarded Soups by achieving a more nuanced and customized alignment for complex human needs.
 
 
 
