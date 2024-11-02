@@ -27,16 +27,14 @@ If you enjoyed my notes, why not drop a ⭐ [here](https://github.com/sprasadhpy
     <a href="https://sprasadhpy.github.io/myAInotes/2024-10-10.html">Intriguing Properties of NNs</a> - October 10, 2024 
     <span style="font-size: 0.85em;"> | Tags: <a href="/tags/Deep-Learning">Deep Learning</a></span>
   </li>
-
-   <li>
-    <a href="https://sprasadhpy.github.io/myAInotes/2024-10-12.html">Evaluator’s Reading List </a> - October 12, 2024 
-    <span style="font-size: 0.85em;"> | Tags: <a href="/tags/AI-alignment">AI Alignment</a></span>
-  </li>
-</ul>
   <li>
-    <a href="https://sprasadhpy.github.io/myAInotes/2024-10-13.html">Pareto Alignment via Preference Adaptation for      
-      LLMs</a> - October 13, 2024 
+    <a href="https://sprasadhpy.github.io/myAInotes/2024-10-12.html">Evaluator’s Reading List</a> - October 12, 2024 
+    <span style="font-size: 0.85em;"> | Tags: <a href="/tags/AI-alignment">AI Alignment</a></span>
+  </li>
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/2024-10-13.html">Pareto Alignment via Preference Adaptation for LLMs</a> - October 13, 2024 
     <span style="font-size: 0.85em;"> | Tags: <a href="/tags/AI-alignment">AI Alignment</a></span>
   </li>
 </ul>
+
 
