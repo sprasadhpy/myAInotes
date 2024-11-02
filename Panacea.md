@@ -45,25 +45,23 @@ To generate responses that adapt to specific user preferences (e.g., helpfulness
    - The **user's preference vector** is injected into the singular values (Σ), adjusting how the model prioritizes qualities in its responses.
    - **Learnable scaling factors** fine-tune the influence of the preference vector to achieve the desired response characteristics.
 
-### 3. Response Generation
-   - Based on the preference vector:
+3) Based on the preference vector:
      - **User A (Helpfulness-focused)**: Receives a detailed and elaborate response, providing actionable steps and comprehensive information.
      - **User B (Conciseness-focused)**: Receives a short, to-the-point response with only essential details.
 
-## Real-Time Adaptation
-   - The system dynamically adjusts the singular values according to the preference vector during inference, allowing the model to switch between different response styles **without retraining**.
-   - This real-time adjustment enables the model to seamlessly shift between generating:
-     - **Helpful, detailed responses** (for User A) and
-     - **Concise responses** (for User B).
+The system dynamically adjusts the singular values according to the preference vector during inference, allowing the model to switch between different response styles **without retraining**.
 
 
 ### Numerical Example :Injection Process of Panacea using SVD and LoRA
 
 Suppose we have a weight matrix \( W \) from one layer of the model. Let’s assume it’s a simple \( 3 \times 3 \) matrix:
 
-\[
-W = \begin{bmatrix} 4 & 1 & 3 \\ 2 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}
-\]
+**Matrix \( W \):**
+
+| 4 | 1 | 3 |
+|---|---|---|
+| 2 | 5 | 6 |
+| 7 | 8 | 9 |
 
 ### Singular Value Decomposition (SVD)
 
