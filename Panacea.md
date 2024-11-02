@@ -428,5 +428,41 @@ This objective encourages the model to maximize rewards from human feedback whil
    - **Conclusion**: Panacea outperforms RS under DPO in terms of accuracy for both dimensions, regardless of the aggregation method used.
 
 
+![Panacea Results Diagram](https://github.com/sprasadhpy/myAInotes/blob/shyaam_papers/3d.png?raw=true)
+
+
+This section evaluates Panacea’s ability to balance helpfulness, harmlessness, and conciseness in alignment tasks, particularly in chat applications where different user preferences may require flexible trade-offs.
+
+Panacea expands beyond the two-dimensional helpful-harmless (HH) alignment task by adding conciseness, creating a tri-dimensional alignment (HHC) problem. For RLHF (Reinforcement Learning from Human Feedback), shorter responses are rewarded for conciseness, while DPO (Direct Preference Optimization) uses a rectified affine function for prioritizing conciseness. The experiments use preference vectors sampled from the simplex at intervals of 0.2, resulting in a variety of combinations for the preference vector \( \lambda \):
+
+\[
+\lambda = 
+\begin{bmatrix}
+0.0 & 0.0 & 1.0 \\
+0.0 & 0.2 & 0.8 \\
+0.0 & 0.4 & 0.6 \\
+0.0 & 0.6 & 0.4 \\
+0.0 & 0.8 & 0.2 \\
+0.0 & 1.0 & 0.0 \\
+0.2 & 0.0 & 0.8 \\
+0.2 & 0.2 & 0.6 \\
+0.2 & 0.4 & 0.4 \\
+0.2 & 0.6 & 0.2 \\
+0.2 & 0.8 & 0.0 \\
+\vdots & \vdots & \vdots \\
+1.0 & 0.0 & 0.0 \\
+\end{bmatrix}
+\]
+
+This setup provides a comprehensive range of preference combinations, each summing to 1, capturing diverse trade-offs among the three dimensions.
+
+
+Figure 5 shows the learned Pareto fronts for Panacea and RS. Panacea’s front (red) is well-distributed across the 3D space covering a wide range of preference combinations, while RS’s front (blue) clusters in a corner indicating limited adaptability. Panacea’s approach traverses the preference simplex to learn diverse solutions tailored to each preference vector whereas RS only learns specific vertices limiting its ability to generalize.
+
+Panacea’s strengths include comprehensive coverage of preferences through preference simplex traversal and robust generalization, making it suitable for applications requiring flexibility across multiple dimensions. RS on the other hand has a limited range producing clustered solutions with weaker adaptability.
+
+Panacea’s diverse and evenly distributed Pareto front shows its effectiveness in managing trade-offs among helpfulness, harmlessness, and conciseness. This flexibility allows Panacea to better align with varied human preferences, supporting applications that need customizable solutions across complex alignment dimensions.
+
+
 
 
