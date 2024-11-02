@@ -22,4 +22,114 @@ Panacea was tested on challenging preference alignment problems with up to 10 di
 A major question raised by readers is how Panacea adapts a large language model’s behavior using SVD and LoRA, with a preference vector injected to control model behavior in real-time. Let’s walk through both a use case and a numerical example to clarify this process.
 
 
+### Use Case  :  Real-Time User Preference Adaptation in Response Generation
+
+What the task planned to do : 
+
+To generate responses that adapt to specific user preferences (e.g., helpfulness, conciseness, harmlessness) in real-time (inference phase) by modifying the language model's behavior through user-defined preference vectors.
+
+#### Key Process steps : 
+
+1) 
+   - Each user is assigned a unique **preference vector** that represents the importance of different response qualities.
+   - **Example**:
+     - **User A**: Prioritizes helpfulness (0.8) and harmlessness (0.2).
+     - **User B**: Prioritizes conciseness (0.7) and harmlessness (0.3).
+
+2) 
+   - **Singular Value Decomposition (SVD)** is applied to the model’s weight matrices divide them  into three components:
+     - **U** (left singular matrix)
+     - **Σ** (diagonal matrix with singular values) -  in this matrix  the user preference vector is injected. 
+     - **V** (right singular matrix)
+     - 
+   - The **user's preference vector** is injected into the singular values (Σ), adjusting how the model prioritizes qualities in its responses.
+   - **Learnable scaling factors** fine-tune the influence of the preference vector to achieve the desired response characteristics.
+
+### 3. Response Generation
+   - Based on the preference vector:
+     - **User A (Helpfulness-focused)**: Receives a detailed and elaborate response, providing actionable steps and comprehensive information.
+     - **User B (Conciseness-focused)**: Receives a short, to-the-point response with only essential details.
+
+## Real-Time Adaptation
+   - The system dynamically adjusts the singular values according to the preference vector during inference, allowing the model to switch between different response styles **without retraining**.
+   - This real-time adjustment enables the model to seamlessly shift between generating:
+     - **Helpful, detailed responses** (for User A) and
+     - **Concise responses** (for User B).
+
+## Summary
+- **User A** receives a **detailed, helpful response** due to a preference for helpfulness (0.8).
+- **User B** receives a **concise response** due to an emphasis on conciseness (0.7), with reduced emphasis on helpfulness.
+
+
+### Numerical Example :Injection Process of Panacea using SVD and LoRA
+
+
+Suppose we have a weight matrix \( W \) from one layer of the model. Let’s assume it’s a simple \( 3 \times 3 \) matrix:
+
+\[
+W = \begin{bmatrix} 4 & 1 & 3 \\ 2 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}
+\]
+
+We apply Singular Value Decomposition (SVD) to decompose this matrix into three matrices: \( U \), \( \Sigma \), and \( V^T \):
+
+\[
+W = U \Sigma V^T
+\]
+
+Where:
+- \( U \)  orthogonal matrix (captures the left singular vectors),
+- \( \Sigma diagonal matrix (captures the singular values),
+- \( V^T \)  orthogonal matrix (captures the right singular vectors).
+
+Let’s assume that after applying SVD, we obtain:
+
+\[
+U = \begin{bmatrix} 0.58 & -0.58 & 0.58 \\ 0.43 & 0.71 & 0.57 \\ 0.69 & 0.0 & -0.69 \end{bmatrix}, \quad
+\Sigma = \begin{bmatrix} 12 & 0 & 0 \\ 0 & 4 & 0 \\ 0 & 0 & 2 \end{bmatrix}, \quad
+V^T = \begin{bmatrix} 0.58 & 0.58 & 0.58 \\ -0.58 & 0.71 & 0.57 \\ 0.58 & -0.0 & -0.69 \end{bmatrix}
+\]
+
+
+Suppose we have a preference vector \( \lambda \) representing user preferences. For simplicity let’s assume \( \lambda \) has two dimensions for "helpfulness" and "conciseness" with values:
+
+\[
+\lambda = [0.8, 0.2]
+\]
+
+Panacea injects this preference vector into the singular values matrix \( \Sigma \) using a scaling factor \( s \) to control the influence of the preference vector. Assume \( s = 0.5 \).
+
+To modify \( \Sigma \), we inject \( \lambda \) into the second and third positions:
+
+\[
+\Sigma' = \begin{bmatrix} 12 & 0 & 0 \\ 0 & 0.5 \times 0.8 & 0 \\ 0 & 0 & 0.5 \times 0.2 \end{bmatrix} = \begin{bmatrix} 12 & 0 & 0 \\ 0 & 0.4 & 0 \\ 0 & 0 & 0.1 \end{bmatrix}
+\]
+
+
+With the modified \( \Sigma' \), we reconstruct the adapted weight matrix \( W' \) by multiplying \( U \), \( \Sigma' \), and \( V^T \):
+
+\[
+W' = U \Sigma' V^T
+\]
+
+
+\[
+U \Sigma' = \begin{bmatrix} 0.58 & -0.58 & 0.58 \\ 0.43 & 0.71 & 0.57 \\ 0.69 & 0.0 & -0.69 \end{bmatrix} \begin{bmatrix} 12 & 0 & 0 \\ 0 & 0.4 & 0 \\ 0 & 0 & 0.1 \end{bmatrix} = \begin{bmatrix} 6.96 & -0.23 & 0.058 \\ 5.16 & 0.28 & 0.057 \\ 8.28 & 0.0 & -0.069 \end{bmatrix}
+\]
+
+### now Calculate \( (U \Sigma') \times V^T \)
+
+\[
+W' = \begin{bmatrix} 6.96 & -0.23 & 0.058 \\ 5.16 & 0.28 & 0.057 \\ 8.28 & 0.0 & -0.069 \end{bmatrix} \begin{bmatrix} 0.58 & 0.58 & 0.58 \\ -0.58 & 0.71 & 0.57 \\ 0.58 & -0.0 & -0.69 \end{bmatrix} = \begin{bmatrix} 4.53 & 3.82 & 3.24 \\ 4.21 & 4.65 & 4.12 \\ 5.27 & 5.22 & 5.46 \end{bmatrix}
+\]
+
+
+The adapted weight matrix \( W' \) reflects the injected preference vector. This modulates  the model’s behavior to align with the user's preferences. By embedding the preference vector \( \lambda = [0.8, 0.2] \) into the singular values and also the model is now more aligned with the user’s preference for helpfulness (0.8) over conciseness (0.2).
+
+This adaptation occurs for each layer of the model allowing the model to shift its behavior based on individual user preferences.
+
+
+
+
+
+
 
