@@ -56,10 +56,6 @@ To generate responses that adapt to specific user preferences (e.g., helpfulness
      - **Helpful, detailed responses** (for User A) and
      - **Concise responses** (for User B).
 
-## Summary
-- **User A** receives a **detailed, helpful response** due to a preference for helpfulness (0.8).
-- **User B** receives a **concise response** due to an emphasis on conciseness (0.7), with reduced emphasis on helpfulness.
-
 
 ### Numerical Example :Injection Process of Panacea using SVD and LoRA
 
