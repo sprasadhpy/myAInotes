@@ -428,7 +428,8 @@ This objective encourages the model to maximize rewards from human feedback whil
    - **Conclusion**: Panacea outperforms RS under DPO in terms of accuracy for both dimensions, regardless of the aggregation method used.
 
 
-![Panacea Results Diagram](https://github.com/sprasadhpy/myAInotes/blob/shyaam_papers/3d.png?raw=true){: style="width:300px;" }
+<img src="https://github.com/sprasadhpy/myAInotes/blob/shyaam_papers/3d.png?raw=true" alt="Panacea Results Diagram" width="300">
+
 
 
 
