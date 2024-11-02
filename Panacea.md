@@ -276,6 +276,16 @@ To put it simply this theorem states that Panacea is capable of adapting to a wi
 
 
 
+#My ideas :
+
+### Exploring Alternatives to the Pareto Front
+
+** Hypervolume maximization extends the concept of the Pareto front by not only focusing on finding Pareto-optimal solutions but also measuring the "volume" of the objective space covered by these solutions. The idea is to maximize the hypervolume of the solutions in multi-objective space, which effectively balances coverage and diversity among the trade-offs.
+
+** Knee points lie on the Pareto front but represent optimal trade-offs, where any slight improvement in one objective would require a disproportionately large loss in another. This method focuses on identifying and selecting these knee points because they provide compromise solutions that are highly efficient in terms of trade-offs.
+
+** A reference point is defined in the multi-objective space, representing the decision-maker’s ideal solution (even if it is not feasible). The optimization algorithm then seeks solutions that minimize the distance between the solutions and the reference point, often using metrics like Euclidean distance or Tchebycheff metrics.
+
 
 
 
