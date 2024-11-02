@@ -288,6 +288,60 @@ To put it simply this theorem states that Panacea is capable of adapting to a wi
 
 
 
+In Panacea’s fine-tuning process  the model aligns with user preferences across multiple objectives (e.g., helpfulness and conciseness) using two main loss functions: Linear Scalarization (LS) and Tchebycheff (Tche). Here’s a breakdown of these functions and an example of the Tchebycheff loss calculation.
+
+Panacea combines multiple objectives (e.g., helpfulness, conciseness) using either Linear Scalarization or Tchebycheff aggregation. Each objective is weighted according to user preferences  resulting in a single aggregated objective for each training step. The model uses Singular Value Decomposition (SVD) to decompose its weight matrices into components (U, Σ, V). These components are then fine-tuned based on the aggregated objective to better align with user preferences. Gradient descent is used to update U (left singular matrix), Σ (singular values, which adjust the transformation strength), and V (right singular matrix). A scaling factor `s` is applied to balance general and preference-specific features, ensuring that neither type of feature overpowers the other, maintaining a balance in the model’s outputs. This process repeats over multiple iterations, each time sampling different preference weights to allow Panacea to generalize across a variety of user preferences.
+
+Linear Scalarization (LS) loss function combines multiple objectives by summing them, weighted by the user’s preference for each objective.
+
+**Formula**:  
+Lᴸˢ = ∑ᵢ λᵢ Jᵢ
+
+Where:  
+- Lᴸˢ is the total Linear Scalarization loss.  
+- λᵢ is the weight for preference dimension `i`.  
+- Jᵢ is the loss value for each preference dimension (e.g., helpfulness or conciseness).
+
+If a user values helpfulness twice as much as concisenes  the weight λₕₑₗₚfᵤₗₙₑₛₛ would be higher than λcₒₙcᵢₛₑₙₑₛₛ. The model minimizes this combined loss, balancing preferences accordingly.
+
+The Tchebycheff loss function finds the "worst-case" gap between each objective and its target, helping ensure that no single preference dimension is neglected.
+
+**Formula**:  
+Lᵀᶜʰᵉ = maxᵢ(λᵢ |Jᵢ - Jᵢᵗᵃʳᵍᵉᵗ|)
+
+Where:  
+- Lᵀᶜʰᵉ is the Tchebycheff loss.  
+- λᵢ is the weight for preference dimension `i`.  
+- Jᵢ is the current value for each dimension.  
+- Jᵢᵗᵃʳᵍᵉᵗ is the ideal target value for each dimension.
+
+Tchebycheff minimizes the largest gap between the model’s output and each target value, ensuring the model balances conflicting preferences effectively.
+
+Example:  
+Suppose the model aims to balance helpfulness and conciseness with these settings:  
+- Helpfulness target: 0.9  
+- Conciseness target: 0.8  
+- Helpfulness weight: 0.6  
+- Conciseness weight: 0.4  
+
+The model currently scores:  
+- Helpfulness: 0.7  
+- Conciseness: 0.6  
+
+**Step-by-Step Calculation**  
+1. Calculate the difference from each target:  
+   - Helpfulness difference: |0.7 - 0.9| = 0.2  
+   - Conciseness difference: |0.6 - 0.8| = 0.2  
+
+2. Apply weights to each difference:  
+   - Weighted helpfulness difference: 0.6 * 0.2 = 0.12  
+   - Weighted conciseness difference: 0.4 * 0.2 = 0.08  
+
+3. Determine the maximum weighted difference:  
+   - The Tchebycheff loss is the largest of these values: max(0.12, 0.08) = 0.12  
+
+The Tchebycheff loss of 0.12 means the model should prioritize improving helpfulness (since it has the largest weighted gap from the target). This focus ensures that the model reduces its "worst-off" objective, helping it balance the preferences efficiently.
+
 
 
 
