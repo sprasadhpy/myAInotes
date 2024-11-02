@@ -479,5 +479,40 @@ Panacea’s diverse and evenly distributed Pareto front shows its effectiveness 
 | **Rotated PCA**                 | Reduces dimensionality with rotation for alignment | Improved interpretability               |
 | **Block Diagonalization**       | Divides parameters into independent blocks     | Modular control for multi-preference tasks |
 | **Randomized Low-Rank Approximation** | Sketches matrix into lower-dimensional subspace | Faster and memory-efficient           |
+Here's a link to the code i tried two methods:
 
-Code: 
+[Panacea Attempts - Team Shared Notebook](https://github.com/sprasadhpy/myAInotes/blob/shyaam_papers/panacea_attempts_shared_team.ipynb)
+
+
+### MOO (Multi-Objective Optimization) Metrics in the Panacea Paper
+
+- **Hypervolume**: Measures the volume of the space enclosed by the solution set, reflecting the quality and coverage of the Pareto front. Higher hypervolume values indicate that the solution set is closer to the true Pareto front, covering a larger region of optimal trade-offs.
+
+- **Inner Product**: Evaluates the alignment between preference vectors and the model output. This metric shows how well the solutions match intended preferences, helping to ensure that the model’s responses align with specified user priorities.
+
+- **Sparsity**: Assesses the density of solution distribution along the Pareto front. This metric indicates how well the model represents different trade-offs, with higher sparsity implying that solutions are spread across various trade-off points rather than clustering.
+
+- **Spacing**: Reflects the evenness of solution spacing along the Pareto front. Even spacing is crucial for smooth transitions between preferences, ensuring the model can provide consistent responses as preference vectors change incrementally.
+
+
+Alternative ways to generate the Panacea format (yet to be explored) 
+
+MOPSO (Multi-Objective Particle Swarm Optimization) and Tchebycheff Scalarization are effective for scalable and adaptable multi-objective optimization, but they require careful parameter tuning:
+
+- **MOPSO (Multi-Objective Particle Swarm Optimization)**:
+  - Efficiently explores large solution spaces with particles that approximate the Pareto front, even in high-dimensional problems.
+  - Particles adapt based on rewards, balancing multiple objectives.
+  - 
+    - **Inertia Weight**: Controls exploration vs. convergence.
+    - **Cognitive & Social Coefficients**: Influence particle movement and convergence speed.
+    - **Archive Size**: Manages solution diversity and computational efficiency.
+
+- **Tchebycheff Scalarization**:
+  - Converts multi-objective problems into a single-objective optimization by minimizing the weighted distance to an ideal point, making it efficient for various dimensions.
+  -  Adjusts to different trade-offs with weight tuning for each objective.
+  - *
+    - **Weights**: Define the importance of each objective, crucial for obtaining diverse solutions.
+    - **Ideal Point Estimation**: Guides the solution towards the Pareto front, requiring good initial estimates.
+
+
+
