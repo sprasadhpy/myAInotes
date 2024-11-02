@@ -52,10 +52,6 @@ The system dynamically adjusts the singular values according to the preference v
 
 ### Numerical Example :Injection Process of Panacea using SVD and LoRA
 
-# Numerical Injection Process in Panacea using SVD and LoRA
-
-# Numerical Injection Process in Panacea using SVD and LoRA
-
 Suppose we have a weight matrix **W** from one layer of the model. Let’s assume it’s a simple \( 3 \times 3 \) matrix:
 
 **Matrix W:**
@@ -73,7 +69,6 @@ We apply Singular Value Decomposition (SVD) to decompose this matrix into three 
 W = U \, Σ \, Vᵀ
 \]
 
-Where:
 - **U**: orthogonal matrix (captures the left singular vectors),
 - **Σ**: diagonal matrix (captures the singular values),
 - **Vᵀ**: orthogonal matrix (captures the right singular vectors).
@@ -101,9 +96,8 @@ Let’s assume that after applying SVD, we obtain:
 | -0.58| 0.71 | 0.57 |
 | 0.58 | -0.0 | -0.69|
 
-## Embedding the Preference Vector
 
-Suppose we have a preference vector **λ** representing user preferences. For simplicity, let’s assume **λ** has two dimensions for "helpfulness" and "conciseness" with values:
+Suppose we have a preference vector **λ** representing user preferences. For instance, let’s assume **λ** has two dimensions for "helpfulness" and "conciseness" with values:
 
 \[
 λ = [0.8, 0.2]
@@ -120,15 +114,14 @@ To modify **Σ**, we inject **λ** into the second and third positions:
 | 0   | 0.4 | 0   |
 | 0   | 0   | 0.1 |
 
-## Reconstructing the Adapted Matrix
 
-With the modified **Σ'**, we reconstruct the adapted weight matrix **W'** by multiplying **U**, **Σ'**, and **Vᵀ**:
+With the modified **Σ'** Panacea reconstruct the adapted weight matrix **W'** by multiplying **U**, **Σ'**, and **Vᵀ**:
 
 \[
 W' = U \, Σ' \, Vᵀ
 \]
 
-### Step 1: Calculate **U × Σ'**
+### Calculate **U × Σ'**
 
 **Result of U Σ':**
 
@@ -137,7 +130,7 @@ W' = U \, Σ' \, Vᵀ
 | 5.16  | 0.28  | 0.057  |
 | 8.28  | 0.0   | -0.069 |
 
-### Step 2: Calculate **(U Σ') × Vᵀ**
+###Calculate **(U Σ') × Vᵀ**
 
 **Adapted Matrix W':**
 
@@ -146,11 +139,9 @@ W' = U \, Σ' \, Vᵀ
 | 4.21 | 4.65 | 4.12 |
 | 5.27 | 5.22 | 5.46 |
 
-## Final Adapted Weight Matrix
 
-The adapted weight matrix **W'** reflects the injected preference vector. This modulates the model’s behavior to align with the user's preferences. By embedding the preference vector **λ = [0.8, 0.2]** into the singular values, the model is now more aligned with the user’s preference for helpfulness (0.8) over conciseness (0.2).
+The finally adapted weight matrix **W'** reflects the injected preference vector. This modulates the model’s behavior to align with the user's preferences. By embedding the preference vector **λ = [0.8, 0.2]** into the singular values and also the model is now more aligned with the user’s preference for helpfulness (0.8) over conciseness (0.2).
 
-This adaptation occurs for each layer of the model, allowing the model to shift its behavior based on individual user preferences.
 
 
 
