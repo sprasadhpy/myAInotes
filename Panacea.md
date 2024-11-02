@@ -54,9 +54,11 @@ The system dynamically adjusts the singular values according to the preference v
 
 # Numerical Injection Process in Panacea using SVD and LoRA
 
-Suppose we have a weight matrix \( W \) from one layer of the model. Let’s assume it’s a simple \( 3 \times 3 \) matrix:
+# Numerical Injection Process in Panacea using SVD and LoRA
 
-**Matrix \( W \):**
+Suppose we have a weight matrix **W** from one layer of the model. Let’s assume it’s a simple \( 3 \times 3 \) matrix:
+
+**Matrix W:**
 
 | 4 | 1 | 3 |
 |---|---|---|
@@ -65,34 +67,34 @@ Suppose we have a weight matrix \( W \) from one layer of the model. Let’s ass
 
 ### Singular Value Decomposition (SVD)
 
-We apply Singular Value Decomposition (SVD) to decompose this matrix into three matrices: \( U \), \( \Sigma \), and \( V^T \):
+We apply Singular Value Decomposition (SVD) to decompose this matrix into three matrices: **U**, **Σ**, and **Vᵀ**:
 
 \[
-W = U \Sigma V^T
+W = U \, Σ \, Vᵀ
 \]
 
 Where:
-- \( U \): orthogonal matrix (captures the left singular vectors),
-- \( \Sigma \): diagonal matrix (captures the singular values),
-- \( V^T \): orthogonal matrix (captures the right singular vectors).
+- **U**: orthogonal matrix (captures the left singular vectors),
+- **Σ**: diagonal matrix (captures the singular values),
+- **Vᵀ**: orthogonal matrix (captures the right singular vectors).
 
 Let’s assume that after applying SVD, we obtain:
 
-**Matrix \( U \):**
+**Matrix U:**
 
 | 0.58 | -0.58 | 0.58 |
 |------|-------|------|
 | 0.43 | 0.71  | 0.57 |
 | 0.69 | 0.0   | -0.69|
 
-**Matrix \( \Sigma \):**
+**Matrix Σ:**
 
 | 12  | 0   | 0   |
 |-----|-----|-----|
 | 0   | 4   | 0   |
 | 0   | 0   | 2   |
 
-**Matrix \( V^T \):**
+**Matrix Vᵀ:**
 
 | 0.58 | 0.58 | 0.58 |
 |------|------|------|
@@ -101,17 +103,17 @@ Let’s assume that after applying SVD, we obtain:
 
 ## Embedding the Preference Vector
 
-Suppose we have a preference vector \( \lambda \) representing user preferences. For simplicity, let’s assume \( \lambda \) has two dimensions for "helpfulness" and "conciseness" with values:
+Suppose we have a preference vector **λ** representing user preferences. For simplicity, let’s assume **λ** has two dimensions for "helpfulness" and "conciseness" with values:
 
 \[
-\lambda = [0.8, 0.2]
+λ = [0.8, 0.2]
 \]
 
-Panacea injects this preference vector into the singular values matrix \( \Sigma \) using a scaling factor \( s \) to control the influence of the preference vector. Assume \( s = 0.5 \).
+Panacea injects this preference vector into the singular values matrix **Σ** using a scaling factor **s** to control the influence of the preference vector. Assume **s = 0.5**.
 
-To modify \( \Sigma \), we inject \( \lambda \) into the second and third positions:
+To modify **Σ**, we inject **λ** into the second and third positions:
 
-**Modified \( \Sigma' \):**
+**Modified Σ':**
 
 | 12  | 0   | 0   |
 |-----|-----|-----|
@@ -120,24 +122,24 @@ To modify \( \Sigma \), we inject \( \lambda \) into the second and third positi
 
 ## Reconstructing the Adapted Matrix
 
-With the modified \( \Sigma' \), we reconstruct the adapted weight matrix \( W' \) by multiplying \( U \), \( \Sigma' \), and \( V^T \):
+With the modified **Σ'**, we reconstruct the adapted weight matrix **W'** by multiplying **U**, **Σ'**, and **Vᵀ**:
 
 \[
-W' = U \Sigma' V^T
+W' = U \, Σ' \, Vᵀ
 \]
 
-### Step 1: Calculate \( U \times \Sigma' \)
+### Step 1: Calculate **U × Σ'**
 
-**Result of \( U \Sigma' \):**
+**Result of U Σ':**
 
 | 6.96  | -0.23 | 0.058  |
 |-------|-------|--------|
 | 5.16  | 0.28  | 0.057  |
 | 8.28  | 0.0   | -0.069 |
 
-### Step 2: Calculate \( (U \Sigma') \times V^T \)
+### Step 2: Calculate **(U Σ') × Vᵀ**
 
-**Adapted Matrix \( W' \):**
+**Adapted Matrix W':**
 
 | 4.53 | 3.82 | 3.24 |
 |------|------|------|
@@ -146,9 +148,13 @@ W' = U \Sigma' V^T
 
 ## Final Adapted Weight Matrix
 
-The adapted weight matrix \( W' \) reflects the injected preference vector. This modulates the model’s behavior to align with the user's preferences. By embedding the preference vector \( \lambda = [0.8, 0.2] \) into the singular values, the model is now more aligned with the user’s preference for helpfulness (0.8) over conciseness (0.2).
+The adapted weight matrix **W'** reflects the injected preference vector. This modulates the model’s behavior to align with the user's preferences. By embedding the preference vector **λ = [0.8, 0.2]** into the singular values, the model is now more aligned with the user’s preference for helpfulness (0.8) over conciseness (0.2).
 
 This adaptation occurs for each layer of the model, allowing the model to shift its behavior based on individual user preferences.
+
+
+
+
 
 
 
