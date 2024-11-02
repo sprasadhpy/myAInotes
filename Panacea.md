@@ -251,6 +251,15 @@ For each training batch, Panacea samples a preference vector from the simplex an
 Panacea uses singular value decomposition (SVD) combined with low-rank adaptation (LoRA). The preference vector is embedded into the singular values of the SVD-decomposed weight matrices, scaled with learnable factors to adjust model behavior dynamically.
 
 
+https://github.com/sprasadhpy/myAInotes/blob/shyaam_papers/Panacea1.png?raw=true![image](https://github.com/user-attachments/assets/00df2689-6045-4327-a322-cea8b2217745)
+
+This diagram compares single-objective alignment (left) and multi-dimensional alignment (right) for aligning AI model responses with human preferences across two dimensions (labeled here as **A** (e.g., helpfulness) and **B** (e.g., harmlessness)).
+
+In single-objective alignment, three different users rate two responses to a prompt, each with distinct preference weights. For eg, one rater might prioritize **A** (helpfulness) more (e.g., 0.7), while another prioritizes **B** (harmlessness) more (e.g., 0.6). The single-objective approach focuses on selecting a single preferred response based on either **A** or **B** alone. This creates misalignment with the diverse /&  multi-dimensional preferences of users, as it does not accommodate combined preferences. This method results in a "misaligned, conflicting, and singular" solution, lacking trade-offs between dimensions. Consequently, the solutions (represented by red crosses in the reward plot) fail to reach the Pareto front making them dominated solutions that do not capture optimal trade-offs between preferences **A** and **B**.
+
+In multi-dimensional alignment, the model considers preference weights for both **A** and **B** simultaneously balancing each user’s preferences based on specific weightings to yield a coordinated response that respects both dimensions. This approach enables the selection of responses that balance both preferences. For eg, when a user prioritizes **A** (0.7) but also values **B** (0.3) and  the model can provide a response that respects this balance. Described as "aligned, coordinated, and diverse," this method employs Pareto optimality to ensure no preference can be improved without compromising another. Solutions (shown on the Pareto front in red) represent an optimal set where each point balances preferences **A** and **B** according to user-specific weights, covering the full spectrum of trade-offs.
+
+In summary, multi-dimensional alignment (Panacea) achieves a Pareto-optimal set of responses by taking into account varied user preferences allowing the model to provide diverse and balanced responses across all possible preference combinations unlike single-objective alignment.
 
 
 
