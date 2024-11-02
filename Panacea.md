@@ -30,14 +30,12 @@ To generate responses that adapt to specific user preferences (e.g., helpfulness
 
 #### Key Process steps : 
 
-1) 
-   - Each user is assigned a unique **preference vector** that represents the importance of different response qualities.
+1) Each user is assigned a unique **preference vector** that represents the importance of different response qualities.
    - **Example**:
      - **User A**: Prioritizes helpfulness (0.8) and harmlessness (0.2).
      - **User B**: Prioritizes conciseness (0.7) and harmlessness (0.3).
 
-2) 
-   - **Singular Value Decomposition (SVD)** is applied to the model’s weight matrices divide them  into three components:
+2)  **Singular Value Decomposition (SVD)** is applied to the model’s weight matrices divide them  into three components:
      - **U** (left singular matrix)
      - **Σ** (diagonal matrix with singular values) -  in this matrix  the user preference vector is injected. 
      - **V** (right singular matrix)
@@ -45,7 +43,7 @@ To generate responses that adapt to specific user preferences (e.g., helpfulness
    - The **user's preference vector** is injected into the singular values (Σ), adjusting how the model prioritizes qualities in its responses.
    - **Learnable scaling factors** fine-tune the influence of the preference vector to achieve the desired response characteristics.
 
-3) Based on the preference vector:
+3) Based on the preference vector- 
      - **User A (Helpfulness-focused)**: Receives a detailed and elaborate response, providing actionable steps and comprehensive information.
      - **User B (Conciseness-focused)**: Receives a short, to-the-point response with only essential details.
 
@@ -53,6 +51,8 @@ The system dynamically adjusts the singular values according to the preference v
 
 
 ### Numerical Example :Injection Process of Panacea using SVD and LoRA
+
+# Numerical Injection Process in Panacea using SVD and LoRA
 
 Suppose we have a weight matrix \( W \) from one layer of the model. Let’s assume it’s a simple \( 3 \times 3 \) matrix:
 
@@ -80,25 +80,22 @@ Let’s assume that after applying SVD, we obtain:
 
 **Matrix \( U \):**
 
-|      |      |      |
-|------|------|------|
-| 0.58 | -0.58| 0.58 |
-| 0.43 | 0.71 | 0.57 |
-| 0.69 | 0.0  | -0.69|
+| 0.58 | -0.58 | 0.58 |
+|------|-------|------|
+| 0.43 | 0.71  | 0.57 |
+| 0.69 | 0.0   | -0.69|
 
 **Matrix \( \Sigma \):**
 
-|     |     |     |
-|-----|-----|-----|
 | 12  | 0   | 0   |
+|-----|-----|-----|
 | 0   | 4   | 0   |
 | 0   | 0   | 2   |
 
 **Matrix \( V^T \):**
 
-|      |      |      |
-|------|------|------|
 | 0.58 | 0.58 | 0.58 |
+|------|------|------|
 | -0.58| 0.71 | 0.57 |
 | 0.58 | -0.0 | -0.69|
 
@@ -116,9 +113,8 @@ To modify \( \Sigma \), we inject \( \lambda \) into the second and third positi
 
 **Modified \( \Sigma' \):**
 
-|     |     |     |
-|-----|-----|-----|
 | 12  | 0   | 0   |
+|-----|-----|-----|
 | 0   | 0.4 | 0   |
 | 0   | 0   | 0.1 |
 
@@ -134,9 +130,8 @@ W' = U \Sigma' V^T
 
 **Result of \( U \Sigma' \):**
 
-|       |       |        |
-|-------|-------|--------|
 | 6.96  | -0.23 | 0.058  |
+|-------|-------|--------|
 | 5.16  | 0.28  | 0.057  |
 | 8.28  | 0.0   | -0.069 |
 
@@ -144,9 +139,8 @@ W' = U \Sigma' V^T
 
 **Adapted Matrix \( W' \):**
 
-|      |      |      |
-|------|------|------|
 | 4.53 | 3.82 | 3.24 |
+|------|------|------|
 | 4.21 | 4.65 | 4.12 |
 | 5.27 | 5.22 | 5.46 |
 
