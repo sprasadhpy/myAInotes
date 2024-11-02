@@ -251,7 +251,8 @@ For each training batch, Panacea samples a preference vector from the simplex an
 Panacea uses singular value decomposition (SVD) combined with low-rank adaptation (LoRA). The preference vector is embedded into the singular values of the SVD-decomposed weight matrices, scaled with learnable factors to adjust model behavior dynamically.
 
 
-https://github.com/sprasadhpy/myAInotes/blob/shyaam_papers/Panacea1.png?raw=true![image](https://github.com/user-attachments/assets/00df2689-6045-4327-a322-cea8b2217745)
+![Panacea Alignment Diagram](https://github.com/sprasadhpy/myAInotes/blob/shyaam_papers/Panacea1.png?raw=true)
+
 
 This diagram compares single-objective alignment (left) and multi-dimensional alignment (right) for aligning AI model responses with human preferences across two dimensions (labeled here as **A** (e.g., helpfulness) and **B** (e.g., harmlessness)).
 
