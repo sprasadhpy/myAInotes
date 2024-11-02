@@ -410,8 +410,22 @@ This objective encourages the model to maximize rewards from human feedback whil
 
 
 
+1. *Fronts of different methods (RLHF)*:
 
+     - **Panacea (Red)**: Consistently achieves higher scores on both helpfulness and harmlessness, demonstrating a superior Pareto front compared to RS and DPS.
+     - **DPS (Blue)**: Outperforms RS but still falls below Panacea, showing less effective optimization.
+     - **RS (Orange)**: Performs the worst, with a steep decline in harmlessness as helpfulness increases, indicating poor trade-offs between the two dimensions.
 
+2. *Fronts under different seeds (RLHF)*:
+ 
+     - **Panacea (Red Lines)**: Shows stable, smooth Pareto fronts across different seeds, indicating robust performance.
+     - **RS (Orange Lines)**: Exhibits variability and less consistent Pareto fronts, suggesting a greater dependence on random initialization.
+  
+3. *Fronts of different methods (DPO)*:
+
+     - **Panacea with LS (Red) and Tche (Blue)**: Both aggregation methods yield better Pareto fronts than RS, achieving higher harmless accuracy while maintaining helpful accuracy.
+     - **RS (Orange)**: Performs worse than Panacea, with lower scores in both helpful and harmless dimensions.
+   - **Conclusion**: Panacea outperforms RS under DPO in terms of accuracy for both dimensions, regardless of the aggregation method used.
 
 
 
