@@ -130,7 +130,7 @@ W' = U \, Σ' \, Vᵀ
 | 5.16  | 0.28  | 0.057  |
 | 8.28  | 0.0   | -0.069 |
 
-###Calculate **(U Σ') × Vᵀ**
+### Calculate **(U Σ') × Vᵀ**
 
 **Adapted Matrix W':**
 
@@ -143,7 +143,14 @@ W' = U \, Σ' \, Vᵀ
 The finally adapted weight matrix **W'** reflects the injected preference vector. This modulates the model’s behavior to align with the user's preferences. By embedding the preference vector **λ = [0.8, 0.2]** into the singular values and also the model is now more aligned with the user’s preference for helpfulness (0.8) over conciseness (0.2).
 
 
-
+*** for the beginners ***
+Visualizing SVD:
+Original Matrix: Think of a matrix as a transformation that stretches and rotates vectors.
+Decomposition:
+U: Defines the new set of orthogonal axes (left singular vectors).
+Σ: Scales (stretches or shrinks) along each axis.
+V^T: Defines how to rotate the data back to its original coordinate system.
+*************************************************************************
 
 
 
