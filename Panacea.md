@@ -73,9 +73,9 @@ W = U \Sigma V^T
 \]
 
 Where:
-- \( U \)  orthogonal matrix (captures the left singular vectors),
-- \( \Sigma diagonal matrix (captures the singular values),
-- \( V^T \)  orthogonal matrix (captures the right singular vectors).
+- \( U \): orthogonal matrix (captures the left singular vectors),
+- \( \Sigma \): diagonal matrix (captures the singular values),
+- \( V^T \): orthogonal matrix (captures the right singular vectors).
 
 Let’s assume that after applying SVD, we obtain:
 
@@ -85,8 +85,9 @@ U = \begin{bmatrix} 0.58 & -0.58 & 0.58 \\ 0.43 & 0.71 & 0.57 \\ 0.69 & 0.0 & -0
 V^T = \begin{bmatrix} 0.58 & 0.58 & 0.58 \\ -0.58 & 0.71 & 0.57 \\ 0.58 & -0.0 & -0.69 \end{bmatrix}
 \]
 
+## Embedding the Preference Vector
 
-Suppose we have a preference vector \( \lambda \) representing user preferences. For simplicity let’s assume \( \lambda \) has two dimensions for "helpfulness" and "conciseness" with values:
+Suppose we have a preference vector \( \lambda \) representing user preferences. For simplicity, let’s assume \( \lambda \) has two dimensions for "helpfulness" and "conciseness" with values:
 
 \[
 \lambda = [0.8, 0.2]
@@ -100,6 +101,7 @@ To modify \( \Sigma \), we inject \( \lambda \) into the second and third positi
 \Sigma' = \begin{bmatrix} 12 & 0 & 0 \\ 0 & 0.5 \times 0.8 & 0 \\ 0 & 0 & 0.5 \times 0.2 \end{bmatrix} = \begin{bmatrix} 12 & 0 & 0 \\ 0 & 0.4 & 0 \\ 0 & 0 & 0.1 \end{bmatrix}
 \]
 
+## Reconstructing the Adapted Matrix
 
 With the modified \( \Sigma' \), we reconstruct the adapted weight matrix \( W' \) by multiplying \( U \), \( \Sigma' \), and \( V^T \):
 
@@ -107,21 +109,24 @@ With the modified \( \Sigma' \), we reconstruct the adapted weight matrix \( W' 
 W' = U \Sigma' V^T
 \]
 
+### Step 1: Calculate \( U \times \Sigma' \)
 
 \[
 U \Sigma' = \begin{bmatrix} 0.58 & -0.58 & 0.58 \\ 0.43 & 0.71 & 0.57 \\ 0.69 & 0.0 & -0.69 \end{bmatrix} \begin{bmatrix} 12 & 0 & 0 \\ 0 & 0.4 & 0 \\ 0 & 0 & 0.1 \end{bmatrix} = \begin{bmatrix} 6.96 & -0.23 & 0.058 \\ 5.16 & 0.28 & 0.057 \\ 8.28 & 0.0 & -0.069 \end{bmatrix}
 \]
 
-### now Calculate \( (U \Sigma') \times V^T \)
+### Step 2: Calculate \( (U \Sigma') \times V^T \)
 
 \[
 W' = \begin{bmatrix} 6.96 & -0.23 & 0.058 \\ 5.16 & 0.28 & 0.057 \\ 8.28 & 0.0 & -0.069 \end{bmatrix} \begin{bmatrix} 0.58 & 0.58 & 0.58 \\ -0.58 & 0.71 & 0.57 \\ 0.58 & -0.0 & -0.69 \end{bmatrix} = \begin{bmatrix} 4.53 & 3.82 & 3.24 \\ 4.21 & 4.65 & 4.12 \\ 5.27 & 5.22 & 5.46 \end{bmatrix}
 \]
 
+## Final Adapted Weight Matrix
 
-The adapted weight matrix \( W' \) reflects the injected preference vector. This modulates  the model’s behavior to align with the user's preferences. By embedding the preference vector \( \lambda = [0.8, 0.2] \) into the singular values and also the model is now more aligned with the user’s preference for helpfulness (0.8) over conciseness (0.2).
+The adapted weight matrix \( W' \) reflects the injected preference vector. This modulates the model’s behavior to align with the user's preferences. By embedding the preference vector \( \lambda = [0.8, 0.2] \) into the singular values, the model is now more aligned with the user’s preference for helpfulness (0.8) over conciseness (0.2).
 
-This adaptation occurs for each layer of the model allowing the model to shift its behavior based on individual user preferences.
+This adaptation occurs for each layer of the model, allowing the model to shift its behavior based on individual user preferences.
+
 
 
 
