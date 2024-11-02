@@ -256,12 +256,23 @@ Panacea uses singular value decomposition (SVD) combined with low-rank adaptatio
 
 This diagram compares single-objective alignment (left) and multi-dimensional alignment (right) for aligning AI model responses with human preferences across two dimensions (labeled here as **A** (e.g., helpfulness) and **B** (e.g., harmlessness)).
 
-In single-objective alignment, three different users rate two responses to a prompt, each with distinct preference weights. For eg, one rater might prioritize **A** (helpfulness) more (e.g., 0.7), while another prioritizes **B** (harmlessness) more (e.g., 0.6). The single-objective approach focuses on selecting a single preferred response based on either **A** or **B** alone. This creates misalignment with the diverse /&  multi-dimensional preferences of users, as it does not accommodate combined preferences. This method results in a "misaligned, conflicting, and singular" solution, lacking trade-offs between dimensions. Consequently, the solutions (represented by red crosses in the reward plot) fail to reach the Pareto front making them dominated solutions that do not capture optimal trade-offs between preferences **A** and **B**.
+In single-objective alignment -  three different users rate two responses to a prompt, each with distinct preference weights. For eg, one rater might prioritize **A** (helpfulness) more (e.g., 0.7), while another prioritizes **B** (harmlessness) more (e.g., 0.6). The single-objective approach focuses on selecting a single preferred response based on either **A** or **B** alone. This creates misalignment with the diverse /&  multi-dimensional preferences of users, as it does not accommodate combined preferences. This method results in a "misaligned, conflicting, and singular" solution, lacking trade-offs between dimensions. Consequently, the solutions (represented by red crosses in the reward plot) fail to reach the Pareto front making them dominated solutions that do not capture optimal trade-offs between preferences **A** and **B**.
 
-In multi-dimensional alignment, the model considers preference weights for both **A** and **B** simultaneously balancing each user’s preferences based on specific weightings to yield a coordinated response that respects both dimensions. This approach enables the selection of responses that balance both preferences. For eg, when a user prioritizes **A** (0.7) but also values **B** (0.3) and  the model can provide a response that respects this balance. Described as "aligned, coordinated, and diverse," this method employs Pareto optimality to ensure no preference can be improved without compromising another. Solutions (shown on the Pareto front in red) represent an optimal set where each point balances preferences **A** and **B** according to user-specific weights, covering the full spectrum of trade-offs.
+In multi-dimensional alignment - the model considers preference weights for both **A** and **B** simultaneously balancing each user’s preferences based on specific weightings to yield a coordinated response that respects both dimensions. This approach enables the selection of responses that balance both preferences. For eg, when a user prioritizes **A** (0.7) but also values **B** (0.3) and  the model can provide a response that respects this balance. Described as "aligned, coordinated, and diverse," this method employs Pareto optimality to ensure no preference can be improved without compromising another. Solutions (shown on the Pareto front in red) represent an optimal set where each point balances preferences **A** and **B** according to user-specific weights, covering the full spectrum of trade-offs.
 
-In summary, multi-dimensional alignment (Panacea) achieves a Pareto-optimal set of responses by taking into account varied user preferences allowing the model to provide diverse and balanced responses across all possible preference combinations unlike single-objective alignment.
 
+
+### Theorem 4.1
+
+Panacea recovers the entire Pareto front for both the Linear Scalarization (LS) and Tchebycheff (Tche) aggregation functions  under the following assumptions:
+
+1.  Panacea with SVD-LoRA has sufficient flexibility to represent all preference vectors `λ ∈ Δₘ`. Specifically, for any preference vector `λ`, the policy `π_θ,λ` can optimize the corresponding aggregation functions (Equations (6) and (7)) to their maximum values.
+
+2.  For a specific preference vector `λ`, the LLM policy space formed by all `π_θ,λ` can represent all possible categorical output distributions for responses.
+
+By optimizing the Panacea objective function `E_{λ ∈ Δₘ} [g_agg(θ)]`, where `g_agg` can be either `g_LS` or `g_Tche`, the optimal policy found by Panacea can recover the entire Pareto front for almost every preference vector.
+
+To put it simply this theorem states that Panacea is capable of adapting to a wide range of user preferences and can find the best possible trade-offs across different preference dimensions by effectively covering the entire set of optimal responses for any combination of user preferences.
 
 
 
