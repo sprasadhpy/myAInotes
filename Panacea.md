@@ -189,75 +189,66 @@ How Panacea addresses the limitations of both AlignDiff and Rewarded Soups:
 
 
 
+# Multi-Dimensional Preference Optimization (MDPO) for Aligning LLMs
+
 MDPO is a method designed to align large language models (LLMs) to complex human preferences across multiple dimensions. Below are key concepts and equations explained in simplified terms.
 
 Human preferences in interacting with AI systems are multi-dimensional, covering aspects like helpfulness, harmlessness, and humor. MDPO optimizes these preferences simultaneously, balancing potential conflicts (e.g., a more helpful response might be less concise).
 
 The MDPO problem is to maximize performance across all preference dimensions. Mathematically:
 
-\[
-\max J(\pi_{\theta}) = (J_1(\pi_{\theta}), J_2(\pi_{\theta}), \dots, J_m(\pi_{\theta}))
-\]
+`max J(π_θ) = (J₁(π_θ), J₂(π_θ), ..., Jₘ(π_θ))`
 
 Where:
-- \( J_i(\pi_{\theta}) \): Performance measure for dimension \( i \) (e.g., helpfulness or harmlessness).
-- \( \pi_{\theta} \): The policy, representing the LLM being trained, with parameters \( \theta \).
-- \( \theta \in \Theta \): The set of trainable parameters.
-- \( \Pi \): The policy space (all possible models).
+- `Jᵢ(π_θ)`: Performance measure for dimension `i` (e.g., helpfulness or harmlessness).
+- `π_θ`: The policy, representing the LLM being trained, with parameters `θ`.
+- `θ ∈ Θ`: The set of trainable parameters.
+- `Π`: The policy space (all possible models).
 
 Each preference dimension has a distinct objective function:
 
-- **(a) SFT Objective \( J_{\text{SFT},i}(\pi_{\theta}) \):**
-   - Learns from labeled data \((x, y)\), maximizing the likelihood of generating correct output \( y \) given input \( x \):
+- **(a) SFT Objective `J_SFT,i(π_θ)`**:
+   - Learns from labeled data `(x, y)`, maximizing the likelihood of generating correct output `y` given input `x`:
    
-   \[
-   J_{\text{SFT},i}(\pi_{\theta}) = \mathbb{E}_{(x,y) \sim D_i} [\log \pi_{\theta}(y|x)]
-   \]
+   `J_SFT,i(π_θ) = E_{(x,y) ∼ Dᵢ} [log π_θ(y|x)]`
 
-   Here, \( D_i \) is the dataset for dimension \( i \), and \( \pi_{\theta}(y|x) \) is the probability of generating \( y \) given \( x \).
+   Here, `Dᵢ` is the dataset for dimension `i`, and `π_θ(y|x)` is the probability of generating `y` given `x`.
 
-- **(b) RLHF Objective \( J_{\text{RLHF},i}(\pi_{\theta}) \):**
-   - Learns from rewards \( r_i(x, y) \), with a KL-divergence term to keep the model close to a reference model \( \pi_{\text{ref}} \):
+- **(b) RLHF Objective `J_RLHF,i(π_θ)`**:
+   - Learns from rewards `rᵢ(x, y)`, with a KL-divergence term to keep the model close to a reference model `π_ref`:
    
-   \[
-   J_{\text{RLHF},i}(\pi_{\theta}) = \mathbb{E}_{x \sim D} \mathbb{E}_{y \sim \pi_{\theta}(\cdot | x)} [r_i(x, y)] - \beta D_{\text{KL}}[\pi_{\theta}(\cdot | x) || \pi_{\text{ref}}(\cdot | x)]
-   \]
+   `J_RLHF,i(π_θ) = E_{x ∼ D} E_{y ∼ π_θ(⋅ | x)} [rᵢ(x, y)] - β D_KL[π_θ(⋅ | x) || π_ref(⋅ | x)]`
 
-   Here, \( r_i(x, y) \) represents the reward for the response, and \( \beta \) is a scaling factor controlling deviation from the reference model.
+   Here, `rᵢ(x, y)` represents the reward for the response, and `β` is a scaling factor controlling deviation from the reference model.
 
-- **(c)  (DPO) Objective \( J_{\text{DPO},i}(\pi_{\theta}) \):**
+- **(c) DPO Objective `J_DPO,i(π_θ)`**:
    - Compares two responses for the same input, aiming to prefer the "better" response while staying close to the reference model:
    
-   \[
-   J_{\text{DPO},i}(\pi_{\theta}) = \mathbb{E}_{(x, y_w, y_l) \sim D_i} [\log \sigma(\beta (\log \pi_{\text{ref}}(y_w | x) - \log \pi_{\text{ref}}(y_l | x)))]
-   \]
+   `J_DPO,i(π_θ) = E_{(x, y_w, y_l) ∼ Dᵢ} [log σ(β (log π_ref(y_w | x) - log π_ref(y_l | x)))]`
 
- Here, \( y_w \) and \( y_l \) are the "better" and "worse" responses, respectively, and \( \sigma \) is the sigmoid function.
+   Here, `y_w` and `y_l` are the "better" and "worse" responses, respectively, and `σ` is the sigmoid function.
 
 Because optimizing all dimensions perfectly is impossible (improving one might worsen another), MDPO seeks Pareto-optimal solutions.
 
-A solution is Pareto-optimal if no other solution can improve one preference dimension without worsening another. Formally, for two solutions \( \theta_a \) and \( \theta_b \):
+A solution is Pareto-optimal if no other solution can improve one preference dimension without worsening another. Formally, for two solutions `θ_a` and `θ_b`:
 
-\[
-J(\pi_{\theta_a}) \succ J(\pi_{\theta_b})
-\]
+`J(π_θ_a) ≻ J(π_θ_b)`
 
-This means \( \theta_a \) dominates \( \theta_b \) if:
-- \( J_i(\pi_{\theta_a}) \geq J_i(\pi_{\theta_b}) \) for all dimensions \( i \),
-- and there exists at least one dimension \( j \) where \( J_j(\pi_{\theta_a}) > J_j(\pi_{\theta_b}) \).
+This means `θ_a` dominates `θ_b` if:
+- `Jᵢ(π_θ_a) ≥ Jᵢ(π_θ_b)` for all dimensions `i`,
+- and there exists at least one dimension `j` where `Jⱼ(π_θ_a) > Jⱼ(π_θ_b)`.
 
 The Pareto Set (PS) is the set of all Pareto-optimal solutions, representing optimal trade-offs between preferences. The Pareto Front (PF) is the image of the Pareto set in objective space, showing trade-offs between performance measures.
 
-Human preferences are represented by a preference vector \( \lambda = (\lambda_1, \dots, \lambda_m) \), where:
-- \( \lambda_i \geq 0 \): Weight for dimension \( i \).
-- \( \sum_{i=1}^{m} \lambda_i = 1 \): The total weight is normalized.
+Human preferences are represented by a preference vector `λ = (λ₁, ..., λₘ)`, where:
+- `λᵢ ≥ 0`: Weight for dimension `i`.
+- `Σ λᵢ = 1`: The total weight is normalized.
 
-The preference simplex \( \Delta_m \) is the space of all possible preference vectors, representing different trade-offs among preferences. MDPO seeks Pareto-optimal solutions for every possible preference vector.
+The preference simplex `Δₘ` is the space of all possible preference vectors, representing different trade-offs among preferences. MDPO seeks Pareto-optimal solutions for every possible preference vector.
 
- For each training batch, Panacea samples a preference vector from the simplex and optimizes the model based on that vector. During inference, the model adapts to the user’s specified preference vector, ensuring Pareto-aligned behavior.
+For each training batch, Panacea samples a preference vector from the simplex and optimizes the model based on that vector. During inference, the model adapts to the user’s specified preference vector, ensuring Pareto-aligned behavior.
 
 Panacea uses singular value decomposition (SVD) combined with low-rank adaptation (LoRA). The preference vector is embedded into the singular values of the SVD-decomposed weight matrices, scaled with learnable factors to adjust model behavior dynamically.
-
 
 
 
