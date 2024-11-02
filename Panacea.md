@@ -462,5 +462,22 @@ Panacea’s strengths include comprehensive coverage of preferences through pref
 Panacea’s diverse and evenly distributed Pareto front shows its effectiveness in managing trade-offs among helpfulness, harmlessness, and conciseness. This flexibility allows Panacea to better align with varied human preferences, supporting applications that need customizable solutions across complex alignment dimensions.
 
 
+#### Some key points 
+
+1. Unlike DPS, which requires separate models for each preference combination, Panacea uses a single adaptable model that can interpolate across the preference simplex, covering a wide range of user preferences. This reduces computational overhead and enables real-time adaptation to new preferences, making Panacea more scalable for high-dimensional alignment tasks.
+
+2.  By exploring the entire preference simplex, Panacea achieves a tighter generalization bound than DPS. This means Panacea effectively captures diverse trade-offs, ensuring robust performance even on unseen preference combinations, all while maintaining a well-distributed Pareto front across multiple dimensions.
 
 
+
+## Some Alternative Methods to SVD-LoRA I can think of and even I coded them 
+
+| Method                          | Key Idea                                       | Main Advantage                           |
+|---------------------------------|------------------------------------------------|------------------------------------------|
+| **QR Decomposition with Column Pivoting** | Focuses on important columns               | Stable and computationally efficient     |
+| **Low-Rank Matrix Factorization + Regularization** | Adds regularization for sparsity | Sparse, adaptable fine-tuning            |
+| **Rotated PCA**                 | Reduces dimensionality with rotation for alignment | Improved interpretability               |
+| **Block Diagonalization**       | Divides parameters into independent blocks     | Modular control for multi-preference tasks |
+| **Randomized Low-Rank Approximation** | Sketches matrix into lower-dimensional subspace | Faster and memory-efficient           |
+
+Code: 
