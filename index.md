@@ -15,7 +15,7 @@ If you enjoyed my notes, why not drop a ⭐ [here](https://github.com/sprasadhpy
 <ul>
    <li>
     <a href="https://sprasadhpy.github.io/myAInotes/2024-10-14.html"> Curated List of RAG Papers </a> - October 14, 2024 
-    <span style="font-size: 0.85em;"> | Tags: <a href="/tags/AI-alignment">AI Alignment</a></span>
+    <span style="font-size: 0.85em;"> | Tags: <a href="/tags/AI-alignment">Generative AI</a></span>
   </li>
   
   <li>
