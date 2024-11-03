@@ -69,20 +69,32 @@
 </div>
 
 <div class="content">
-  <ul>
-    <li><strong>RuleRAG</strong> - Introduces Rule-Guided RAG, using symbolic rules for in-context learning to enhance retrieval and generation accuracy. <a href="https://arxiv.org/abs/2410.22353">Read more</a></li>
-    <li><strong>ChunkRAG</strong> - A chunk filtering approach for RAG systems, using semantic chunking and relevance scoring to improve response accuracy. <a href="https://arxiv.org/abs/2410.19572">Read more</a></li>
-    <li><strong>AutoRAG Framework</strong> - Identifies optimal RAG modules for datasets and is available as a Python library. <a href="https://arxiv.org/abs/2410.20878">Read more</a></li>
-    <li><strong>LONG²RAG</strong> - Offers a benchmark and metric for evaluating long-context retrieval and long-form response generation. <a href="https://arxiv.org/abs/2410.23000">Read more</a></li>
-    <li><strong>EasyRAG</strong> - A lightweight RAG framework for network operations, offering accurate responses and easy deployment. <a href="https://arxiv.org/abs/2410.10315">Read more</a></li>
-    <li><strong>Vision-based RAG (VisRAG)</strong> - Embeds documents as images for better data retention and retrieval, showing a 25–39% improvement over traditional text-based RAG. <a href="https://arxiv.org/abs/2410.10594">Read more</a></li>
-    <li><strong>FunnelRAG</strong> - Uses a progressive retrieval method with coarse-to-fine granularity, reducing time overhead by 40%. <a href="https://arxiv.org/abs/2410.10293">Read more</a></li>
-    <li><strong>CoFE-RAG</strong> - A full-chain evaluation framework for the RAG pipeline, providing insights into diverse data scenarios. <a href="https://arxiv.org/abs/2410.12248">Read more</a></li>
-    <li><strong>RAG-based Spelling Correction</strong> - RAG-based approach for contextual spelling correction in e-commerce, enhancing accuracy. <a href="https://arxiv.org/abs/2410.11655">Read more</a></li>
-    <li><strong>Multilingual RAG Benchmark (MIRAGE-Bench)</strong> - A multilingual RAG benchmark covering 18 languages, with proprietary LLMs showing top performance. <a href="https://arxiv.org/abs/2410.13716">Read more</a></li>
-    <li><strong>Assessing RAG Models for Health Chatbots</strong> - Evaluation of 24 LLMs on medical data in Indic languages, revealing performance variability. <a href="https://arxiv.org/abs/2410.13671">Read more</a></li>
-    <li><strong>Medical Multimodal RAG System</strong> - A multimodal RAG system for medical applications. <a href="https://arxiv.org/abs/2410.13085">Read more</a></li>
-  </ul>
+<ul>
+    <li><strong>RuleRAG</strong> - This paper presents Rule-Guided RAG which explicitly introduces symbolic rules as demonstrations for in-context learning to guide retrievers to retrieve logically related documents. Experiments demonstrate that training-free RuleRAG-ICL effectively improves the retrieval quality and generation accuracy over standard RAG. Moreover, RuleRAG scales well with increasing numbers of retrieved documents and exhibits generalization ability for untrained rules. <a href="https://arxiv.org/abs/2410.22353">Read more</a></li>
+    
+    <li><strong>ChunkRAG</strong> - This paper introduces ChunkRAG, a novel chunk filtering method for RAG systems. Existing RAG methods fail to effectively filter irrelevant chunks which can result in inaccurate responses. ChunkRAG employs semantic chunking to divide documents into coherent sections and utilizes LLM-based relevance scoring to assess each chunk’s alignment with the user’s query. Experiments demonstrated that ChunkRAG outperforms existing RAG models. <a href="https://arxiv.org/abs/2410.19572">Read more</a></li>
+    
+    <li><strong>AutoRAG Framework</strong> - This paper introduces the AutoRAG framework, which automatically identifies suitable RAG modules for a given dataset. AutoRAG explores and approximates the optimal combination of RAG modules for the dataset. AutoRAG is available as a Python library. <a href="https://arxiv.org/abs/2410.20878">Read more</a></li>
+    
+    <li><strong>LONG²RAG</strong> - Existing RAG benchmarks struggle to evaluate long-context retrieval and lack a comprehensive evaluation method for assessing LLMs’ ability to generate long-form responses. To address these shortcomings, this paper introduces the LONG2RAG benchmark and the Key Point Recall (KPR) metric. KPR evaluates the extent to which LLMs incorporate key points extracted from the retrieved documents into their generated responses. <a href="https://arxiv.org/abs/2410.23000">Read more</a></li>
+    
+    <li><strong>EasyRAG</strong> - This paper presents EasyRAG, a simple, lightweight, and efficient retrieval-augmented generation framework for automated network operations. EasyRAG has three advantages, namely, accurate question answering, simple deployment, and efficient inference. <a href="https://arxiv.org/abs/2410.10315">Read more</a></li>
+    
+    <li><strong>Vision-based RAG (VisRAG)</strong> - This paper presents VisRAG which involves embedding the document using a VLM as an image and then retrieving it to enhance the generation of a VLM. When compared to traditional text-based RAG, VisRAG maximizes the retention and utilization of the data information in the original documents, eliminating the information loss introduced during the parsing process. VisRAG outperforms traditional RAG in both the retrieval and generation stages, achieving a 25–39% end-to-end performance gain over the traditional text-based RAG pipeline. <a href="https://arxiv.org/abs/2410.10594">Read more</a></li>
+    
+    <li><strong>FunnelRAG</strong> - This paper presents a progressive retrieval paradigm with coarse-to-fine granularity for RAG, termed FunnelRAG. FunnelRAG achieves comparable retrieval performance while the time overhead is reduced by nearly 40 percent. <a href="https://arxiv.org/abs/2410.10293">Read more</a></li>
+    
+    <li><strong>CoFE-RAG</strong> - This paper presents CoFE-RAG, a Comprehensive Full-chain Evaluation framework to facilitate thorough evaluation across the entire RAG pipeline, including chunking, retrieval, reranking, and generation. CoFE-RAG provides unique insights into the effectiveness of RAG systems in handling diverse data scenarios. <a href="https://arxiv.org/abs/2410.12248">Read more</a></li>
+    
+    <li><strong>RAG-based Spelling Correction</strong> - This paper presents a RAG-based spelling correction approach for E-Commerce applications. In this approach, product names are retrieved from a catalog and incorporated into the context used by a large language model (LLM) that has been fine-tuned to do contextual spelling correction. Results show improvements in spelling correction utilizing the RAG framework beyond a stand-alone LLM. <a href="https://arxiv.org/abs/2410.11655">Read more</a></li>
+    
+    <li><strong>Multilingual RAG Benchmark (MIRAGE-Bench)</strong> - This paper introduces MIRAGE-Bench, a standardized arena-based multilingual RAG benchmark for 18 diverse languages on Wikipedia. The benchmark is constructed using MIRACL, a retrieval dataset, and extended for multilingual generation evaluation. Results show that proprietary and large open-source LLMs currently dominate in multilingual RAG. <a href="https://arxiv.org/abs/2410.13716">Read more</a></li>
+    
+    <li><strong>Assessing RAG Models for Health Chatbots</strong> - This paper presents an extensive assessment of 24 LLMs on real-world data collected from Indian patients interacting with a medical chatbot in Indian English and four other Indic languages. Results show that models vary significantly in their performance, instruction-tuned Indic models do not always perform well on Indic language queries, and factual correctness is generally lower for responses to Indic queries compared to English queries. <a href="https://arxiv.org/abs/2410.13671">Read more</a></li>
+    
+    <li><strong>Medical Multimodal RAG System</strong> - This paper presents MMed-RAG, a versatile multimodal RAG system, designed to enhance the factuality of Med-LVLMs. MMed-RAG can achieve an average improvement of 43.8% in the factual accuracy of Med-LVLMs. <a href="https://arxiv.org/abs/2410.13085">Read more</a></li>
+</ul>
+
 </div>
 
 <footer>
