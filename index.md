@@ -37,7 +37,7 @@ title: "My AI Notes"
    </ul>
   </div>
 
-  <div style="flex: 0 0 200px; margin-left: 20px;">
+  <div style="flex: 0 0 100px; margin-left: 20px;">
     <img src="IMG_8724.jpg" alt="AI Notes Image" style="max-width: 100%;">
   </div>
 
