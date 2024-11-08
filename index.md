@@ -16,28 +16,28 @@ title: "My AI Notes"
     <ul>
       <li>
         <a href="https://sprasadhpy.github.io/myAInotes/2024-10-14.html" style="font-size: 1.2em; font-weight: bold; color: #0056b3;">Curated List of RAG Papers</a> - October 14, 2024 
-        <span style="font-size: 0.85em;"> | Tags: <a href="/tags/AI-alignment">Generative AI</a></span>
+        <span style="font-size: 0.75em;"> | Tags: <a href="/tags/AI-alignment">Generative AI</a></span>
       </li>
       <li>
         <a href="https://sprasadhpy.github.io/myAInotes/2024-10-13.html" style="font-size: 1.2em; font-weight: bold; color: #0056b3;">Pareto Alignment via Preference Adaptation for LLMs</a> - October 13, 2024 
-        <span style="font-size: 0.85em;"> | Tags: <a href="/tags/AI-alignment">AI Alignment</a></span>
+        <span style="font-size: 0.75em;"> | Tags: <a href="/tags/AI-alignment">AI Alignment</a></span>
       </li>
       <li>
         <a href="https://sprasadhpy.github.io/myAInotes/2024-10-12.html" style="font-size: 1.2em; font-weight: bold; color: #0056b3;">Evaluator’s Reading List</a> - October 12, 2024 
-        <span style="font-size: 0.85em;"> | Tags: <a href="/tags/AI-alignment">AI Alignment</a></span>
+        <span style="font-size: 0.75em;"> | Tags: <a href="/tags/AI-alignment">AI Alignment</a></span>
       </li>
       <li>
         <a href="https://sprasadhpy.github.io/myAInotes/2024-10-10.html" style="font-size: 1.2em; font-weight: bold; color: #0056b3;">Intriguing Properties of NNs</a> - October 10, 2024 
-        <span style="font-size: 0.85em;"> | Tags: <a href="/tags/Deep-Learning">Deep Learning</a></span>
+        <span style="font-size: 0.75em;"> | Tags: <a href="/tags/Deep-Learning">Deep Learning</a></span>
       </li>
       <li>
         <a href="https://sprasadhpy.github.io/myAInotes/2024-10-09.html" style="font-size: 1.2em; font-weight: bold; color: #0056b3;">Beyond Preferences in AI Alignment</a> - October 09, 2024 
-        <span style="font-size: 0.85em;"> | Tags: <a href="/tags/AI-alignment">AI Alignment</a></span>
+        <span style="font-size: 0.75em;"> | Tags: <a href="/tags/AI-alignment">AI Alignment</a></span>
       </li>
     </ul>
   </div>
 
-  <div style="flex: 0 0 200px; margin-left: 20px;">
+  <div style="flex: 0 0 250px; margin-left: 20px;">
     <img src="IMG_8724.jpg" alt="AI Notes Image" style="max-width: 100%; width: 150px;">
   </div>
 
