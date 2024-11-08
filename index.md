@@ -13,7 +13,6 @@ title: "My AI Notes"
 If you enjoyed my notes, why not drop a ⭐ [here](https://github.com/sprasadhpy/myAInotes/tree/gh-pages)? After all,  a 🧠 from paleolithic times would appreciate some feedback!
 
 
-## Blog Posts
 
 
 
