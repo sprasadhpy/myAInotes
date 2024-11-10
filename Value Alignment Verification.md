@@ -35,6 +35,38 @@ Approximate and Heuristic Tests : To assess alignment when values are implicit a
 Generalized Setting :To test alignment in scenarios where both human and model values are implicit and not explicitly defined, ideal for complex or nuanced tasks.
 
 
+# Key Points from the Literature review: 
+
+
+Most traditional methods in value alignment focus on iteratively training agents to align with human intentions (Tk: How different is this from panacea). **Value alignment verification** differs in that it provides a testing approach rather than a training approach aiming to confirm alignment rather than gradually train the agent to align with human values ( do we make them aligned or just test it - clarify the goal) 
+
+## Comparison to Other Approaches
+
+1. **Cooperative Inverse Reinforcement Learning (CIRL)**
+   - CIRL treats value alignment as a cooperative game where a human and a robot maximize a shared rewar known only to the human.
+   -  CIRL and similar methods ensure convergence to human values over time but do not provide tools to verify if alignment has been achieved.
+
+2. **Inverse Reinforcement Learning (IRL) and Active Preference Learning** ( TK : both are different) 
+   -  IRL and active preference learning aim to learn a reward function that reflects human preferences, typically through demonstrations or preference queries.
+   -  Unlike IRL, which needs to infer an exact reward function, value alignment verification only confirms if two agents are aligned, without needing to know the reward function.
+   - Value alignment verification can be achieved with a constant number of queries, compared to the logarithmic number of queries required for active reward learning.
+   -  In cases where human values are implicit, active reward learning can be combined with value alignment verification to infer human values and use them to generate alignment tests ( TK: make it more interesting - our test allows to genrate unit tests ? - how to make it ) 
+
+3. **Machine Teaching**
+   - Machine teaching involves a teacher optimizing a minimal set of training data so a student can learn specific parameters.
+   - Value alignment verification is more of a testing approach, focusing on finding the minimal set of questions to verify if an agent’s learned model aligns with human values, rather than teaching the agent to learn specific parameters.
+
+4. **Policy Evaluation**
+   - Traditional policy evaluation estimates the return an agent would achieve under another policy, often requiring extensive sampling and data.
+   -This method simplifies the question to “Does the agent’s behavior align with human values?” making it more sample-efficient and practical for scenarios where explicit policies and reward functions are inaccessible.
+
+5. **Off-Policy Evaluation (OPE)**
+   -  OPE aims to evaluate policy returns without executing the policy itself though it often suffers from high variance and inefficiency.
+   - Value alignment verification is applicable even when reward functions and policies are implicit and can be checked with fewer samples, making it a more efficient alternative.
+
+(TK:  Value alignment verification focuses on developing a minimal, efficient test to confirm alignment between a human and an agent. It does not require exhaustive reward learning, teaching, or policy evaluation  making it practical for real-world scenarios where values may be implicit and only indirectly accessible.
+
+
 
 
 
