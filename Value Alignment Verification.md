@@ -1,12 +1,11 @@
-
 ### Summary 
 
 The paper **"Value Alignment Verification"** by Daniel S. Brown, Jordan Schneider, Anca D. Dragan, and Scott Niekum, published in the proceedings of the International Conference on Machine Learning (ICML) 2021, addresses the challenge of ensuring that autonomous agents operate in accordance with human values. The authors introduce the concept of a "driver's test" for agents, aiming to verify value alignment through a minimal number of queries.  
-<span style="color:red">**TK**</span>: value alignment and minimal number of queries. (Q: what are the other alignment techniques?)
+*TK*: value alignment and minimal number of queries. (Q: what are the other alignment techniques?)
 
 The study explores scenarios where humans have **explicit reward functions** and others where **values are implicit**. It also examines **exact value alignment** for rational agents and proposes heuristic and approximate tests across various environments, including gridworlds and autonomous driving domains. Interestingly, the authors establish conditions under which **exact and approximate alignment** can be verified across an infinite set of test environments with a **constant-query-complexity alignment test**.
 
-<span style="color:red">**TK**</span>: rational agents, explicit reward models, implicit values, exact and approximate alignment (what about irrational agents, implicit reward models, and explicit values?)
+*TK*: rational agents, explicit reward models, implicit values, exact and approximate alignment (what about irrational agents, implicit reward models, and explicit values?)
 
 This research contributes to the field of human-robot interaction by providing a framework for efficiently assessing whether an agent's behavior aligns with human expectations, thereby enhancing trust and safety in autonomous systems.
 
@@ -25,7 +24,7 @@ This research contributes to the field of human-robot interaction by providing a
 - Interestingly, the authors show that if the human can design the test environment, they can verify alignment across an infinite set of tasks (or Markov Decision Processes, MDPs) by observing the robot's actions in just two test environments.
 
   
-<span style="color:red">**TK**</span>: How approaches to verification can be used for the LLM settings:
+*TK*: How approaches to verification can be used for the LLM settings:
 
 Define Desired Values or Outcomes, Develop Prompts and Scenarios, Evaluate Responses (Scoring functions; for heuristic tests—analyze the consistency of responses across scenarios), Iterate.
 
@@ -36,7 +35,7 @@ Define Desired Values or Outcomes, Develop Prompts and Scenarios, Evaluate Respo
 
 # Key Points from the Literature Review:
 
-Most traditional methods in value alignment focus on iteratively training agents to align with human intentions (<span style="color:red">TK</span>: How different is this from panacea?). **Value alignment verification** differs in that it provides a testing approach rather than a training approach, aiming to confirm alignment rather than gradually train the agent to align with human values (<span style="color:red">do we make them aligned or just test it - clarify the goal</span>).
+Most traditional methods in value alignment focus on iteratively training agents to align with human intentions (*TK*: How different is this from panacea?). **Value alignment verification** differs in that it provides a testing approach rather than a training approach, aiming to confirm alignment rather than gradually train the agent to align with human values (*do we make them aligned or just test it - clarify the goal*).
 
 ## Comparison to Other Approaches
 
@@ -44,11 +43,11 @@ Most traditional methods in value alignment focus on iteratively training agents
    - CIRL treats value alignment as a cooperative game where a human and a robot maximize a shared reward known only to the human.
    - CIRL and similar methods ensure convergence to human values over time but do not provide tools to verify if alignment has been achieved.
 
-2. **Inverse Reinforcement Learning (IRL) and Active Preference Learning** (<span style="color:red">TK</span>: both are different)
+2. **Inverse Reinforcement Learning (IRL) and Active Preference Learning** (*TK*: both are different)
    - IRL and active preference learning aim to learn a reward function that reflects human preferences, typically through demonstrations or preference queries.
    - Unlike IRL, which needs to infer an exact reward function, value alignment verification only confirms if two agents are aligned, without needing to know the reward function.
    - Value alignment verification can be achieved with a constant number of queries, compared to the logarithmic number of queries required for active reward learning.
-   - In cases where human values are implicit, active reward learning can be combined with value alignment verification to infer human values and use them to generate alignment tests (<span style="color:red">TK</span>: make it more interesting - our test allows to generate unit tests? - how to make it)
+   - In cases where human values are implicit, active reward learning can be combined with value alignment verification to infer human values and use them to generate alignment tests (*TK*: make it more interesting - our test allows to generate unit tests? - how to make it)
 
 3. **Machine Teaching**
    - Machine teaching involves a teacher optimizing a minimal set of training data so a student can learn specific parameters.
@@ -62,13 +61,4 @@ Most traditional methods in value alignment focus on iteratively training agents
    - OPE aims to evaluate policy returns without executing the policy itself, though it often suffers from high variance and inefficiency.
    - Value alignment verification is applicable even when reward functions and policies are implicit and can be checked with fewer samples, making it a more efficient alternative.
 
-<span style="color:red">**TK**</span>: Value alignment verification focuses on developing a minimal, efficient test to confirm alignment between a human and an agent. It does not require exhaustive reward learning, teaching, or policy evaluation, making it practical for real-world scenarios where values may be implicit and only indirectly accessible.
-
-
-
-
-
-
-
-
-
+*TK*: Value alignment verification focuses on developing a minimal, efficient test to confirm alignment between a human and an agent. It does not require exhaustive reward learning, teaching, or policy evaluation, making it practical for real-world scenarios where values may be implicit and only indirectly accessible.
