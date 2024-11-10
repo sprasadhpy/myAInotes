@@ -47,7 +47,7 @@ Most traditional methods in value alignment focus on iteratively training agents
    - IRL and active preference learning aim to learn a reward function that reflects human preferences, typically through demonstrations or preference queries.
    - Unlike IRL, which needs to infer an exact reward function, value alignment verification only confirms if two agents are aligned, without needing to know the reward function.
    - Value alignment verification can be achieved with a constant number of queries, compared to the logarithmic number of queries required for active reward learning.
-   - In cases where human values are implicit, active reward learning can be combined with value alignment verification to infer human values and use them to generate alignment tests (*TK*: make it more interesting - our test allows to generate unit tests? - how to make it)
+   - In cases where human values are implicit, active reward learning can be combined with value alignment verification to infer human values and use them to generate alignment tests (*TK*: make it more interesting - our test allows to generate unit tests? - how to make it and still with 'C' number of queries )
 
 3. **Machine Teaching**
    - Machine teaching involves a teacher optimizing a minimal set of training data so a student can learn specific parameters.
