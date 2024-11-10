@@ -20,5 +20,26 @@ This research contributes to the field of human-robot interaction by providing a
   - **Exact Verification**: When both agents have clear, well-defined value functions, the authors show that value alignment can be verified through a straightforward test using reward, value, or trajectory preference queries.
   - **Approximate and Heuristic Tests**: In scenarios where only the human knows their reward function and seeks to test an agent with a black-box policy, heuristic methods are proposed to generate verification tests.
   - For cases where both the human and robot have implicit values, an approximate verification method is provided, particularly relevant in more complex environments like autonomous driving.
-
+ 
 - Interestingly, the authors show that if the human can design the test environment they can verify alignment across an infinite set of tasks (or Markov Decision Processes, MDPs) by observing the robot's actions in just two test environments.
+
+  
+**TK*** How approaches to verification can be used for the LLM settings : 
+
+Define Desired Values or Outcomes, Develop Prompts and Scenarios, Evaluate Responses (Scoring functions,For heuristic tests--- analyze the consistency of responses across scenarios),Iterate. 
+
+Exact Verification : Develop a set of specific, direct queries or prompts that correspond to known values or preferences.Responses are scored against a well-defined reward ( ???)  or scoring function that penalizes misaligned answers and rewards aligned responses.
+
+Approximate and Heuristic Tests : To assess alignment when values are implicit and the LLM operates as a “black-box”.Test alignment based on observed responses across a diverse range of scenarios and edge cases. These tests use heuristic evaluations rather than exact comparisons.
+
+Generalized Setting :To test alignment in scenarios where both human and model values are implicit and not explicitly defined, ideal for complex or nuanced tasks.
+
+
+
+
+
+
+
+
+
+
