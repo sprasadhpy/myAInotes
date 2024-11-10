@@ -8,3 +8,17 @@ The study explores scenarios where humans have **explicit reward functions** and
 **TK**: rational agents, explicit reward models, implicit values, exact and approximate alignment ( what about irrational agents, implicit reward models and explicit values) 
 
 This research contributes to the field of human-robot interaction by providing a framework for efficiently assessing whether an agent's behavior aligns with human expectations, thereby enhancing trust and safety in autonomous systems.
+
+
+# Key Points from the Introduction
+
+- Previous research often focused on indirect approaches—qualitative evaluations of trust or the agent’s gradual alignment via interactions.
+- Instead, this paper formally defines value alignment and seeks efficient, structured tests to verify it in cases where agents have learned a policy or reward function.
+- The paper distinguishes between scenarios where the human and robot’s values or reward functions are explicitly known (e.g., both can define their values) versus implicit, where values are harder to articulate and might involve sampling actions instead of directly stating preference.
+
+- **Approaches to Verification**:
+  - **Exact Verification**: When both agents have clear, well-defined value functions, the authors show that value alignment can be verified through a straightforward test using reward, value, or trajectory preference queries.
+  - **Approximate and Heuristic Tests**: In scenarios where only the human knows their reward function and seeks to test an agent with a black-box policy, heuristic methods are proposed to generate verification tests.
+  - For cases where both the human and robot have implicit values, an approximate verification method is provided, particularly relevant in more complex environments like autonomous driving.
+
+- Interestingly, the authors show that if the human can design the test environment they can verify alignment across an infinite set of tasks (or Markov Decision Processes, MDPs) by observing the robot's actions in just two test environments.
