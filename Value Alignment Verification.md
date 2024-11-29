@@ -1,3 +1,28 @@
+
+---
+layout: default
+title: "Value Alignment Verification"
+permalink: /value-alignment-verification/
+---
+
+# Value Alignment Verification
+
+This page explores advanced statistical and econometric methods for verifying value alignment in AI systems. Key methodologies include:
+
+### Topics Covered:
+- Generalized Method of Moments (GMM)
+- Likelihood Ratio Tests
+- Multivariate Analysis of Variance (MANOVA)
+- Instrumental Variable (IV) Regression
+- Structural Equation Modeling (SEM)
+
+## Applications
+Value alignment ensures AI systems adhere to human-centric principles. These methods allow precise testing and verification in dynamic, high-dimensional settings.
+
+Stay tuned for deeper dives into these topics and practical implementations.
+
+
+
 ### Summary 
 
 The paper **"Value Alignment Verification"** by Daniel S. Brown, Jordan Schneider, Anca D. Dragan, and Scott Niekum, published in the proceedings of the International Conference on Machine Learning (ICML) 2021, addresses the challenge of ensuring that autonomous agents operate in accordance with human values. The authors introduce the concept of a "driver's test" for agents, aiming to verify value alignment through a minimal number of queries.  
