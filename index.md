@@ -14,7 +14,7 @@ title: "My AI Notes"
 <h2 style="font-size: 1.5em; font-weight: bold; color: #333;">Blog Posts</h2>
 <ul>
     <li>
-        <a href="https://github.com/sprasadhpy/myAInotes/blob/gh-pages/Scaling_laws_cleaned.html" style="font-size: 1.2em; font-weight: bold; color: #0056b3;">Scaling Laws for Neural Language Models Summary</a> - December 1, 2024 
+        <a href="https://github.com/sprasadhpy/myAInotes/Scaling_laws_cleaned.html" style="font-size: 1.2em; font-weight: bold; color: #0056b3;">Scaling Laws for Neural Language Models Summary</a> - December 1, 2024 
         <span style="font-size: 0.65em;"> | Tags: <a href="/tags/Scaling Law" style="color: #0056b3;">Scaling Law</a></span>
     </li>
     <li>
