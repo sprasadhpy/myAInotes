@@ -14,6 +14,10 @@ title: "My AI Notes"
     <h2 style="font-size: 1.5em; font-weight: bold; color: #333;">Blog Posts</h2>
     <ul>
     <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/2024-10-15.html" style="font-size: 1.2em; font-weight: bold; color: #0056b3;">Scaling Laws for Neural Language Models summary </a> - Dec1, 2024 
+    <span style="font-size: 0.65em;"> | Tags: <a href="/tags/LLMs" style="color: #0056b3;">LLMs</a></span>
+</li>
+    <li>
         <a href="https://sprasadhpy.github.io/myAInotes/2024-10-15.html" style="font-size: 1.2em; font-weight: bold;       color: #0056b3;">Quantization of LLMs</a> - October 15, 2024 
         <span style="font-size: 0.65em;"> | Tags: <a href="/tags/LLMs" style="color: #0056b3;">LLMs</a></span>
     </li>
