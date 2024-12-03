@@ -11,13 +11,13 @@ title: "My AI Notes"
     Here, I document key insights and breakthroughs in deep learning and AI alignment research. Drawing from my experience in multi-agent AI, deep learning, and AI alignment, this blog explores the complexities of AI safety, the importance of alignment, and how GPU optimization accelerates deep learning models. Whether you're interested in solving the technical challenges of AI or improving model efficiency, you'll find content reflecting my ongoing research and practical experience in these fields.
 
     <p>If you enjoyed my notes, why not drop a ⭐ <a href="https://github.com/sprasadhpy/myAInotes/tree/gh-pages">here</a>? After all, a 🧠 from paleolithic times would appreciate some feedback!</p>
+    
 <h2 style="font-size: 1.5em; font-weight: bold; color: #333;">Blog Posts</h2>
 <ul>
     <li>
-    <a href="https://sprasadhpy.github.io/myAInotes/2024-12-03.html" style="font-size: 1.2em; font-weight: bold; color: #0056b3;">LLM Powered Autonomous Agents</a> - December 3, 2024
-    <span style="font-size: 0.65em;"> | Tags: <a href="/tags/LLM-agents" style="color: #0056b3;">LLM agents</a></span>
-</li>
-
+        <a href="https://sprasadhpy.github.io/myAInotes/2024-12-03.html" style="font-size: 1.2em; font-weight: bold; color: #0056b3;">LLM Powered Autonomous Agents</a> - December 3, 2024
+        <span style="font-size: 0.65em;"> | Tags: <a href="/tags/LLM-agents" style="color: #0056b3;">LLM agents</a></span>
+    </li>
     <li>
         <a href="https://sprasadhpy.github.io/myAInotes/Scaling_laws_cleaned.html" style="font-size: 1.2em; font-weight: bold; color: #0056b3;">Scaling Laws for Neural Language Models Summary</a> - December 1, 2024
         <span style="font-size: 0.65em;"> | Tags: <a href="/tags/Scaling-Law" style="color: #0056b3;">Scaling Law</a></span>
@@ -46,6 +46,8 @@ title: "My AI Notes"
         <a href="https://sprasadhpy.github.io/myAInotes/2024-10-09.html" style="font-size: 1.2em; font-weight: bold; color: #0056b3;">Beyond Preferences in AI Alignment</a> - October 9, 2024
         <span style="font-size: 0.65em;"> | Tags: <a href="/tags/AI-alignment" style="color: #0056b3;">AI Alignment</a></span>
     </li>
+</ul>
+
 </ul>
 
 <div style="flex: 0 0 200px; margin-left: 20px;">
