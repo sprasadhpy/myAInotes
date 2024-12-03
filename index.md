@@ -13,6 +13,9 @@ title: "My AI Notes"
     <p>If you enjoyed my notes, why not drop a ⭐ <a href="https://github.com/sprasadhpy/myAInotes/tree/gh-pages">here</a>? After all, a 🧠 from paleolithic times would appreciate some feedback!</p>
 <h2 style="font-size: 1.5em; font-weight: bold; color: #333;">Blog Posts</h2>
 <ul>
+   <li>
+        <a href="https://sprasadhpy.github.io/myAInotes/LLM_Powered_Autonomous_Agents-2.html" style="font-size: 1.2em; font-weight: bold; color: #0056b3;">LLM Powered Autonomous Agents</a> - December 3, 2024 
+    </li>
     <li>
         <a href="https://sprasadhpy.github.io/myAInotes/Scaling_laws_cleaned.html" style="font-size: 1.2em; font-weight: bold; color: #0056b3;">Scaling Laws for Neural Language Models Summary</a> - December 1, 2024 
         <span style="font-size: 0.65em;"> | Tags: <a href="/tags/Scaling Law" style="color: #0056b3;">Scaling Law</a></span>
