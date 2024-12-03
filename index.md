@@ -31,7 +31,7 @@ title: "My AI Notes"
             <span style="font-size: 0.8em;"> | Tags: <a href="/tags/Generative-AI" style="color: #0056b3;">Generative AI</a></span>
         </li>
         <li>
-            <a href="https://sprasadhpy.github.io/myAInotes/2024-10-13.html" style="font-size: 1em; font-weight: bold; color: #0056b3;">Pareto Alignment via Preference Adaptation for LLMs</a> - October 13, 2024
+            <a href="https://sprasadhpy.github.io/myAInotes/Panacea_new.html" style="font-size: 1em; font-weight: bold; color: #0056b3;">Pareto Alignment via Preference Adaptation for LLMs</a> - October 13, 2024
             <span style="font-size: 0.8em;"> | Tags: <a href="/tags/AI-alignment" style="color: #0056b3;">AI Alignment</a></span>
         </li>
         <li>
