@@ -10,15 +10,7 @@ title: "My AI Notes"
   <div style="flex: 1; margin-right: 20px;">
     Here, I document key insights and breakthroughs in deep learning and AI alignment research. Drawing from my experience in multi-agent AI, deep learning, and AI alignment, this blog explores the complexities of AI safety, the importance of alignment, and how GPU optimization accelerates deep learning models. Whether you're interested in solving the technical challenges of AI or improving model efficiency, you'll find content reflecting my ongoing research and practical experience in these fields.
 
-  <div style="display: flex; align-items: flex-start;">
-  <!-- Left Content -->
-  <div style="flex: 1; margin-right: 20px;">
-    Here, I document key insights and breakthroughs in deep learning and AI alignment research. Drawing from my experience in multi-agent AI, deep learning, and AI alignment, this blog explores the complexities of AI safety, the importance of alignment, and how GPU optimization accelerates deep learning models. Whether you're interested in solving the technical challenges of AI or improving model efficiency, you'll find content reflecting my ongoing research and practical experience in these fields.
 
- <div style="display: flex; align-items: flex-start;">
-  <!-- Left Content -->
-  <div style="flex: 1; margin-right: 20px;">
-    Here, I document key insights and breakthroughs in deep learning and AI alignment research. Drawing from my experience in multi-agent AI, deep learning, and AI alignment, this blog explores the complexities of AI safety, the importance of alignment, and how GPU optimization accelerates deep learning models. Whether you're interested in solving the technical challenges of AI or improving model efficiency, you'll find content reflecting my ongoing research and practical experience in these fields.
 
     <p>If you enjoyed my notes, why not drop a ⭐ <a href="https://github.com/sprasadhpy/myAInotes/tree/gh-pages">here</a>? After all, a 🧠 from paleolithic times would appreciate some feedback!</p>
     
