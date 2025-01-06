@@ -4,6 +4,7 @@ title: "My AI Notes"
 ---
 
 ##### Author: [Shyaam Prasadh](https://sprasadhpy.github.io)
+I work on Agents.
 
 <div style="display: flex; align-items: flex-start; font-size: 0.8em;">
   <!-- Left Content -->
