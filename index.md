@@ -52,6 +52,9 @@ I work on Agents.
             <a href="https://sprasadhpy.github.io/myAInotes/2024-10-09.html" style="font-size: 1em; font-weight: bold; color: #0056b3;">Beyond Preferences in AI Alignment</a> - October 9, 2024
             <span style="font-size: 0.8em;"> | Tags: <a href="/tags/AI-alignment" style="color: #0056b3;">AI Alignment</a></span>
         </li>
+         <li>
+        <a href="https://sprasadhpy.github.io/myAInotes/2025-04-01.html" style="font-size: 1em; font-weight: bold; color: #0056b3;">Investigation of R1 Zero like training</a> - April 1, 2025 <span style="font-size: 0.8em;"> | Tags: <a href="/tags/rl-training" style="color: #0056b3;">RL Training</a></span> </li>
+
     </ul>
   </div>
   
