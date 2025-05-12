@@ -16,6 +16,8 @@ I work on Agents.
     <h2 style="font-size: 1.2em; font-weight: bold; color: #333;">Blog Posts</h2>
     <ul>
      <li>
+        <a href="https://sprasadhpy.github.io/myAInotes/2025-05-12.html" style="font-size: 1em; font-weight: bold; color: #0056b3;">Faithful CoT</a> - May 12, 2025 <span style="font-size: 0.8em;"> | Tags: <a href="/tags/LLMs" style="color: #0056b3;">LLMs</a></span> </li>
+     <li>
         <a href="https://sprasadhpy.github.io/myAInotes/2025-05-03.html" style="font-size: 1em; font-weight: bold; color: #0056b3;">Much Ado About Proofing - DeepSeek Prover-V2- My Review</a> - May 03, 2025 <span style="font-size: 0.8em;"> | Tags: <a href="/tags/LLMs" style="color: #0056b3;">LLMs</a></span> </li>
     <li>
         <a href="https://sprasadhpy.github.io/myAInotes/2025:04:01.html" style="font-size: 1em; font-weight: bold; color: #0056b3;">Investigation of R1 Zero like training</a> - April 1, 2025 <span style="font-size: 0.8em;"> | Tags: <a href="/tags/rl-training" style="color: #0056b3;">RL Training</a></span> </li>
