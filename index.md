@@ -15,7 +15,10 @@ I work on Intelligent Agents.
 
    I am also Research Staff at UCL in Robotics under Prof. Simon Julier, where I work on language-guided robotic agents. As part of deepening my research understanding, I also write notes on 
    consciousness and related questions in AI
-   
+
+   **Update: March 18, 2025**  
+   My current project focuses on LLM-based robot policies ([GR00TKUKA project](https://sprasadhpy.github.io/gr00tkuka-groot-trajectory-compression/)).
+
 
     <p>If you enjoyed my notes, why not drop a ⭐ <a href="https://github.com/sprasadhpy/myAInotes/tree/gh-pages">here</a>? After all, a 🧠 from paleolithic times would appreciate some feedback!</p>
     
