@@ -15,7 +15,7 @@ I work on Intelligent Conversational Agents.
    technical challenges of AI, improving post-training efficiency, or scaling models for real-world impact, you'll find content reflecting my ongoing research and practical experience in these fields.     </p>
    <p>
    I am also Research Staff at UCL in Robotics under Prof. Simon Julier where I work on language-guided robotic agents. As part of deepening my research understanding, I also write notes on 
-   consciousness and related questions in AI </p>
+   consciousness and language instinct </p>
 
 
     <p>If you enjoyed my notes, why not drop a ⭐ <a href="https://github.com/sprasadhpy/myAInotes/tree/gh-pages">here</a>? After all, a 🧠 from paleolithic times would appreciate some feedback!</p>
