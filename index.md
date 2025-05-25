@@ -4,7 +4,7 @@ title: "My AI Notes"
 ---
 
 ##### Author: [Shyaam Prasadh](https://sprasadhpy.github.io)
-I work on Intelligent Agents.
+I work on Intelligent Conversational Agents.
 
 <div style="display: flex; align-items: flex-start; font-size: 0.8em;">
   <!-- Left Content -->
