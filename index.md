@@ -9,13 +9,13 @@ I work on Intelligent Conversational Agents.
 <div style="display: flex; align-items: flex-start; font-size: 0.8em;">
   <!-- Left Content -->
   <div style="flex: 1; margin-right: 20px;">
+    <p>
    Here, I document key insights and breakthroughs in reinforcement learning, post-training LLM techniques, compute efficiency in LLMs, and grounding LLMs in robotics and finance. Drawing from my     
    experience in multi-agent AI, deep learning, and large language models, this blog explores the complexities of building intelligent agents across domains. Whether you're interested in solving the 
-   technical challenges of AI, improving post-training efficiency, or scaling models for real-world impact, you'll find content reflecting my ongoing research and practical experience in these fields.
-
-  <div style="flex: 1; margin-right: 20px;">
+   technical challenges of AI, improving post-training efficiency, or scaling models for real-world impact, you'll find content reflecting my ongoing research and practical experience in these fields.     </p>
+   <p>
    I am also Research Staff at UCL in Robotics under Prof. Simon Julier where I work on language-guided robotic agents. As part of deepening my research understanding, I also write notes on 
-   consciousness and related questions in AI
+   consciousness and related questions in AI </p>
 
 
     <p>If you enjoyed my notes, why not drop a ⭐ <a href="https://github.com/sprasadhpy/myAInotes/tree/gh-pages">here</a>? After all, a 🧠 from paleolithic times would appreciate some feedback!</p>
