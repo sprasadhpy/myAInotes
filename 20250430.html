@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Why Multi-Agent LLM Systems Fail - MAST Explained</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 2rem; color: #333; }
+        h1, h2, h3 { color: #222; }
+        h1 { font-size: 2em; }
+        h2 { font-size: 1.5em; margin-top: 1.5em; }
+        h3 { font-size: 1.2em; margin-top: 1em; }
+        p, li { margin-bottom: 0.75em; }
+        code { background-color: #f4f4f4; padding: 0.2em 0.4em; }
+        ul { padding-left: 1.5em; }
+    </style>
+</head>
+<body>
+
+<h1>Why Do Multi-Agent LLM Systems Fail? Lessons from MAST and How They Show Up in Finance</h1>
+
+<p>Multi-agent systems built on large language models (LLMs) are evolving fast. They are showing up in productivity tools, autonomous simulations, and increasingly, in financial applications from portfolio construction to trade execution.</p>
+
+<p>But anyone who has built or evaluated these systems knows the truth: they fail—and not just occasionally, but in ways that are subtle, unpredictable, and frustrating.</p>
+
+<p>Recently, I came across a paper that finally gave structure to this chaos: <strong>“Why Do Multi-Agent LLM Systems Fail?”</strong> The authors introduce MAST, the Multi-Agent System Failure Taxonomy—a detailed framework that breaks down why multi-agent systems go wrong, not just how.</p>
+
+<h2>What Is MAST?</h2>
+
+<p>MAST is the first empirically grounded taxonomy designed to classify failure modes in multi-agent LLM systems. It is based on the analysis of seven frameworks across more than 200 tasks, annotated by experts with high agreement (Cohen’s κ = 0.88). To scale, the team developed an LLM-as-a-Judge evaluator to detect these failures automatically.</p>
+
+<p>It groups failures into three categories, with 14 specific failure types:</p>
+<ol>
+    <li>Specification Issues</li>
+    <li>Inter-Agent Misalignment</li>
+    <li>Task Verification Failures</li>
+</ol>
+
+<h2>MAST Failure Categories With Financial Agent Examples</h2>
+
+<h3>1. Specification Issues (System Design)</h3>
+<ul>
+    <li><strong>Disobey Task Specification (10.98%)</strong><br>Example: A risk control agent is supposed to maintain portfolio volatility below 5 percent but instead it just checks total returns. Cause: The task specification was too ambiguous.</li>
+    <li><strong>Disobey Role Specification (0.50%)</strong><br>Example: A research agent designed to output signals begins executing trades. Cause: Role boundaries were not clearly enforced.</li>
+    <li><strong>Step Repetition (17.14%)</strong><br>Example: The agent re-runs the same backtest multiple times, thinking each is novel. Cause: It forgets previous steps due to stateless design.</li>
+    <li><strong>Loss of Conversation History (3.33%)</strong><br>Example: The execution agent forgets a critical warning from the risk monitor issued two turns ago. Cause: Context window limitations or no memory persistence.</li>
+    <li><strong>Unaware of Termination Conditions (0.5%)</strong><br>Example: An optimization loop keeps tuning after hitting target Sharpe or budget. Cause: Termination logic was not built in.</li>
+</ul>
+
+<h3>2. Inter-Agent Misalignment (Agent Coordination)</h3>
+<ul>
+    <li><strong>Conversation Reset (9.82%)</strong><br>Example: An agent drops the shared portfolio state during a thread reset. Cause: No persistent context tracking between agents.</li>
+    <li><strong>Fail to Ask for Clarification (2.33%)</strong><br>Example: An alpha model sees conflicting signals but makes assumptions instead of checking with peers. Cause: Lacks clarification behavior or fallbacks.</li>
+    <li><strong>Task Derailment (11.65%)</strong><br>Example: A research agent tasked with ranking assets instead starts summarizing financial news. Cause: Goal drift due to open-ended prompting.</li>
+    <li><strong>Information Withholding (7.15%)</strong><br>Example: A macro agent learns about CPI shocks but does not inform the execution agent. Cause: No enforced communication channels or triggers.</li>
+    <li><strong>Ignored Other Agent’s Input (1.66%)</strong><br>Example: The rebalancer ignores the risk alert from a volatility watchdog. Cause: Agents do not cross-validate each other’s outputs.</li>
+    <li><strong>Reasoning-Action Mismatch (13.98%)</strong><br>Example: An agent says TSLA is overpriced, then proceeds to recommend buying it. Cause: Reasoning and action generation are out of sync.</li>
+</ul>
+
+<h3>3. Task Verification Failures (Quality Control)</h3>
+<ul>
+    <li><strong>Premature Termination (0.17%)</strong><br>Example: The entire agent pipeline halts after data cleaning—no signals, no evaluation. Cause: False signal of task completion.</li>
+    <li><strong>No or Incomplete Verification (6.82%)</strong><br>Example: The strategy gets deployed without checking backtest results. Cause: No human-in-the-loop or final checklist.</li>
+    <li><strong>Incorrect Verification (7.82%)</strong><br>Example: An LLM agent marks a failed trade plan as successful due to a wrong PnL calculation. Cause: Incorrect metric interpretation.</li>
+</ul>
+
+<h2>Why MAST Matters in Financial Multi-Agent Systems</h2>
+
+<p>In finance, failure is not just an inconvenience—it is a risk. Poor coordination between a signal generator and execution agent can lead to real losses. The lack of verification can mean faulty strategies go live. MAST gives us:</p>
+<ul>
+    <li>Systematic debugging tools</li>
+    <li>Clear failure taxonomies to refine design</li>
+    <li>Agent-level evaluation mechanisms</li>
+    <li>Shared language for cross-functional teams</li>
+</ul>
+
+<h2>Going Forward: What I am Applying</h2>
+
+<p>Inspired by MAST, here is what I am starting to do in my own financial multi-agent workflows:</p>
+<ul>
+    <li>Add role validation at every step</li>
+    <li>Use summarization agents to retain cross-agent memory</li>
+    <li>Build peer review agents to validate each output</li>
+    <li>Adopt the LLM-as-a-Judge method for automated evaluation</li>
+</ul>
+
+<h2>Final Thoughts</h2>
+
+<p>MAST does not just explain why LLM agents fail—it gives us tools to build smarter. If you are designing LLM agents for high-stakes applications like trading, portfolio management, or risk analysis, this taxonomy is a must-know. It helped me turn chaos into structure, and that is the first step toward reliable, scalable AI systems.</p>
+
+</body>
+</html>
