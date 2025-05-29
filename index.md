@@ -27,13 +27,13 @@ I work on Intelligent Conversational Agents and Language Guided Robots.
         <a href="https://sprasadhpy.github.io/myAInotes/2025-05-03.html" style="font-size: 1em; font-weight: bold; color: #0056b3;">Much Ado About Proofing - DeepSeek Prover-V2- My Review</a> - May 03, 2025 <span style="font-size: 0.8em;"> | Tags: <a href="/tags/LLMs" style="color: #0056b3;">LLMs</a></span> </li>
       <li>
         <a href="https://sprasadhpy.github.io/myAInotes/20250430.html" style="font-size: 1em; font-weight: bold; color: #0056b3;">Why Do Multi-Agent LLM Systems Fail - Lessons for Fin-Agents </a> - 
-        April 30, 2025 <span style="font-size: 0.8em;"> | Tags: <a href="/tags/LLMs" style="color: #0056b3;">LLMs</a></span> </li>
+        April 30, 2025 <span style="font-size: 0.8em;"> | Tags: <a href="/tags/LLMs" style="color: #0056b3;">Agents</a></span> </li>
     
     <li>
 
-    li>
-        <a href="https://sprasadhpy.github.io/myAInotes/KnowSelf_Summary.html" style="font-size: 1em; font-weight: bold; color: #0056b3;">Agentic Self-Awareness </a> - 
-        April 15, 2025 <span style="font-size: 0.8em;"> | Tags: <a href="/tags/LLMs" style="color: #0056b3;">LLMs</a></span> </li>
+    <li>
+        <a href="https://sprasadhpy.github.io/myAInotes/KnowSelf_Summary.html" style="font-size: 1em; font-weight: bold; color: #0056b3;">Agentic           Self-Awareness </a> - 
+        April 15, 2025 <span style="font-size: 0.8em;"> | Tags: <a href="/tags/LLMs" style="color: #0056b3;">Agents</a></span> </li>
     
     <li>
         <a href="https://sprasadhpy.github.io/myAInotes/2025:04:01.html" style="font-size: 1em; font-weight: bold; color: #0056b3;">Investigation of R1 Zero like training</a> - April 1, 2025 <span style="font-size: 0.8em;"> | Tags: <a href="/tags/rl-training" style="color: #0056b3;">RL Training</a></span> </li>
@@ -45,7 +45,7 @@ I work on Intelligent Conversational Agents and Language Guided Robots.
 
         <li>
             <a href="https://sprasadhpy.github.io/myAInotes/2024-12-03.html" style="font-size: 1em; font-weight: bold; color: #0056b3;">LLM Powered Autonomous Agents</a> - December 3, 2024
-            <span style="font-size: 0.8em;"> | Tags: <a href="/tags/LLM-agents" style="color: #0056b3;">LLM agents</a></span>
+            <span style="font-size: 0.8em;"> | Tags: <a href="/tags/LLM-agents" style="color: #0056b3;">Agents</a></span>
         </li>
         <li>
             <a href="https://sprasadhpy.github.io/myAInotes/2024-12-01.html" style="font-size: 1em; font-weight: bold; color: #0056b3;">Scaling Laws Summary</a> - December 1, 2024
