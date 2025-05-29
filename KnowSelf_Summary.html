@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KnowSelf: Agentic Knowledgeable Self-awareness</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+        h1, h2, h3 { color: #2c3e50; }
+        pre { background-color: #f4f4f4; padding: 10px; border-left: 3px solid #ccc; overflow-x: auto; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #e8e8e8; }
+    </style>
+</head>
+<body>
+
+<h1>KnowSelf: Agentic Knowledgeable Self-awareness</h1>
+<p><strong>Authors:</strong> Shuofei Qiao et al. (2024)</p>
+
+<h2>Goal</h2>
+<p>Build an LLM-based agent that can recognize what kind of thinking is needed, reason better with self-awareness, and use memory, reflection, and learning from mistakes.</p>
+
+<h2>1. Agent Design: Modular Thinking System</h2>
+<table>
+<tr><th>Mode</th><th>Definition</th><th>Implementation</th></tr>
+<tr><td>Fast Thinking (FT)</td><td>Intuitive, immediate response</td><td>Direct LLM generation</td></tr>
+<tr><td>Slow Thinking (ST)</td><td>Deliberative, multi-step reasoning</td><td>Chain-of-Thought, self-consistency</td></tr>
+<tr><td>Knowledgeable Thinking (KT)</td><td>Reasoning supported by memory</td><td>Retrieve + Reason</td></tr>
+</table>
+
+<h2>2. Meta-Cognition Module</h2>
+<p>A learned controller &pi;<sub>meta</sub> decides which cognitive strategy to use given a current situation h<sub>t</sub>.</p>
+<pre>&pi;<sub>meta</sub>(h<sub>t</sub>) → {FT, ST, KT}</pre>
+
+<h2>3. Two-Stage Training Process</h2>
+
+<h3>Stage 1: Supervised Fine-Tuning (SFT)</h3>
+<pre>L<sub>SFT</sub> = -E<sub>(h<sub>t</sub>, y) ~ D<sub>self</sub></sub> log &pi;<sub>&theta;</sub>(y | h<sub>t</sub>)</pre>
+
+<h3>Stage 2: Learning Self-Awareness via Offline DPO</h3>
+
+<h4>Step 1: Build D<sub>pair</sub> from self-exploration</h4>
+<ul>
+<li>Record correct y and predicted y<sub>p</sub></li>
+</ul>
+
+<h4>Step 2: DPO Loss</h4>
+<pre>
+L<sub>DPO</sub> = -E<sub>(h<sub>t</sub>, y, y<sub>p</sub>) ~ D<sub>pair</sub></sub> 
+[ log ( &pi;<sub>&theta;</sub>(y | h<sub>t</sub>) / &pi;<sub>&theta;</sub>(y<sub>p</sub> | h<sub>t</sub>) ) *
+  ( &beta; log &pi;<sub>ref</sub>(y | h<sub>t</sub>) - &beta; log &pi;<sub>ref</sub>(y<sub>p</sub> | h<sub>t</sub>) ) ]
+</pre>
+
+<h4>Step 3: Add Normalized NLL</h4>
+<pre>L<sub>NLL</sub> = -E<sub>(h<sub>t</sub>, y) ~ D<sub>pair</sub></sub> (1 / |y|) log &pi;<sub>&theta;</sub>(y | h<sub>t</sub>)</pre>
+
+<h4>Final Loss</h4>
+<pre>L<sub>RPO</sub> = L<sub>DPO</sub> + &alpha; L<sub>NLL</sub></pre>
+
+<h2>4. Memory and Reflection Integration</h2>
+<p>KT mode uses vector search over episodic memory and integrates retrieved content into prompt.</p>
+
+<h2>5. Empirical Evaluation</h2>
+<h3>Environments</h3>
+<ul>
+<li>ALFWorld (embodied task planning)</li>
+<li>ScienceWorld (multi-hop QA)</li>
+</ul>
+
+<h3>Key Results</h3>
+<table>
+<tr><th>Model</th><th>ALFWorld Success</th><th>ScienceWorld Accuracy</th><th>Reflection</th></tr>
+<tr><td>Base LLM</td><td>54.1%</td><td>63.4%</td><td>No</td></tr>
+<tr><td>CoT + Reflection</td><td>58.9%</td><td>67.0%</td><td>Moderate</td></tr>
+<tr><td>KnowSelf</td><td>64.6%</td><td>71.9%</td><td>Strong</td></tr>
+<tr><td>Ablation (no KT)</td><td>-10%</td><td>-8%</td><td>Weak</td></tr>
+</table>
+
+<h2>Contributions</h2>
+<ul>
+<li>Modular cognitive reasoning: FT, ST, KT</li>
+<li>Self-generated contrastive learning from incorrect decisions</li>
+<li>Offline preference optimization (DPO)</li>
+<li>Improved efficiency, accuracy, and agentic behavior</li>
+</ul>
+
+</body>
+</html>
