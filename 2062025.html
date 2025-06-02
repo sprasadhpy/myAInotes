@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teaching Language Models to Think for Themselves: Inside INTUITOR and RLIF</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            margin: 2rem auto;
+            max-width: 800px;
+            padding: 0 1rem;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #222;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: Consolas, monospace;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            overflow-x: auto;
+            border-radius: 5px;
+        }
+        blockquote {
+            border-left: 4px solid #ccc;
+            margin-left: 0;
+            padding-left: 1rem;
+            color: #666;
+        }
+        hr {
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1><strong>Teaching Language Models to Think for Themselves: Inside INTUITOR and Reinforcement Learning from Internal Feedback (RLIF)</strong></h1>
+<p><em>June 2025</em></p>
+<hr>
+
+<h2>Introduction</h2>
+<p>Training large language models (LLMs) to reason is one of the most exciting and difficult frontiers in AI. Traditional methods rely on external rewards: human preference models (RLHF) or task-specific correctness checks (RLVR). But what if models could learn directly from their own internal confidence, without any supervision? That’s the promise of INTUITOR, a new method built on Reinforcement Learning from Internal Feedback (RLIF).</p>
+<p>In this blog, we’ll explore the key ideas behind INTUITOR, how it works, why self-certainty is a powerful intrinsic signal, and what this tells us about the future of autonomous reasoning in language models.</p>
+
+<hr>
+
+<h2>The Problem with External Rewards</h2>
+<p>LLMs fine-tuned with RL typically rely on:</p>
+<ul>
+    <li><strong>RLHF</strong> (Reinforcement Learning from Human Feedback), where models are optimized to match a learned human reward function.</li>
+    <li><strong>RLVR</strong> (Reinforcement Learning with Verifiable Rewards), where tasks like math or code are rewarded if the output matches a correct answer or passes a test.</li>
+</ul>
+<p>But both approaches are expensive and domain-limited. RLHF requires large-scale human annotations and is prone to reward hacking. RLVR needs gold answers or executable test cases, which aren’t available for many open-ended or creative tasks.</p>
+
+<hr>
+
+<h2>Enter RLIF: Reinforcement Learning from Internal Feedback</h2>
+<p>RLIF is a new paradigm where the reward doesn’t come from an external oracle, but from the model itself. Specifically, it uses <em>intrinsic signals</em> like prediction confidence, entropy, or semantic coherence.</p>
+<p>INTUITOR is the first major implementation of RLIF using <strong>self-certainty</strong> as the only reward signal.</p>
+
+<hr>
+
+<h2>What is Self-Certainty?</h2>
+<p>Self-certainty measures how confident a model is in its next-token predictions. Formally, it is defined as the average KL divergence between a uniform distribution over the vocabulary and the model's predicted distributions at each token:</p>
+<pre><code>Self-certainty(o|q) = (1/|o|) ∑ₜ KL(U || pₜ(·|q, o&lt;t))</code></pre>
+<p>This metric rewards outputs where the model is highly certain about each step and is robust to biases that affect other measures like entropy or perplexity.</p>
+
+<hr>
+
+<h2>Training with INTUITOR</h2>
+<p>INTUITOR uses Group Relative Policy Optimization (GRPO) to turn self-certainty into a usable advantage signal. For each query, it samples a group of completions, scores them with self-certainty, and normalizes these scores to produce advantages.</p>
+
+<pre><code>J_GRPO(θ) = E[ (1/G) ∑ᵢ (1/|oᵢ|) ∑ₜ min(cᵢₜ * Âᵢₜ, clip(cᵢₜ, 1-ε, 1+ε) * Âᵢₜ) ] - β KL(πθ || πref)</code></pre>
+
+<ul>
+    <li><code>cᵢₜ(θ) = πθ(oᵢₜ|q, oᵢ,&lt;t) / π_old(oᵢₜ|q, oᵢ,&lt;t)</code></li>
+    <li><code>Âᵢₜ</code> is the advantage</li>
+    <li><code>ε, β</code> are hyperparameters</li>
+</ul>
+
+<h3>Integration of Self-Certainty</h3>
+<p>External rewards are replaced with normalized self-certainty scores:</p>
+<pre><code>Âᵢₜ = (uᵢ - mean(u₁,...,uG)) / std(u₁,...,uG), where uᵢ = Self-certainty(oᵢ | q)</code></pre>
+
+<p>Alternate expression:</p>
+<pre><code>Self-certainty(o|q) = (1 / |o|·|V|) ∑ᵢ ∑ⱼ log(|V| · pθ(j | q, o&lt;i))</code></pre>
+
+<hr>
+
+<h2>Emergent Behaviors: Reasoning Before Answering</h2>
+<p>Models trained with INTUITOR begin to develop <em>pre-answer reasoning</em>. For instance, on code generation tasks, they start by explaining their logic in natural language before outputting code — even when not prompted to. This behavior grows over time and helps the model build more understandable and robust answers. On LiveCodeBench, for example, outputs transition from raw code to natural language reasoning followed by JSON or structured responses.</p>
+
+<hr>
+
+<h2>Avoiding Reward Hacking</h2>
+<p>When rewards are computed from a frozen model (offline self-certainty), models may exploit the reward signal by inserting already-solved answers or inflating length. However, INTUITOR avoids this by computing rewards from the evolving policy (online self-certainty), ensuring training stability and mitigating over-optimization risks.</p>
+
+<hr>
+
+<h2>Results and Insights</h2>
+<p>INTUITOR matches or outperforms GRPO on:</p>
+<ul>
+    <li><strong>Math reasoning</strong> (MATH500, GSM8K)</li>
+    <li><strong>Code generation</strong> (CRUXEval, LiveCodeBench)</li>
+    <li><strong>Instruction following</strong> (AlpacaEval 2.0)</li>
+</ul>
+
+<p>It also shows higher confidence and better separation between correct and incorrect answers, as confirmed by Mann–Whitney U tests. Additionally, ablation studies show that tuning the KL penalty is key for ensuring performance, especially in out-of-domain tasks like code generation and reasoning benchmarks.</p>
+
+<hr>
+
+<h2>Additional Findings</h2>
+
+<h3>Rapid Initial Learning</h3>
+<p>INTUITOR enables faster early-stage learning by providing token-level continuous feedback. As early as training step 10, INTUITOR-trained models outperform GRPO across GSM8K and MATH for both Qwen2.5-1.5B and Qwen2.5-3B. This demonstrates its advantage in learnability without sacrificing final performance.</p>
+
+<h3>Cross-Task Generalization</h3>
+<p>Training with INTUITOR leads to generalization from MATH to out-of-domain tasks like LiveCodeBench. Performance on LiveCodeBench continues to improve even after MATH accuracy plateaus, showing the transfer benefits of structured reasoning learned via self-certainty.</p>
+
+<h3>Emergence of Long-Form Reasoning</h3>
+<p>Self-certainty helps models generate more self-explanatory traces over time. On CRUXEval and LiveCodeBench, INTUITOR models first reduce invalid code, then add reasoning and structure. This behavior emerges naturally, even without explicit reward supervision for it.</p>
+
+<hr>
+
+<h2>Conclusion: Toward Self-Aware AI Systems</h2>
+<p>INTUITOR is a step toward a future where LLMs learn to <strong>understand and refine their own thoughts</strong>. By leveraging internal feedback instead of external labels, it unlocks scalable reasoning in under-supervised domains.</p>
+
+<p>That said, self-certainty is not a silver bullet. It can lead to overconfidence, saturation, or bias toward short, high-certainty answers. It’s best used alongside semantic filters or hybrid reward strategies.</p>
+
+<p><strong>INTUITOR shows us that models don’t just need to answer — they need to believe in their answers too.</strong></p>
+
+</body>
+</html>
