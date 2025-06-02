@@ -23,6 +23,7 @@ I work on Intelligent Conversational Agents and Language-Guided Robots.
 
     <h2 style="font-size: 1.2em; font-weight: bold; color: #333;">Blog Posts</h2>
     <ul>
+    <li><a href="https://sprasadhpy.github.io/myAInotes/2062025.html">Reasoning via Internal Rewards</a> – June2, 2025 <span>| Tags: <a href="/tags/LLMs">LLMs</a></span></li>
       <li><a href="https://sprasadhpy.github.io/myAInotes/2025-05-12.html">Faithful CoT</a> – May 12, 2025 <span>| Tags: <a href="/tags/LLMs">LLMs</a></span></li>
       <li><a href="https://sprasadhpy.github.io/myAInotes/2025-05-03.html">Much Ado About Proofing – DeepSeek Prover-V2 – My Review</a> – May 03, 2025 <span>| Tags: <a href="/tags/LLMs">LLMs</a></span></li>
       <li><a href="https://sprasadhpy.github.io/myAInotes/20250430.html">Why Do Multi-Agent LLM Systems Fail – Lessons for Fin-Agents</a> – April 30, 2025 <span>| Tags: <a href="/tags/LLMs">Agents</a></span></li>
