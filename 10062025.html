@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empowering Models to Learn How to Learn: A Deep Dive into MAML, FOMAML, and Reptile</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; max-width: 800px; }
+        h1, h2, h3 { color: #333; }
+        pre { background: #f4f4f4; padding: 10px; overflow-x: auto; }
+        code { background: #f4f4f4; padding: 2px 4px; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Empowering Models to Learn How to Learn: A Deep Dive into MAML, FOMAML, and Reptile</h1>
+
+    <p>In the ever-evolving landscape of machine learning, one of the most exciting frontiers is <strong>meta-learning</strong>—the art of teaching models not just to solve tasks, but to quickly adapt to new tasks with minimal data. In this long-form blog post, we’ll explore three influential algorithms in this domain:</p>
+    <ul>
+        <li><strong>MAML (Model-Agnostic Meta-Learning)</strong></li>
+        <li><strong>FOMAML (First-Order MAML)</strong></li>
+        <li><strong>Reptile</strong></li>
+    </ul>
+    <p>Along the way, we’ll revisit the key questions that arose during our discussion, unpack ablation studies, and point you to the seminal papers that introduced these methods.</p>
+
+    <h2>Table of Contents</h2>
+    <ol>
+        <li><a href="#the-meta-learning-challenge">The Meta-Learning Challenge</a></li>
+        <li><a href="#maml-learning-a-good-initialization">MAML: Learning a Good Initialization</a>
+            <ol>
+                <li><a href="#algorithm-overview-supervised">Algorithm Overview (Supervised)</a></li>
+                <li><a href="#inner-loop-vs-outer-loop">Inner Loop vs Outer Loop</a></li>
+                <li><a href="#ablation-studies-and-insights">Ablation Studies and Insights</a></li>
+            </ol>
+        </li>
+        <li><a href="#fomaml-first-order-approximation">FOMAML: First-Order Approximation</a>
+            <ol>
+                <li><a href="#why-skip-second-order-gradients">Why Skip Second-Order Gradients?</a></li>
+                <li><a href="#outer-loop-update-in-fomaml">Outer Loop Update in FOMAML</a></li>
+            </ol>
+        </li>
+        <li><a href="#reptile-a-simpler-alternative">Reptile: A Simpler Alternative</a>
+            <ol>
+                <li><a href="#sgd-inner-loop">SGD Inner Loop</a></li>
+                <li><a href="#meta-update-via-vector-difference">Meta-Update via Vector Difference</a></li>
+            </ol>
+        </li>
+        <li><a href="#frequently-asked-questions">Frequently Asked Questions</a></li>
+        <li><a href="#papers-and-further-reading">Papers and Further Reading</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+    </ol>
+
+    <h2 id="the-meta-learning-challenge">The Meta-Learning Challenge</h2>
+    <p>Traditional supervised learning trains a model on a large, fixed dataset and then evaluates it on held-out data. But in many real-world scenarios—medical diagnosis, robotics, personalization—we need models that can <strong>adapt rapidly</strong> when faced with a <strong>new task</strong> and only a handful of labeled examples. This is the realm of <strong>few-shot learning</strong>, and <strong>meta-learning</strong> offers a principled way to achieve it.</p>
+    <p>At its heart, meta-learning asks: <em>Can we learn a learning procedure?</em> Instead of just optimizing a model to perform well on one task, we optimize it so that <strong>fine-tuning</strong> on new tasks is quick and effective.</p>
+
+    <h2 id="maml-learning-a-good-initialization">MAML: Learning a Good Initialization</h2>
+    <p>Introduced by Finn et al. (2017) in <em>“Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks”</em> (<a href="https://arxiv.org/pdf/1703.03400">arXiv:1703.03400</a>), MAML is one of the most popular meta-learning methods. It is “model-agnostic” because it can be applied to any differentiable model—classification, regression, or even reinforcement learning.</p>
+    <h3 id="algorithm-overview-supervised">Algorithm Overview (Supervised)</h3>
+    <pre><code>1. Random Initialization: Start with parameters θ.
+2. Sample Tasks: Draw a batch of tasks T_i ∼ p(T), each with its own small support set (K-shot) and query set.
+3. Inner Loop (Adaptation):
+   θ'_i = θ - α ∇_θ L_T_i^train(θ)
+   (Few gradient steps on each task’s support set.)
+4. Outer Loop (Meta-Update):
+   Evaluate L_T_i^val(θ'_i) on query sets.
+   θ = θ - β ∇_θ Σ_i L_T_i^val(θ'_i)
+   (Backprop through inner loop; second-order gradients.)
+</code></pre>
+    <h3 id="inner-loop-vs-outer-loop">Inner Loop vs Outer Loop</h3>
+    <p><strong>Inner loop</strong>: Task-specific fine-tuning (few-shot learning).<br>
+    <strong>Outer loop</strong>: Meta-optimization to improve the starting point θ for all tasks.</p>
+
+    <h3 id="ablation-studies-and-insights">Ablation Studies and Insights</h3>
+    <p>In Section 5.4 of the MAML paper, the authors ran ablations to test:</p>
+    <ul>
+        <li><strong>Pretraining Only</strong> (no meta-update): Can you just pretrain on all tasks and then fine-tune? No, MAML’s meta-update yields significantly better initializations.</li>
+        <li><strong>Training from Scratch</strong>: How does a model trained only on the new task (with K examples) perform? Quite poorly compared to MAML.</li>
+        <li><strong>No Inner Update</strong>: If you skip the task-specific adaptation, does the initialization alone suffice? Again, no—the inner loop is crucial.</li>
+    </ul>
+    <p>They demonstrated on Omniglot and Mini-ImageNet that MAML consistently outperforms these alternatives, confirming the power of learning to learn.</p>
+
+    <h2 id="fomaml-first-order-approximation">FOMAML: First-Order Approximation</h2>
+    <p>While MAML is elegant, the need for <strong>second-order derivatives</strong> can be computationally heavy. Enter <strong>First-Order MAML (FOMAML)</strong>, proposed by Nichol et al. (2018).</p>
+    <h3 id="why-skip-second-order-gradients">Why Skip Second-Order Gradients?</h3>
+    <ul>
+        <li>Second-order terms add both computation time and memory overhead.</li>
+        <li>Empirically, omitting them (i.e., <strong>not backpropagating through the inner loop</strong>) often sacrifices little performance.</li>
+    </ul>
+    <h3 id="outer-loop-update-in-fomaml">Outer Loop Update in FOMAML</h3>
+    <pre><code>1. Inner Loop (same as MAML):
+   θ'_i = θ - α ∇_θ L^train(θ)
+2. Outer Loop:
+   g_i = ∇_{θ'_i} L^val(θ'_i)
+   θ = θ - β Σ_i g_i
+(Treat θ'_i as constant; no second-order gradients.)
+</code></pre>
+
+    <h2 id="reptile-a-simpler-alternative">Reptile: A Simpler Alternative</h2>
+    <p>Also introduced in Nichol et al. (2018), <strong>Reptile</strong> sidesteps meta-gradients altogether by using a <strong>vector-difference update</strong>.</p>
+    <h3 id="sgd-inner-loop">SGD Inner Loop</h3>
+    <p>Sample task T_i. Run k steps of SGD on the support set starting from θ, yielding θ'_i.</p>
+    <h3 id="meta-update-via-vector-difference">Meta-Update via Vector Difference</h3>
+    <pre><code>θ = θ + ε (θ'_i - θ)
+</code></pre>
+    <p>No losses or gradients in the outer loop—just move θ toward θ'_i.</p>
+
+    <h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+    <ol>
+        <li><strong>What is “1-shot” vs “5-shot” classification?</strong><br>
+        N-shot means K labeled examples per class. In a 5-way, 1-shot task, you have 5 classes with 1 example each.</li>
+        <li><strong>What happens in the inner vs outer loops?</strong><br>
+        Inner loop: Fast adaptation to a specific task.<br>
+        Outer loop: Meta-update to improve θ for future tasks.</li>
+        <li><strong>How exactly do we update θ in each algorithm?</strong><br>
+        MAML: θ = θ - β ∇_θ L^val(θ'_i(θ)) (second-order)<br>
+        FOMAML: θ = θ - β ∇_{θ'_i} L^val(θ'_i) (first-order)<br>
+        Reptile: θ = θ + ε (θ'_i - θ)</li>
+        <li><strong>What is stochastic gradient descent (SGD)?</strong><br>
+        Running SGD means repeatedly sampling mini-batches, computing the loss gradient, and stepping θ accordingly.</li>
+    </ol>
+
+    <h2 id="papers-and-further-reading">Papers and Further Reading</h2>
+    <ul>
+        <li><a href="https://arxiv.org/pdf/1703.03400">MAML: Finn et al., 2017</a></li>
+        <li><a href="https://arxiv.org/pdf/1803.02999">FOMAML & Reptile: Nichol et al., 2018</a></li>
+        <li><a href="https://github.com/learnables/learn2learn">Reptile Code (learn2learn)</a></li>
+    </ul>
+
+    <h2 id="conclusion">Conclusion</h2>
+    <p>Meta-learning represents a powerful paradigm shift: teaching models <em>how to learn</em> rather than <em>what to learn</em>. Starting from MAML’s elegant bi-level optimization to FOMAML’s pragmatic simplifications and Reptile’s sheer simplicity, we see a spectrum of methods balancing computational cost and adaptation performance.</p>
+    <p>By understanding these algorithms, their updates, and their trade-offs, you’ll be well-equipped to tackle few-shot and continual learning challenges in your own projects. Happy meta-learning!</p>
+</body>
+</html>
