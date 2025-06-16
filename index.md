@@ -25,7 +25,7 @@ I work on Intelligent Conversational Agents and Language-Guided Robots.
 
     <ul>
     <li>
-    <a href="https://sprasadhpy.github.io/myAInotes/10062025.html">Misinterpretability of illusion in the Reasoning of LRMs</a> – June 16, 2025 
+    <a href="https://sprasadhpy.github.io/myAInotes/assets/16062025.pdf">Misinterpretability of illusion in the Reasoning of LRMs</a> – June 16, 2025 
     <span>| Tags: <a href="/tags/LLMs">LLMs</a></span>
     &nbsp;– <a href="https://sprasadhpy.github.io/myAInotes/assets/16062025.pdf" target="_blank" rel="noopener noreferrer">📄 View PDF</a>
     </li>
