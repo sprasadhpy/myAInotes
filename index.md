@@ -22,6 +22,13 @@ I work on Intelligent Conversational Agents and Language-Guided Robots.
     </p>
 
     <h2 style="font-size: 1.2em; font-weight: bold; color: #333;">Blog Posts</h2>
+
+    <ul> <li>
+    <strong>Misinterpretability of illusion in the Reasoning of LRMs</strong> – June 16, 2025 
+    <span>| Tags: <a href="/tags/LLMs">LLMs</a></span>
+    
+    <br/><br/>
+    <embed src="assets/16062025.pdf" type="application/pdf" width="100%" height="600px" /></li></ul>
     <ul>
      <li><a href="https://sprasadhpy.github.io/myAInotes/10062025.html">Model Agnostic Meta Learning</a> – June10, 2025 <span>| Tags: <a href="/tags/LLMs">Deep Learning</a></span></li>
     <li><a href="https://sprasadhpy.github.io/myAInotes/2062025.html">Reasoning via Internal Rewards</a> – June2, 2025 <span>| Tags: <a href="/tags/LLMs">LLMs</a></span></li>
