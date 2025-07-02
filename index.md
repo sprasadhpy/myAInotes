@@ -23,31 +23,102 @@ I work on Intelligent Agents and Language-Guided Robots.
 
     <h2 style="font-size: 1.2em; font-weight: bold; color: #333;">Blog Posts</h2>
 
-    <ul>
-    <li>
-    <a href="#">Small LLMs as Agents</a> – July 2, 2025 
-    <span>| Tags: <a href="/tags/Agents">Agents</a></span> 
+  <ul>
+  <li>
+    <a href="#">Small LLMs as Agents</a> – July 2, 2025
+    <span>| Tags: <a href="/tags/Agents">Agents</a></span>
     &nbsp;– 
-    <a href="https://sprasadhpy.github.io/myAInotes/assets/Small-LLMs-are-the-future-agents.pdf" target="_blank" rel="noopener noreferrer">📄 View PDF</a></li>
+    <a href="https://sprasadhpy.github.io/myAInotes/assets/Small-LLMs-are-the-future-agents.pdf" target="_blank" rel="noopener noreferrer">📄 View PDF</a>
+  </li>
 
-      <li><a href="#">Misinterpretability of Illusion in the Reasoning of LRMs</a> – June 16, 2025 <span>| Tags: <a href="/tags/LLMs">LLMs</a></span> &nbsp;– <a href="https://sprasadhpy.github.io/myAInotes/assets/16062025.pdf" target="_blank" rel="noopener noreferrer">📄 View PDF</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/10062025.html">Model Agnostic Meta Learning</a> – June 10, 2025 <span>| Tags: <a href="/tags/LLMs">Deep Learning</a></span></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2062025.html">Reasoning via Internal Rewards</a> – June 2, 2025 <span>| Tags: <a href="/tags/LLMs">LLMs</a></span></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2025-05-12.html">Faithful CoT</a> – May 12, 2025 <span>| Tags: <a href="/tags/LLMs">LLMs</a></span></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2025-05-03.html">Much Ado About Proofing – DeepSeek Prover-V2 – My Review</a> – May 03, 2025 <span>| Tags: <a href="/tags/LLMs">LLMs</a></span></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/20250430.html">Why Do Multi-Agent LLM Systems Fail – Lessons for Fin-Agents</a> – April 30, 2025 <span>| Tags: <a href="/tags/LLMs">Agents</a></span></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/KnowSelf_Summary.html">Agentic Self-Awareness</a> – April 15, 2025 <span>| Tags: <a href="/tags/LLMs">Agents</a></span></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2025:04:01.html">Investigation of R1 Zero-like Training</a> – April 1, 2025 <span>| Tags: <a href="/tags/rl-training">RL Training</a></span></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/Futureagents_Converted.html">Future of Agents</a> – January 6, 2025 <span>| Tags: <a href="/tags/Agents">Agents</a></span></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2024-12-03.html">LLM Powered Autonomous Agents</a> – December 3, 2024 <span>| Tags: <a href="/tags/LLM-agents">Agents</a></span></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2024-12-01.html">Scaling Laws Summary</a> – December 1, 2024 <span>| Tags: <a href="/tags/Scaling-Law">Scaling Law</a></span></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2024-10-15.html">Quantization of LLMs</a> – October 15, 2024 <span>| Tags: <a href="/tags/LLMs">LLMs</a></span></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2024-10-14.html">Curated List of RAG Papers</a> – October 14, 2024 <span>| Tags: <a href="/tags/Generative-AI">Generative AI</a></span></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/Panacea_new.html">Pareto Alignment via Preference Adaptation for LLMs</a> – October 13, 2024 <span>| Tags: <a href="/tags/AI-alignment">AI Alignment</a></span></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2024-10-12.html">Evaluator’s Reading List</a> – October 12, 2024 <span>| Tags: <a href="/tags/AI-alignment">AI Alignment</a></span></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2024-10-10.html">Intriguing Properties of NNs</a> – October 10, 2024 <span>| Tags: <a href="/tags/Deep-Learning">Deep Learning</a></span></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2024-10-09.html">Beyond Preferences in AI Alignment</a> – October 9, 2024 <span>| Tags: <a href="/tags/AI-alignment">AI Alignment</a></span></li>
-    </ul>
+  <li>
+    <a href="#">Misinterpretability of Illusion in the Reasoning of LRMs</a> – June 16, 2025
+    <span>| Tags: <a href="/tags/LLMs">LLMs</a></span>
+    &nbsp;–
+    <a href="https://sprasadhpy.github.io/myAInotes/assets/16062025.pdf" target="_blank" rel="noopener noreferrer">📄 View PDF</a>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/10062025.html">Model Agnostic Meta Learning</a> – June 10, 2025
+    <span>| Tags: <a href="/tags/LLMs">Deep Learning</a></span>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/2062025.html">Reasoning via Internal Rewards</a> – June 2, 2025
+    <span>| Tags: <a href="/tags/LLMs">LLMs</a></span>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/2025-05-12.html">Faithful CoT</a> – May 12, 2025
+    <span>| Tags: <a href="/tags/LLMs">LLMs</a></span>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/2025-05-03.html">Much Ado About Proofing – DeepSeek Prover-V2 – My Review</a> – May 03, 2025
+    <span>| Tags: <a href="/tags/LLMs">LLMs</a></span>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/20250430.html">Why Do Multi-Agent LLM Systems Fail – Lessons for Fin-Agents</a> – April 30, 2025
+    <span>| Tags: <a href="/tags/LLMs">Agents</a></span>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/KnowSelf_Summary.html">Agentic Self-Awareness</a> – April 15, 2025
+    <span>| Tags: <a href="/tags/LLMs">Agents</a></span>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/2025:04:01.html">Investigation of R1 Zero-like Training</a> – April 1, 2025
+    <span>| Tags: <a href="/tags/rl-training">RL Training</a></span>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/Futureagents_Converted.html">Future of Agents</a> – January 6, 2025
+    <span>| Tags: <a href="/tags/Agents">Agents</a></span>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/2024-12-03.html">LLM Powered Autonomous Agents</a> – December 3, 2024
+    <span>| Tags: <a href="/tags/LLM-agents">Agents</a></span>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/2024-12-01.html">Scaling Laws Summary</a> – December 1, 2024
+    <span>| Tags: <a href="/tags/Scaling-Law">Scaling Law</a></span>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/2024-10-15.html">Quantization of LLMs</a> – October 15, 2024
+    <span>| Tags: <a href="/tags/LLMs">LLMs</a></span>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/2024-10-14.html">Curated List of RAG Papers</a> – October 14, 2024
+    <span>| Tags: <a href="/tags/Generative-AI">Generative AI</a></span>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/Panacea_new.html">Pareto Alignment via Preference Adaptation for LLMs</a> – October 13, 2024
+    <span>| Tags: <a href="/tags/AI-alignment">AI Alignment</a></span>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/2024-10-12.html">Evaluator’s Reading List</a> – October 12, 2024
+    <span>| Tags: <a href="/tags/AI-alignment">AI Alignment</a></span>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/2024-10-10.html">Intriguing Properties of NNs</a> – October 10, 2024
+    <span>| Tags: <a href="/tags/Deep-Learning">Deep Learning</a></span>
+  </li>
+
+  <li>
+    <a href="https://sprasadhpy.github.io/myAInotes/2024-10-09.html">Beyond Preferences in AI Alignment</a> – October 9, 2024
+    <span>| Tags: <a href="/tags/AI-alignment">AI Alignment</a></span>
+  </li>
+</ul>
+
   </div>
 
   <!-- Right Content -->
