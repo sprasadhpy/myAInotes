@@ -10,7 +10,7 @@ I work on Intelligent Agents and Language-Guided Robots.
   <!-- Left Content -->
   <div style="flex: 1; margin-right: 20px;">
     <p>
-      Here, I document key insights and breakthroughs in reinforcement learning, post-training LLM techniques, compute efficiency in LLMs, and grounding LLMs in robotics and finance. Drawing from my experience in multi-agent AI, deep learning, and large language models, this blog explores the complexities of building intelligent agents across domains. Whether you're interested in solving the technical challenges of AI, improving post-training efficiency, or scaling models for real-world impact, you'll find content reflecting my ongoing research and practical experience in these fields.
+   Here I Document, key insights and engineering breakthroughs at the intersection of Agentic AI, Multi-Agent Systems, Reinforcement learning, post-training techniques for LLMs, efficient LLM deployment, and real-world robotic grounding. Rooted in hands-on development across deep learning and agent architectures, I document the technical challenges and solutions behind building intelligent, autonomous, goal-driven agents. If you're working on designing agents that reason, collaborate, and act in dynamic environments, this space offers practical, research-informed perspectives drawn from the frontlines of agentic AI engineering.
     </p>
     
     <p>
