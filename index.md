@@ -4,7 +4,7 @@ title: "My AI Notes"
 ---
 
 ##### Author: [Shyaam Prasadh](https://sprasadhpy.github.io)  
-I work on Intelligent Conversational Agents and Language-Guided Robots.
+I work on Intelligent Agents and Language-Guided Robots.
 
 <div style="display: flex; align-items: flex-start; font-size: 0.8em;">
   <!-- Left Content -->
