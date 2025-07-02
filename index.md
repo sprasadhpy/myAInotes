@@ -10,7 +10,7 @@ I work on Intelligent Agents and Language-Guided Robots.
   <!-- Left Content -->
   <div style="flex: 1; margin-right: 20px;">
     <p>
-   Here I Document, key insights and engineering breakthroughs at the intersection of Agentic AI, Multi-Agent Systems, Reinforcement learning, post-training techniques for LLMs, efficient LLM deployment, and real-world robotic grounding. Rooted in hands-on development across deep learning and agent architectures, I document the technical challenges and solutions behind building intelligent, autonomous, goal-driven agents. If you're working on designing agents that reason, collaborate, and act in dynamic environments, this space offers practical, research-informed perspectives drawn from the frontlines of agentic AI engineering.
+   Here I document,key insights and engineering breakthroughs at the intersection of Agentic AI, Multi-Agent Systems, Reinforcement learning, post-training techniques for LLMs, efficient LLM deployment, and real-world robotic grounding. Rooted in hands-on development of agent architectures, I document the technical challenges and solutions behind building intelligent, autonomous, goal-driven agents. If you're working on designing agents that reason, collaborate, and act in dynamic environments. I hope this space offers practical, research-informed perspectives drawn from the frontlines of agentic AI engineering.
     </p>
     
     <p>
@@ -24,7 +24,7 @@ I work on Intelligent Agents and Language-Guided Robots.
     <h2 style="font-size: 1.2em; font-weight: bold; color: #333;">Blog Posts</h2>
 
     <ul>
-    <li><a href="#">Small LLMs as Agents </a> – July 2, 2025 <span>| Tags: <a href="/tags/Agents">LLMs</a></span> &nbsp;– <a href="https://sprasadhpy.github.io/myAInotes/assetsmall-LLMs-are-the-future-agents.pdf" target="_blank" rel="noopener noreferrer">📄 View PDF</a></li>
+    <li><a href="#">Small LLMs as Agents </a> – July 2, 2025 <span>| Tags: <a href="/tags/Agents">LLMs</a></span> &nbsp;– <a href="https://sprasadhpy.github.io/myAInotes/asset/small-LLMs-are-the-future-agents.pdf" target="_blank" rel="noopener noreferrer">📄 View PDF</a></li>
       <li><a href="#">Misinterpretability of Illusion in the Reasoning of LRMs</a> – June 16, 2025 <span>| Tags: <a href="/tags/LLMs">LLMs</a></span> &nbsp;– <a href="https://sprasadhpy.github.io/myAInotes/assets/16062025.pdf" target="_blank" rel="noopener noreferrer">📄 View PDF</a></li>
       <li><a href="https://sprasadhpy.github.io/myAInotes/10062025.html">Model Agnostic Meta Learning</a> – June 10, 2025 <span>| Tags: <a href="/tags/LLMs">Deep Learning</a></span></li>
       <li><a href="https://sprasadhpy.github.io/myAInotes/2062025.html">Reasoning via Internal Rewards</a> – June 2, 2025 <span>| Tags: <a href="/tags/LLMs">LLMs</a></span></li>
