@@ -25,6 +25,14 @@ I work on Intelligent Agents and Language-Guided Robots.
 
   <ul>
   <li>
+    <a href="#"> General Agents as World Models </a> – July 2, 2025
+    <span>| Tags: <a href="/tags/Agents">Agents</a></span>
+    &nbsp;– 
+    <a href="https://sprasadhpy.github.io/myAInotes/assets/July-2-2025-General-agents-world-models-4.pdf" target="_blank" rel="noopener noreferrer">📄 View PDF</a>
+  </li>
+
+    
+  <li>
     <a href="#">Small LLMs as Agents</a> – July 2, 2025
     <span>| Tags: <a href="/tags/Agents">Agents</a></span>
     &nbsp;– 
