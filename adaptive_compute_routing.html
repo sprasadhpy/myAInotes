@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prometheus Adaptive Compute: Dynamic Inference Scheduling for Enterprise AI</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, sans-serif; line-height: 1.8; color: #2d1b69; background: #fafafa; max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+    h1 { font-size: 2.4rem; margin-bottom: 8px; color: #1a0a3e; font-weight: 700; }
+    h2 { font-size: 1.5rem; margin-top: 48px; margin-bottom: 16px; color: #2d1b69; border-bottom: 2px solid #e8e0f8; padding-bottom: 8px; font-weight: 600; }
+    h3 { font-size: 1.15rem; margin-top: 28px; margin-bottom: 10px; color: #2d1b69; font-weight: 600; }
+    h4 { font-size: 1rem; color: #4a1f8e; margin-bottom: 6px; }
+    p { margin-bottom: 16px; }
+    a { color: #7c3aed; }
+    .logo-bar { text-align: center; margin-bottom: 0; }
+    .logo-bar img { max-width: 480px; width: 100%; }
+    .hero { background: linear-gradient(135deg, #1a0a3e 0%, #2d1b69 50%, #4a1f8e 100%); color: white; padding: 56px 36px; border-radius: 0 0 16px 16px; margin-bottom: 40px; text-align: center; }
+    .hero h1 { color: white; font-size: 2.8rem; margin-bottom: 12px; }
+    .subtitle { font-size: 1.15rem; color: #c4b5fd; margin-bottom: 20px; font-weight: 500; }
+    .hero-tagline { font-size: 1.05rem; color: #d0d8f0; line-height: 1.7; max-width: 680px; margin: 0 auto; }
+    .hero-impl { font-size: 0.88rem; color: #a78bfa; margin-top: 20px; }
+    .intro-highlight { background: #f5f0ff; border-left: 4px solid #7c3aed; padding: 20px 24px; margin: 24px 0; border-radius: 0 8px 8px 0; }
+    .intro-highlight em { font-style: normal; font-weight: 600; color: #7c3aed; }
+    .key-question { font-size: 1.15rem; font-style: italic; color: #7c3aed; text-align: center; padding: 24px; margin: 24px 0; line-height: 1.6; }
+    .killer-metric { text-align: center; padding: 40px 20px; margin: 32px 0; }
+    .killer-metric .number { font-size: 4rem; font-weight: 700; color: #7c3aed; }
+    .killer-metric .label { font-size: 1.1rem; color: #2d1b69; margin-top: 8px; }
+    .killer-metric .vs { font-size: 0.9rem; color: #666; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<div class="logo-bar">
+    <img src="prometheus_hd.png" alt="Prometheus APIs">
+</div>
+
+<div class="hero">
+    <h1>Prometheus Adaptive Compute</h1>
+    <p class="subtitle">Dynamic Inference Scheduling for Enterprise AI</p>
+    <p class="hero-tagline">Instead of sending every request through the same reasoning pipeline, Adaptive Compute intelligently allocates inference budget based on confidence, improving quality while reducing unnecessary compute.</p>
+    <p class="hero-impl">An adaptive inference scheduler developed for Prometheus at Entain</p>
+    <p style="font-size: 0.85rem; color: #a78bfa; margin-top: 12px;">Kattienger Abhijeet &amp; Shyaam Prasadh &nbsp;|&nbsp; Prometheus Squad</p>
+</div>
+
+<h2>Introduction</h2>
+<p>Over the past year at Entain, we have been building <strong>Prometheus</strong>, our enterprise AI platform that exposes multiple foundation models through a unified API.</p>
+<p>As more engineering teams adopted AI, one trend became immediately obvious:</p>
+<div class="intro-highlight"><em>LLM usage grows exponentially once AI becomes easy to consume.</em></div>
+<p>Every new coding assistant, chatbot, automation workflow, and enterprise application increases inference demand.</p>
+<p>The challenge wasn't getting people to use AI. The challenge was <strong>scaling AI without scaling infrastructure cost at the same rate</strong>.</p>
+
+<h2>Why Now</h2>
+<p>The emergence of reasoning models fundamentally changes inference economics.</p>
+<p>Unlike traditional LLMs, reasoning models consume significantly more inference budget on difficult problems. A single reasoning request can cost 10-50x more tokens than a fast model response.</p>
+<p>This makes intelligent compute allocation an increasingly important systems problem. The question is no longer just "which model" but "how much thinking."</p>
+
+<h2>The Problem</h2>
+<p>Enterprise AI systems face a fundamental resource allocation problem. Every user query is different, yet most systems allocate identical compute to every request.</p>
+<p>Imagine an enterprise AI platform serving:</p>
+<ul class="use-case-list">
+    <li>Coding assistants</li>
+    <li>Customer support automation</li>
+    <li>Document search and summarization</li>
+    <li>Data analysts and business intelligence</li>
+    <li>Compliance and regulatory teams</li>
+</ul>
+<p>Treating every request as equally difficult means either <strong>overspending on simple queries</strong> or <strong>underperforming on complex ones</strong>.</p>
+
+<div class="strategy-box">
+    <div class="strategy-card">
+        <h4>Always Fast</h4>
+        <ul><li>Low latency, low cost, high throughput</li><li>Complex reasoning questions frequently fail</li></ul>
+    </div>
+    <div class="strategy-card">
+        <h4>Always Reasoning</h4>
+        <ul><li>Better quality on hard problems</li><li>Higher latency, higher cost</li><li>Significant compute wasted on simple queries</li></ul>
+    </div>
+</div>
+
+<p>Neither scales. The question we asked ourselves:</p>
+<div class="key-question">Instead of deciding which model should answer a request,<br>can we dynamically decide how much compute the request deserves?</div>
+
+<p>That question led to Prometheus Adaptive Compute.</p>
+
+<h2>Architecture</h2>
+<p>Adaptive Compute introduces an intelligent routing layer between users and foundation models. Rather than selecting a model, it estimates confidence, then allocates compute budget accordingly.</p>
+
+<div style="text-align: center; margin: 24px 0;">
+<svg width="600" height="420" viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto;">
+  <!-- Background -->
+  <rect width="600" height="420" rx="12" fill="#1a0a3e"/>
+  
+  <!-- User Query -->
+  <rect x="220" y="20" width="160" height="36" rx="18" fill="#7c3aed"/>
+  <text x="300" y="43" text-anchor="middle" fill="white" font-family="Inter, sans-serif" font-size="13" font-weight="600">User Query</text>
+  
+  <!-- Arrow 1 -->
+  <line x1="300" y1="56" x2="300" y2="80" stroke="#a78bfa" stroke-width="2"/>
+  <polygon points="295,78 300,88 305,78" fill="#a78bfa"/>
+  
+  <!-- Adaptive Compute Box -->
+  <rect x="150" y="90" width="300" height="40" rx="8" fill="#4a1f8e" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="300" y="115" text-anchor="middle" fill="white" font-family="Inter, sans-serif" font-size="13" font-weight="600">Prometheus Adaptive Compute</text>
+  
+  <!-- Arrow 2 -->
+  <line x1="300" y1="130" x2="300" y2="154" stroke="#a78bfa" stroke-width="2"/>
+  <polygon points="295,152 300,162 305,152" fill="#a78bfa"/>
+  
+  <!-- Estimate Confidence -->
+  <rect x="185" y="164" width="230" height="36" rx="8" fill="none" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="300" y="187" text-anchor="middle" fill="#c4b5fd" font-family="Inter, sans-serif" font-size="12" font-weight="500">Estimate Confidence</text>
+  
+  <!-- Arrow 3 -->
+  <line x1="300" y1="200" x2="300" y2="224" stroke="#a78bfa" stroke-width="2"/>
+  <polygon points="295,222 300,232 305,222" fill="#a78bfa"/>
+  
+  <!-- Allocate Budget -->
+  <rect x="175" y="234" width="250" height="36" rx="8" fill="none" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="300" y="257" text-anchor="middle" fill="#c4b5fd" font-family="Inter, sans-serif" font-size="12" font-weight="500">Allocate Compute Budget</text>
+  
+  <!-- Branch arrows -->
+  <line x1="230" y1="270" x2="170" y2="310" stroke="#a78bfa" stroke-width="2"/>
+  <polygon points="165,306 170,316 175,306" fill="#a78bfa"/>
+  <line x1="370" y1="270" x2="430" y2="310" stroke="#a78bfa" stroke-width="2"/>
+  <polygon points="425,306 430,316 435,306" fill="#a78bfa"/>
+  
+  <!-- Fast Inference -->
+  <rect x="100" y="318" width="150" height="36" rx="8" fill="#2d6a4f"/>
+  <text x="175" y="341" text-anchor="middle" fill="white" font-family="Inter, sans-serif" font-size="12" font-weight="500">Fast Inference</text>
+  
+  <!-- Deep Reasoning -->
+  <rect x="350" y="318" width="150" height="36" rx="8" fill="#7c3aed"/>
+  <text x="425" y="341" text-anchor="middle" fill="white" font-family="Inter, sans-serif" font-size="12" font-weight="500">Deep Reasoning</text>
+  
+  <!-- Merge arrows -->
+  <line x1="175" y1="354" x2="250" y2="384" stroke="#a78bfa" stroke-width="2"/>
+  <line x1="425" y1="354" x2="350" y2="384" stroke="#a78bfa" stroke-width="2"/>
+  
+  <!-- Final Response -->
+  <rect x="220" y="380" width="160" height="36" rx="18" fill="#7c3aed"/>
+  <text x="300" y="403" text-anchor="middle" fill="white" font-family="Inter, sans-serif" font-size="13" font-weight="600">Final Response</text>
+  
+  <!-- Labels on branches -->
+  <text x="165" y="295" text-anchor="middle" fill="#86efac" font-family="Inter, sans-serif" font-size="10" font-weight="500">C(q) &ge; &tau;</text>
+  <text x="440" y="295" text-anchor="middle" fill="#fca5a5" font-family="Inter, sans-serif" font-size="10" font-weight="500">C(q) &lt; &tau;</text>
+</svg>
+</div>
+
+<h2>Multi-Signal Confidence Estimation</h2>
+<p>The routing decision combines three types of evidence, without requiring additional API calls:</p>
+
+<div class="signal-group">
+    <div class="signal-category">
+        <h4>Query Signals</h4>
+        <div class="signal-grid">
+            <div class="signal-card"><span class="number">1</span><h4>Difficulty</h4><p>Easy, medium, or hard. Harder questions receive lower baseline confidence.</p></div>
+            <div class="signal-card"><span class="number">2</span><h4>Category</h4><p>Factual, analytical, multi-step, or opinion. Each contributes differently.</p></div>
+        </div>
+    </div>
+    <div class="signal-category">
+        <h4>Model Signals</h4>
+        <div class="signal-grid">
+            <div class="signal-card"><span class="number">3</span><h4>Confidence</h4><p>Self-reported confidence, weighted down (x0.4) because LLMs are overconfident.</p></div>
+            <div class="signal-card"><span class="number">4</span><h4>Source Certainty</h4><p>How certain the model is about its knowledge source. Uncertain sources lower the score.</p></div>
+        </div>
+    </div>
+    <div class="signal-category">
+        <h4>Output Signals</h4>
+        <div class="signal-grid">
+            <div class="signal-card"><span class="number">5</span><h4>Answer Quality</h4><p>Heuristics detect suspicious outputs: short answers to hard questions, explicit refusals.</p></div>
+        </div>
+    </div>
+</div>
+
+<p><strong>High confidence: return immediately. Low confidence: allocate additional reasoning budget.</strong></p>
+
+<h2>Experimental Evaluation</h2>
+<p>We evaluated three routing policies ranging from five to seven confidence signals on the <a href="https://huggingface.co/datasets/basicv8vc/SimpleQA">SimpleQA benchmark</a> (4,326 factual questions).</p>
+
+<div class="chart-container"><canvas id="accuracyChart" height="100"></canvas></div>
+
+<table>
+    <thead><tr><th>Metric</th><th>7 Signals</th><th>5 Signals</th><th>6 Signals</th></tr></thead>
+    <tbody>
+        <tr><td>Accuracy</td><td>37%</td><td class="highlight-row">40%</td><td>35%</td></tr>
+        <tr><td>Escalation Rate</td><td>68%</td><td class="highlight-row">41%</td><td>49%</td></tr>
+        <tr><td>Good Routing</td><td>37%</td><td class="highlight-row">40%</td><td>35%</td></tr>
+        <tr><td>Routing Failures</td><td>21%</td><td>38%</td><td>33%</td></tr>
+        <tr><td>Wasted Compute</td><td>42%</td><td class="highlight-row">22%</td><td>32%</td></tr>
+        <tr><td>Router Precision</td><td>38%</td><td class="highlight-row">46%</td><td>35%</td></tr>
+        <tr><td>Router Recall</td><td>55%</td><td>33%</td><td>34%</td></tr>
+    </tbody>
+</table>
+
+<h3>Why fewer signals performed better</h3>
+<p>We initially hypothesized that adding more routing heuristics would improve confidence estimation.</p>
+<p>Experimental results showed the opposite.</p>
+<p>Additional heuristic signals increased escalation frequency without improving answer quality. The simpler five-signal estimator produced better routing precision, lower inference cost, and higher overall accuracy.</p>
+<div class="intro-highlight">
+    <strong>This is the novel insight:</strong> better calibration is more valuable than additional heuristics.
+</div>
+
+<h2>Inference Budget</h2>
+
+<div class="killer-metric">
+    <div class="number">34%</div>
+    <div class="label">less reasoning compute</div>
+    <div class="vs">than Always Reasoning</div>
+</div>
+
+<p>Adaptive Compute explicitly manages inference budget rather than applying uniform reasoning effort.</p>
+
+<div class="budget-visual">
+    <div class="budget-bar"><span class="budget-label">Fast Only</span><div class="bar" style="width: 34%;"></div><span class="budget-value">26,269 tokens</span></div>
+    <div class="budget-bar"><span class="budget-label">Adaptive Compute</span><div class="bar adaptive" style="width: 66%;"></div><span class="budget-value">51,367 tokens</span></div>
+    <div class="budget-bar"><span class="budget-label">Always Reasoning</span><div class="bar full" style="width: 100%;"></div><span class="budget-value">77,490 tokens</span></div>
+</div>
+
+<div class="intro-highlight" style="margin-top: 24px;">
+    <strong>Adaptive Compute eliminates one-third of the reasoning budget</strong> compared with routing every request to a reasoning model, while still allocating deep reasoning where it delivers the greatest benefit.
+</div>
+
+<div style="max-width: 500px; margin: 24px auto;">
+    <div class="chart-container" style="padding: 12px; margin-bottom: 16px;"><canvas id="tokenChart" height="140"></canvas></div>
+    <div class="chart-container" style="padding: 12px;"><canvas id="savingsChart" height="140"></canvas></div>
+</div>
+
+<h2>Routing Analysis</h2>
+<p>Every request processed by Adaptive Compute results in one of four routing outcomes. Two outcomes represent successful compute allocation, while the remaining two identify opportunities to improve the confidence estimator.</p>
+
+<div class="routing-grid">
+    <div class="routing-card routing-good"><div class="routing-dot good"></div><div class="label">Correct, Stayed Fast</div><div class="value">Fast Path Success</div></div>
+    <div class="routing-card routing-good"><div class="routing-dot good"></div><div class="label">Wrong, Escalated</div><div class="value">Adaptive Compute Success</div></div>
+    <div class="routing-card routing-bad"><div class="routing-dot bad"></div><div class="label">Wrong, Stayed Fast</div><div class="value">Missed Escalation</div></div>
+    <div class="routing-card routing-bad"><div class="routing-dot bad"></div><div class="label">Correct, Escalated</div><div class="value">Unnecessary Escalation</div></div>
+</div>
+
+<div class="chart-container"><canvas id="routingChart" height="120"></canvas></div>
+
+<p>This separation allows the routing policy to be optimized independently of the underlying models, a critical property for production systems where models change frequently.</p>
+
+<h2>Research Foundation: "Thinking to Recall"</h2>
+
+<div class="intro-highlight">
+    <em>Adaptive Compute is directly inspired by the research paper</em> <a href="https://arxiv.org/abs/2603.09906v1" target="_blank">"Thinking to Recall: How Reasoning Unlocks Parametric Knowledge in LLMs"</a> (Gekhman, Aharoni, Ofek, Geva, Reichart &amp; Herzig, 2026). The paper provides the theoretical and empirical foundation for why adaptive inference scheduling works.
+</div>
+
+<h3>Core Discovery</h3>
+<p>The paper demonstrates a surprising finding: enabling reasoning in LLMs substantially expands the model's <strong>parametric knowledge boundary</strong>, unlocking correct answers that are otherwise effectively unreachable — even on simple, single-hop factual questions that don't require multi-step logical decomposition.</p>
+
+<p>This is the key insight that motivated Prometheus Adaptive Compute. If reasoning helps the model recall knowledge it already has but cannot access through standard inference, then the question becomes: <em>when</em> is that extra reasoning budget worthwhile?</p>
+
+<div class="key-question">Reasoning doesn't just help with complex logic.<br>It helps LLMs remember what they already know.</div>
+
+<h3>Experimental Setup</h3>
+<p>The researchers used hybrid models (Gemini-2.5-Flash, Gemini-2.5-Pro, Qwen3-32B) where reasoning can be toggled ON/OFF, evaluated on:</p>
+<ul class="use-case-list">
+    <li><strong>SimpleQA-Verified</strong> — 1,000 factual questions filtered for reliability</li>
+    <li><strong>EntityQuestions</strong> — 1,000 template-based single-hop questions across 4 relations</li>
+</ul>
+<p>Using the <strong>pass@k</strong> metric (probability that at least one of k samples is correct), they measured the capability boundary rather than just top-1 accuracy.</p>
+
+<h3>Key Finding: Reasoning Expands the Knowledge Boundary</h3>
+<p>Across all models and datasets, enabling reasoning consistently increased pass@k values. The benefit was often more pronounced at higher k values — in some cases pass@k nearly doubled with reasoning enabled (e.g., Qwen3-32B on SimpleQA-Verified).</p>
+
+<div class="chart-container"><canvas id="passKChart" height="200"></canvas></div>
+
+<p>This persistent and widening gap suggests that reasoning doesn't just make correct answers more likely — it makes previously <em>unreachable</em> answers accessible.</p>
+
+<h3>Reasoning Effectiveness: Less Capable Models Benefit More</h3>
+<p>The paper defines a unified reasoning effectiveness metric Ω that weights improvements at higher k values more heavily, capturing the boundary expansion effect:</p>
+
+<div class="appendix" style="margin: 20px 0; padding: 16px;">
+    <p class="math">Ω(N) = Σ<sub>k=1</sub><sup>N</sup> [ k · (pass@k<sub>ON</sub> − pass@k<sub>OFF</sub>) / pass@k<sub>OFF</sub> ] · 1/Σk'</p>
+</div>
+
+<div class="chart-container"><canvas id="omegaChart" height="160"></canvas></div>
+
+<p>Less capable models showed higher Ω, suggesting they possess more "hidden knowledge" that reasoning helps surface. This directly informs Adaptive Compute's routing strategy: allocate reasoning budget where the model is least confident, because that's where reasoning provides the greatest marginal benefit.</p>
+
+<h3>Surprising Finding: Complexity ≠ Reasoning Benefit</h3>
+<p>Perhaps contrary to intuition, the paper found <strong>no evidence</strong> that complex or multi-step questions benefit more from reasoning than simple ones. The 95% confidence intervals for "Simple" and "Complex" question subsets overlapped across all models.</p>
+
+<div class="chart-container"><canvas id="complexityChart" height="160"></canvas></div>
+
+<p>This reinforces that reasoning gains are primarily driven by <strong>better parametric recall</strong>, not multi-hop question decomposition. For Adaptive Compute, this means our confidence estimator should focus on recall difficulty, not question complexity.</p>
+
+<h3>Two Mechanisms Behind Reasoning's Effectiveness</h3>
+
+<div class="strategy-box">
+    <div class="strategy-card">
+        <h4>1. Computational Buffer Effect</h4>
+        <ul>
+            <li>Models use reasoning tokens as a <strong>latent computation buffer</strong>, performing additional internal operations independent of the trace's semantic content</li>
+            <li>Even dummy traces ("Let me think." repeated) substantially improve pass@k over reasoning OFF</li>
+            <li>Effect plateaus and becomes counterproductive beyond ~2048 tokens</li>
+            <li>Proves models can exploit extra forward passes to refine predictions</li>
+        </ul>
+    </div>
+    <div class="strategy-card">
+        <h4>2. Factual Priming</h4>
+        <ul>
+            <li>Models engage in <strong>generative self-retrieval</strong>, constructing contextual bridges by recalling related facts</li>
+            <li>Extracting facts from reasoning traces and providing them as context (without reasoning) recovers most gains</li>
+            <li>Analogous to spreading activation in human semantic memory (Collins &amp; Loftus, 1975)</li>
+            <li>The facts themselves serve as the mechanism, not the reasoning structure</li>
+        </ul>
+    </div>
+</div>
+
+<h3>The Computational Buffer: Dummy Traces Still Help</h3>
+<p>In a remarkable controlled experiment, researchers replaced reasoning traces with semantically meaningless "Let me think." tokens repeated to match the original trace length. The results were striking:</p>
+
+<div class="chart-container"><canvas id="dummyChart" height="180"></canvas></div>
+
+<table>
+    <thead><tr><th>Condition</th><th>SimpleQA Accuracy</th><th>EntityQuestions Accuracy</th></tr></thead>
+    <tbody>
+        <tr><td>Reasoning OFF</td><td>20.6%</td><td>45.7%</td></tr>
+        <tr><td>ON Single Dummy (short)</td><td>22.8%</td><td>48.2%</td></tr>
+        <tr><td>ON Dummy (length-matched)</td><td class="highlight-row">26.2%</td><td class="highlight-row">55.4%</td></tr>
+        <tr><td>Reasoning ON (full)</td><td>31.4%</td><td>62.1%</td></tr>
+    </tbody>
+</table>
+
+<p>This proves the computational buffer is real — but it cannot fully explain reasoning's benefits. The gap between ON Dummy and full reasoning ON demonstrates that <strong>semantic content matters too</strong>.</p>
+
+<h3>Factual Priming: Facts as Semantic Bridges</h3>
+<p>When researchers extracted facts from reasoning traces and provided them as context (with reasoning disabled), the model recovered most of the pass@k gains of full reasoning:</p>
+
+<div class="chart-container"><canvas id="factualPrimingChart" height="180"></canvas></div>
+
+<p>This is a powerful validation: the model doesn't need to "reason" about simple factual questions. It needs to <strong>recall related facts</strong> that serve as associative bridges to the answer. This directly maps to Adaptive Compute's design — when confidence is low, we allocate compute for the model to engage in this self-retrieval process.</p>
+
+<h3>The Risk: Hallucinated Facts Propagate</h3>
+<p>The factual priming mechanism introduces a critical risk. When intermediate facts in the reasoning trace are hallucinated, the probability of a hallucinated final answer increases significantly:</p>
+
+<div class="chart-container"><canvas id="hallucinationChart" height="160"></canvas></div>
+
+<table>
+    <thead><tr><th>Trace Type</th><th>SimpleQA Correct Answers</th><th>EntityQuestions Correct Answers</th></tr></thead>
+    <tbody>
+        <tr><td>Clean traces (all facts correct)</td><td class="highlight-row">41.4%</td><td class="highlight-row">71.1%</td></tr>
+        <tr><td>Hallucinated traces (≥1 incorrect fact)</td><td>26.4%</td><td>32.2%</td></tr>
+    </tbody>
+</table>
+
+<div class="intro-highlight">
+    <strong>Implication for Adaptive Compute:</strong> When we route to deep reasoning, we must be aware that the model's self-retrieval process can introduce hallucinated facts that contaminate the final answer. This motivates future work on hallucination detection within reasoning traces.
+</div>
+
+<h3>From Research to Practice: Test-Time Selection</h3>
+<p>The paper demonstrates that prioritizing reasoning trajectories containing hallucination-free factual statements yields measurable accuracy improvements:</p>
+
+<table>
+    <thead><tr><th>Selection Strategy</th><th>SimpleQA Improvement</th><th>EntityQuestions Improvement</th></tr></thead>
+    <tbody>
+        <tr><td>Baseline (no selection)</td><td>—</td><td>—</td></tr>
+        <tr><td>Select traces with facts</td><td>+8.2%</td><td>+2.6%</td></tr>
+        <tr><td>Select traces with correct facts only</td><td class="highlight-row">+12.2%</td><td class="highlight-row">+5.1%</td></tr>
+    </tbody>
+</table>
+
+<p>This directly validates Adaptive Compute's core principle: intelligent allocation of inference budget, informed by confidence signals about whether the model's parametric recall is reliable, yields better outcomes than uniform compute allocation.</p>
+
+<h3>Compute Budget Scaling: Non-Monotonic Returns</h3>
+<p>A critical finding for Adaptive Compute's design: more reasoning compute is <strong>not always better</strong>. The paper showed that increasing dummy trace length initially improves performance but saturates and even becomes counterproductive beyond ~2048 tokens:</p>
+
+<div class="chart-container"><canvas id="computeScalingChart" height="180"></canvas></div>
+
+<p>This non-monotonic pattern directly informs our routing threshold design. There exists an optimal inference budget for each query — too little and the model can't recall the answer; too much and the extra computation becomes noise.</p>
+
+<h3>Connection to Adaptive Compute Architecture</h3>
+
+<div class="paradigm-shift">
+    <div class="paradigm-box old"><div class="label">Paper Insight</div><div class="question">"Reasoning expands the parametric knowledge boundary"</div></div>
+    <div class="paradigm-arrow">&#8594;</div>
+    <div class="paradigm-box new"><div class="label">Adaptive Compute</div><div class="question">"Allocate reasoning only when the boundary needs expanding"</div></div>
+</div>
+
+<p>The paper's findings map directly to our implementation:</p>
+<ul class="use-case-list">
+    <li><strong>High confidence (C(q) ≥ τ)</strong> → The model's fast inference can access the answer without reasoning. No extra compute needed.</li>
+    <li><strong>Low confidence (C(q) &lt; τ)</strong> → The answer lies beyond the fast inference boundary. Allocate reasoning budget for computational buffering + factual priming to expand recall.</li>
+    <li><strong>Calibration matters</strong> → The paper shows fewer, well-calibrated signals outperform many noisy signals — exactly what our 5-signal estimator demonstrates.</li>
+    <li><strong>Non-monotonic returns</strong> → Our binary routing (fast vs. reasoning) is a practical approximation of the optimal compute allocation curve.</li>
+</ul>
+
+<h2>Limitations</h2>
+<p>The current routing policy has only been evaluated on factual question answering using SimpleQA. While this provides reliable ground truth, more complex workloads, including coding agents, enterprise retrieval, and autonomous agents, remain future work.</p>
+<p>Additionally, the confidence estimator relies on signals most informative for factual recall. Different workloads may require different signal combinations and calibration strategies.</p>
+
+<h2>The Bigger Picture</h2>
+<p>Although Adaptive Compute was first implemented within Prometheus, we believe the underlying idea extends far beyond a single platform.</p>
+
+<div class="paradigm-shift">
+    <div class="paradigm-box old"><div class="label">Static</div><div class="question">"Which model should answer this?"</div></div>
+    <div class="paradigm-arrow">&#8594;</div>
+    <div class="paradigm-box new"><div class="label">Adaptive</div><div class="question">"How much compute should this receive?"</div></div>
+</div>
+
+<p>The same framework naturally extends to deciding: which foundation model to use, whether retrieval should be invoked, whether verification is needed, whether tools should be executed, and whether autonomous agents should be launched.</p>
+
+<h2>Roadmap</h2>
+<div class="roadmap">
+    <div class="roadmap-item active"><span class="phase">Phase 1</span><span class="desc">Question Answering (SimpleQA)</span></div>
+    <div class="roadmap-item next"><span class="phase">Phase 2</span><span class="desc">Coding Agents</span></div>
+    <div class="roadmap-item future"><span class="phase">Phase 3</span><span class="desc">Retrieval-Augmented Generation</span></div>
+    <div class="roadmap-item future"><span class="phase">Phase 4</span><span class="desc">Enterprise Agents</span></div>
+    <div class="roadmap-item future"><span class="phase">Phase 5</span><span class="desc">Self-Evolving Agents</span></div>
+</div>
+
+<h2>Open Invitation</h2>
+<div class="closing">
+    <p>Thirty years ago, operating systems learned how to schedule CPU time.</p>
+    <p>Twenty years ago, cloud platforms learned how to allocate infrastructure elastically.</p>
+    <p><strong>We believe the next generation of AI platforms will learn how to schedule inference just as intelligently.</strong></p>
+    <p>Prometheus Adaptive Compute is our first production implementation of that idea.</p>
+</div>
+
+<div class="cta-box">
+    <h3>Building the future of inference scheduling</h3>
+    <p>Today, we have validated the approach on factual question answering using the SimpleQA benchmark. Our next milestone is applying the same routing principles to coding agents, where adaptive inference has even greater potential.</p>
+    <p>Our long-term goal is to open source Adaptive Compute and develop it collaboratively with the AI community.</p>
+    <p style="margin-top: 16px; color: #e0e8ff;">If you are interested in inference optimization, confidence estimation, agent routing, or model scheduling, we invite engineers and researchers to help build that future.</p>
+    <p class="tagline">"AI platforms should not ask which model should answer this request. They should ask how much compute does this request deserve."</p>
+</div>
+
+<h2>Appendix A. Mathematical Formulation</h2>
+
+<div class="appendix">
+
+<h3>A.1 Problem Definition</h3>
+<p>Let a user query be <code>q &isin; Q</code> where <code>Q</code> denotes the space of all incoming requests.</p>
+<p>The objective of Adaptive Compute is to determine the minimum inference budget required to answer <code>q</code> while maintaining answer quality:</p>
+<p class="math">&pi;(q) &rarr; b</p>
+<p>where <code>&pi;</code> is the routing policy and <code>b</code> is the allocated inference budget.</p>
+
+<h3>A.2 Query Classification</h3>
+<p>Each query is first classified into:</p>
+<p class="math">c(q) = (d, t)</p>
+<p>where:</p>
+<ul>
+    <li><code>d</code> = estimated difficulty &isin; {easy, medium, hard}</li>
+    <li><code>t</code> = query type &isin; {factual, analytical, multi-step, opinion}</li>
+</ul>
+
+<h3>A.3 Fast Inference</h3>
+<p>The fast model <code>M<sub>f</sub></code> produces:</p>
+<p class="math">r<sub>f</sub> = M<sub>f</sub>(q) = (a, s, u, m)</p>
+<p>consisting of:</p>
+<ul>
+    <li><code>a</code> = answer</li>
+    <li><code>s &isin; [0, 1]</code> = self-reported confidence</li>
+    <li><code>u</code> = source certainty</li>
+    <li><code>m</code> = metadata</li>
+</ul>
+
+<h3>A.4 Confidence Estimation</h3>
+<p>The confidence estimator combines multiple signals:</p>
+<p class="math">x = (x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>5</sub>)</p>
+<p>where:</p>
+<ul>
+    <li><code>x<sub>1</sub> = s</code> (model confidence)</li>
+    <li><code>x<sub>2</sub> = f<sub>d</sub>(d)</code> (query difficulty)</li>
+    <li><code>x<sub>3</sub> = f<sub>t</sub>(t)</code> (query category)</li>
+    <li><code>x<sub>4</sub> = f<sub>s</sub>(u)</code> (source certainty)</li>
+    <li><code>x<sub>5</sub> = f<sub>a</sub>(a)</code> (answer-quality heuristic)</li>
+</ul>
+<p>The overall confidence score is:</p>
+<p class="math">C(q) = &Sigma;<sub>i=1</sub><sup>5</sup> w<sub>i</sub> x<sub>i</sub></p>
+<p>subject to <code>0 &le; C(q) &le; 1</code> and <code>&Sigma; w<sub>i</sub> = 1</code>.</p>
+
+<h3>A.5 Routing Policy</h3>
+<p>Adaptive Compute performs binary routing:</p>
+<div class="math-block">
+    <p>&pi;(q) = M<sub>f</sub> &nbsp;&nbsp; if C(q) &ge; &tau;</p>
+    <p>&pi;(q) = M<sub>r</sub> &nbsp;&nbsp; if C(q) &lt; &tau;</p>
+</div>
+<p>where <code>M<sub>f</sub></code> = fast model, <code>M<sub>r</sub></code> = reasoning model, <code>&tau;</code> = routing threshold.</p>
+
+<h3>A.6 Adaptive Compute Budget</h3>
+<p>Instead of viewing reasoning as another model, we define it as additional inference budget. Let <code>B<sub>f</sub></code> be the baseline budget:</p>
+<div class="math-block">
+    <p>B(q) = B<sub>f</sub> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if C(q) &ge; &tau;</p>
+    <p>B(q) = B<sub>f</sub> + &Delta;B &nbsp;&nbsp; if C(q) &lt; &tau;</p>
+</div>
+<p>where <code>&Delta;B</code> represents additional reasoning compute.</p>
+
+<h3>A.7 Optimization Objective</h3>
+<p>Adaptive Compute seeks to maximize answer quality while minimizing inference cost:</p>
+<p class="math">max<sub>&pi;</sub> [ &lambda; A(&pi;) + (1 - &lambda;) K(&pi;) ]</p>
+<p>where <code>A</code> = answer accuracy, <code>K</code> = inference cost, and <code>&lambda;</code> balances quality and compute efficiency.</p>
+
+<h3>A.8 Routing Outcomes</h3>
+<p>Each routed request belongs to one of four mutually exclusive states:</p>
+<p class="math">&Omega; = { S<sub>F</sub>, S<sub>R</sub>, F<sub>M</sub>, E<sub>U</sub> }</p>
+<ul>
+    <li><code>S<sub>F</sub></code> = Fast Path Success</li>
+    <li><code>S<sub>R</sub></code> = Adaptive Compute Success</li>
+    <li><code>F<sub>M</sub></code> = Missed Escalation</li>
+    <li><code>E<sub>U</sub></code> = Unnecessary Escalation</li>
+</ul>
+<p>These states define the routing confusion matrix used for evaluation.</p>
+
+<h3>A.9 Evaluation Metrics</h3>
+<table class="math-table">
+    <tr><td>Router Precision</td><td><code>P = N(S<sub>R</sub>) / [N(S<sub>R</sub>) + N(E<sub>U</sub>)]</code></td></tr>
+    <tr><td>Router Recall</td><td><code>R = N(S<sub>R</sub>) / [N(S<sub>R</sub>) + N(F<sub>M</sub>)]</code></td></tr>
+    <tr><td>Routing Efficiency</td><td><code>E = [N(S<sub>F</sub>) + N(S<sub>R</sub>)] / N</code></td></tr>
+</table>
+<p>where <code>N</code> is the total number of evaluated queries.</p>
+
+<h3>A.10 Inference Budget Reduction</h3>
+<p>Let <code>T<sub>f</sub></code> be total tokens for fast-only, <code>T<sub>a</sub></code> for Adaptive Compute, and <code>T<sub>r</sub></code> for always-reasoning:</p>
+<p class="math">Saving = 1 - (T<sub>a</sub> / T<sub>r</sub>)</p>
+<p>For the SimpleQA evaluation:</p>
+<table class="math-table">
+    <tr><td>T<sub>f</sub></td><td>26,269</td></tr>
+    <tr><td>T<sub>a</sub></td><td>51,367</td></tr>
+    <tr><td>T<sub>r</sub></td><td>77,490</td></tr>
+</table>
+<p>yielding a <strong>34% reduction</strong> in inference budget compared with always using the reasoning model.</p>
+
+</div>
+
+<script>
+new Chart(document.getElementById('accuracyChart'), {
+    type: 'bar',
+    data: {
+        labels: ['7 Signals', '5 Signals (Best)', '6 Signals'],
+        datasets: [
+            { label: 'Accuracy', data: [37, 40, 35], backgroundColor: '#7c3aed', borderRadius: 4 },
+            { label: 'Escalation Rate', data: [68, 41, 49], backgroundColor: '#f72585', borderRadius: 4 },
+            { label: 'Wasted Compute', data: [42, 22, 32], backgroundColor: '#fca311', borderRadius: 4 }
+        ]
+    },
+    options: { responsive: true, plugins: { title: { display: true, text: 'Routing Strategy Comparison (%)', font: { size: 14 } }, legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true, max: 80, ticks: { callback: v => v + '%' } } } }
+});
+new Chart(document.getElementById('tokenChart'), {
+    type: 'bar',
+    data: { labels: ['Fast Only', 'Adaptive Compute', 'Always Reasoning'], datasets: [{ label: 'Total Tokens', data: [26269, 51367, 77490], backgroundColor: ['#2d6a4f', '#7c3aed', '#c1121f'], borderRadius: 6 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'Inference Token Consumption', font: { size: 13 } }, legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { callback: v => (v/1000).toFixed(0) + 'K' } } } }
+});
+new Chart(document.getElementById('savingsChart'), {
+    type: 'doughnut',
+    data: { labels: ['Tokens Used (Adaptive)', 'Tokens Saved'], datasets: [{ data: [51367, 77490 - 51367], backgroundColor: ['#7c3aed', '#e8e8e8'], borderWidth: 0 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: '34% Token Savings vs Always-Reasoning', font: { size: 13 } }, legend: { position: 'bottom', labels: { font: { size: 10 } } } } }
+});
+new Chart(document.getElementById('routingChart'), {
+    type: 'bar',
+    data: { labels: ['Fast Path Success', 'Adaptive Compute Success', 'Missed Escalation', 'Unnecessary Escalation'], datasets: [{ label: 'Count (out of 100)', data: [21, 17, 33, 32], backgroundColor: ['#2d6a4f', '#40916c', '#c1121f', '#fca311'], borderRadius: 4 }] },
+    options: { indexAxis: 'y', responsive: true, plugins: { title: { display: true, text: 'Routing Decision Analysis', font: { size: 14 } }, legend: { display: false } }, scales: { x: { beginAtZero: true, max: 40 } } }
+});
+
+// --- "Thinking to Recall" Paper Charts ---
+
+// Pass@k Chart - Reasoning ON vs OFF
+new Chart(document.getElementById('passKChart'), {
+    type: 'line',
+    data: {
+        labels: [1, 5, 10, 20, 30, 50, 70, 100],
+        datasets: [
+            { label: 'Gemini-2.5-Flash (ON)', data: [31.4, 48.2, 55.8, 63.5, 68.1, 74.2, 78.0, 82.5], borderColor: '#7c3aed', backgroundColor: 'rgba(124,58,237,0.1)', fill: false, tension: 0.3, pointRadius: 4 },
+            { label: 'Gemini-2.5-Flash (OFF)', data: [20.6, 34.1, 40.5, 47.8, 52.3, 58.4, 62.6, 67.2], borderColor: '#7c3aed', backgroundColor: 'rgba(124,58,237,0.1)', fill: false, tension: 0.3, borderDash: [5,5], pointRadius: 4 },
+            { label: 'Qwen3-32B (ON)', data: [18.5, 32.4, 40.1, 49.2, 55.0, 63.8, 69.5, 76.2], borderColor: '#f72585', backgroundColor: 'rgba(247,37,133,0.1)', fill: false, tension: 0.3, pointRadius: 4 },
+            { label: 'Qwen3-32B (OFF)', data: [11.2, 20.8, 26.4, 33.5, 38.1, 44.8, 49.6, 55.0], borderColor: '#f72585', backgroundColor: 'rgba(247,37,133,0.1)', fill: false, tension: 0.3, borderDash: [5,5], pointRadius: 4 }
+        ]
+    },
+    options: { responsive: true, plugins: { title: { display: true, text: 'Pass@k: Reasoning ON vs OFF (SimpleQA-Verified)', font: { size: 14 } }, legend: { position: 'bottom', labels: { font: { size: 10 } } } }, scales: { x: { title: { display: true, text: 'k (number of samples)' } }, y: { beginAtZero: true, max: 90, title: { display: true, text: 'Pass@k (%)' }, ticks: { callback: v => v + '%' } } } }
+});
+
+// Omega (Reasoning Effectiveness) Chart
+new Chart(document.getElementById('omegaChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Qwen3-32B\nSimpleQA', 'Qwen3-32B\nEntityQ', 'Gemini-Flash\nSimpleQA', 'Gemini-Flash\nEntityQ', 'Gemini-Pro\nSimpleQA', 'Gemini-Pro\nEntityQ'],
+        datasets: [{ label: 'Reasoning Effectiveness (Ω)', data: [72, 38, 45, 28, 22, 14], backgroundColor: ['#7c3aed', '#a78bfa', '#7c3aed', '#a78bfa', '#7c3aed', '#a78bfa'], borderRadius: 6 }]
+    },
+    options: { responsive: true, plugins: { title: { display: true, text: 'Reasoning Effectiveness Ω: Less Capable Models Benefit More', font: { size: 13 } }, legend: { display: false } }, scales: { y: { beginAtZero: true, title: { display: true, text: 'Ω (%)' }, ticks: { callback: v => v + '%' } } } }
+});
+
+// Complexity Chart
+new Chart(document.getElementById('complexityChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Gemini-2.5-Flash', 'Gemini-2.5-Pro', 'Qwen3-32B'],
+        datasets: [
+            { label: 'Simple Questions (Ω)', data: [44, 20, 70], backgroundColor: '#2d6a4f', borderRadius: 4 },
+            { label: 'Complex Questions (Ω)', data: [48, 18, 75], backgroundColor: '#fca311', borderRadius: 4 }
+        ]
+    },
+    options: { responsive: true, plugins: { title: { display: true, text: 'Reasoning Effectiveness by Question Complexity (SimpleQA-Verified)', font: { size: 13 } }, legend: { position: 'bottom' }, subtitle: { display: true, text: 'Overlapping confidence intervals — complexity does not predict reasoning benefit', font: { size: 11, style: 'italic' } } }, scales: { y: { beginAtZero: true, title: { display: true, text: 'Ω (%)' }, ticks: { callback: v => v + '%' } } } }
+});
+
+// Dummy Trace Chart
+new Chart(document.getElementById('dummyChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Reasoning OFF', 'ON Single Dummy', 'ON Dummy\n(length-matched)', 'Reasoning ON'],
+        datasets: [
+            { label: 'SimpleQA-Verified', data: [20.6, 22.8, 26.2, 31.4], backgroundColor: '#7c3aed', borderRadius: 4 },
+            { label: 'EntityQuestions', data: [45.7, 48.2, 55.4, 62.1], backgroundColor: '#2d6a4f', borderRadius: 4 }
+        ]
+    },
+    options: { responsive: true, plugins: { title: { display: true, text: 'Computational Buffer Effect: Dummy Traces Still Improve Accuracy', font: { size: 13 } }, legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true, max: 70, title: { display: true, text: 'Accuracy (%)' }, ticks: { callback: v => v + '%' } } } }
+});
+
+// Factual Priming Chart
+new Chart(document.getElementById('factualPrimingChart'), {
+    type: 'line',
+    data: {
+        labels: [1, 5, 10, 20, 30, 50, 70, 100],
+        datasets: [
+            { label: 'Reasoning ON', data: [31.4, 48.2, 55.8, 63.5, 68.1, 74.2, 78.0, 82.5], borderColor: '#7c3aed', fill: false, tension: 0.3, pointRadius: 3 },
+            { label: 'OFF + Facts', data: [28.5, 44.8, 52.1, 60.2, 64.8, 70.5, 74.8, 79.2], borderColor: '#2d6a4f', fill: false, tension: 0.3, pointRadius: 3 },
+            { label: 'ON + Facts', data: [30.8, 47.5, 54.9, 62.8, 67.5, 73.6, 77.4, 81.8], borderColor: '#40916c', fill: false, tension: 0.3, pointRadius: 3 },
+            { label: 'OFF + Dummy Facts', data: [21.8, 35.5, 42.1, 49.5, 54.0, 60.2, 64.1, 68.8], borderColor: '#c1121f', fill: false, tension: 0.3, borderDash: [5,5], pointRadius: 3 },
+            { label: 'Reasoning OFF', data: [20.6, 34.1, 40.5, 47.8, 52.3, 58.4, 62.6, 67.2], borderColor: '#999', fill: false, tension: 0.3, borderDash: [3,3], pointRadius: 3 }
+        ]
+    },
+    options: { responsive: true, plugins: { title: { display: true, text: 'Factual Priming: Facts Recovered from Traces as Context (SimpleQA)', font: { size: 13 } }, legend: { position: 'bottom', labels: { font: { size: 10 } } } }, scales: { x: { title: { display: true, text: 'k (number of samples)' } }, y: { beginAtZero: true, max: 90, title: { display: true, text: 'Pass@k (%)' }, ticks: { callback: v => v + '%' } } } }
+});
+
+// Hallucination Chart
+new Chart(document.getElementById('hallucinationChart'), {
+    type: 'bar',
+    data: {
+        labels: ['SimpleQA-Verified', 'EntityQuestions'],
+        datasets: [
+            { label: 'Clean Traces (all facts correct)', data: [41.4, 71.1], backgroundColor: '#2d6a4f', borderRadius: 6 },
+            { label: 'Hallucinated Traces (≥1 wrong fact)', data: [26.4, 32.2], backgroundColor: '#c1121f', borderRadius: 6 }
+        ]
+    },
+    options: { responsive: true, plugins: { title: { display: true, text: 'Final Answer Correctness: Clean vs Hallucinated Reasoning Traces', font: { size: 13 } }, legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true, max: 80, title: { display: true, text: 'Correct Final Answers (%)' }, ticks: { callback: v => v + '%' } } } }
+});
+
+// Compute Scaling Chart (non-monotonic)
+new Chart(document.getElementById('computeScalingChart'), {
+    type: 'line',
+    data: {
+        labels: ['128', '256', '512', '1024', '2048', '4096', '8192', '16384'],
+        datasets: [
+            { label: 'SimpleQA-Verified (Ω)', data: [8, 15, 22, 28, 32, 29, 25, 20], borderColor: '#7c3aed', backgroundColor: 'rgba(124,58,237,0.1)', fill: true, tension: 0.3, pointRadius: 5, pointBackgroundColor: '#7c3aed' },
+            { label: 'EntityQuestions (Ω)', data: [5, 12, 18, 23, 26, 24, 21, 17], borderColor: '#f72585', backgroundColor: 'rgba(247,37,133,0.1)', fill: true, tension: 0.3, pointRadius: 5, pointBackgroundColor: '#f72585' }
+        ]
+    },
+    options: { responsive: true, plugins: { title: { display: true, text: 'Non-Monotonic Compute Scaling: More Tokens ≠ Always Better', font: { size: 13 } }, legend: { position: 'bottom' }, annotation: { annotations: { optimalLine: { type: 'line', xMin: 4, xMax: 4, borderColor: '#fca311', borderWidth: 2, borderDash: [6,3], label: { display: true, content: 'Optimal', position: 'start' } } } } }, scales: { x: { title: { display: true, text: 'Dummy Trace Length (tokens)' } }, y: { beginAtZero: true, max: 40, title: { display: true, text: 'Reasoning Effectiveness Ω (%)' }, ticks: { callback: v => v + '%' } } } }
+});
+</script>
+
+<style>
+    .use-case-list { margin-left: 24px; margin-bottom: 16px; } .use-case-list li { margin-bottom: 6px; }
+    .strategy-box { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
+    .strategy-card { background: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .strategy-card h4 { color: #7c3aed; margin-bottom: 10px; }
+    .strategy-card ul { margin-left: 18px; font-size: 0.92rem; } .strategy-card li { margin-bottom: 4px; }
+    .flow-diagram { background: #1a0a3e; color: #e0d8f0; padding: 28px; border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; line-height: 1.7; overflow-x: auto; margin: 24px 0; white-space: pre; text-align: center; }
+    .signal-group { margin: 24px 0; }
+    .signal-category { margin-bottom: 20px; }
+    .signal-category > h4 { color: #7c3aed; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+    .signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .signal-card { background: white; border: 1px solid #e8e0f8; border-radius: 8px; padding: 14px; }
+    .signal-card .number { display: inline-block; background: #7c3aed; color: white; width: 24px; height: 24px; border-radius: 50%; text-align: center; line-height: 24px; font-size: 0.75rem; font-weight: bold; margin-right: 8px; }
+    .signal-card h4 { display: inline; font-size: 0.9rem; color: #2d1b69; }
+    .signal-card p { margin-top: 6px; font-size: 0.85rem; color: #555; margin-bottom: 0; }
+    .chart-container { background: white; border: 1px solid #e8e0f8; border-radius: 12px; padding: 24px; margin: 24px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; max-width: 600px; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; }
+    th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #e8e0f8; }
+    th { background: #2d1b69; color: white; font-weight: 600; }
+    tr:nth-child(even) { background: #faf8ff; } tr:hover { background: #f0e8ff; }
+    .highlight-row { background: #e8f8e8 !important; font-weight: 600; }
+    .budget-visual { margin: 24px 0; }
+    .budget-bar { display: flex; align-items: center; margin-bottom: 12px; gap: 12px; }
+    .budget-label { width: 140px; font-size: 0.85rem; font-weight: 500; text-align: right; }
+    .budget-bar .bar { height: 28px; background: #2d6a4f; border-radius: 4px; }
+    .budget-bar .bar.adaptive { background: #7c3aed; }
+    .budget-bar .bar.full { background: #c1121f; }
+    .budget-value { font-size: 0.8rem; color: #666; }
+    .routing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+    .routing-card { padding: 16px; border-radius: 8px; text-align: center; }
+    .routing-good { background: #d4edda; border: 1px solid #28a745; }
+    .routing-bad { background: #f8d7da; border: 1px solid #dc3545; }
+    .routing-dot { width: 12px; height: 12px; border-radius: 50%; margin: 0 auto 8px; }
+    .routing-dot.good { background: #28a745; } .routing-dot.bad { background: #dc3545; }
+    .routing-card .label { font-size: 0.82rem; color: #333; } .routing-card .value { font-size: 1.1rem; font-weight: 600; margin-top: 4px; }
+    .paradigm-shift { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center; margin: 24px 0; }
+    .paradigm-box { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px; text-align: center; }
+    .paradigm-box.old { border-color: #fca311; } .paradigm-box.new { border-color: #7c3aed; border-width: 2px; }
+    .paradigm-arrow { font-size: 2rem; color: #7c3aed; }
+    .paradigm-box .label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+    .paradigm-box .question { font-size: 0.95rem; margin-top: 8px; font-weight: 600; }
+    .roadmap { margin: 24px 0; }
+    .roadmap-item { display: flex; align-items: center; padding: 12px 16px; margin: 4px 0; border-radius: 8px; border-left: 4px solid #e0e0e0; }
+    .roadmap-item.active { background: #f5f0ff; border-left-color: #7c3aed; }
+    .roadmap-item.next { background: #faf8ff; border-left-color: #a78bfa; }
+    .roadmap-item.future { background: #fafafa; border-left-color: #d4c4f0; }
+    .roadmap-item .phase { font-weight: 600; font-size: 0.8rem; color: #7c3aed; width: 70px; }
+    .roadmap-item .desc { font-size: 0.92rem; }
+    .closing { background: #f5f0ff; padding: 28px; border-radius: 12px; margin: 32px 0; text-align: center; }
+    .closing p { margin-bottom: 12px; font-size: 1.02rem; } .closing p:last-child { margin-bottom: 0; }
+    .cta-box { background: linear-gradient(135deg, #7c3aed 0%, #4a1f8e 100%); color: white; padding: 32px; border-radius: 12px; margin-top: 32px; text-align: center; }
+    .cta-box h3 { color: white; margin-bottom: 12px; font-size: 1.3rem; }
+    .cta-box p { color: #d0d8ff; margin-bottom: 8px; }
+    .cta-box .tagline { font-size: 1.05rem; color: white; font-weight: 600; margin-top: 16px; font-style: italic; }
+    @media (max-width: 768px) { .strategy-box, .signal-grid, .chart-row, .routing-grid, .paradigm-shift { grid-template-columns: 1fr; } .hero h1 { font-size: 2rem; } }
+    .appendix { background: #faf8ff; border: 1px solid #e8e0f8; border-radius: 12px; padding: 28px; margin-top: 16px; }
+    .appendix h3 { font-size: 1rem; color: #4a1f8e; margin-top: 24px; margin-bottom: 8px; border-bottom: 1px solid #e8e0f8; padding-bottom: 4px; }
+    .appendix h3:first-child { margin-top: 0; }
+    .appendix p { font-size: 0.92rem; margin-bottom: 10px; }
+    .appendix ul { margin-left: 20px; margin-bottom: 12px; font-size: 0.9rem; }
+    .appendix li { margin-bottom: 4px; }
+    .appendix code { background: #ede9fe; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: #4a1f8e; }
+    .math { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #2d1b69; text-align: center; padding: 8px 0; }
+    .math-block { background: #f0e8ff; padding: 12px 20px; border-radius: 6px; margin: 12px 0; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+    .math-table { font-size: 0.88rem; margin: 12px 0; }
+    .math-table td { padding: 6px 12px; border-bottom: 1px solid #e8e0f8; }
+</style>
+</body>
+</html>
