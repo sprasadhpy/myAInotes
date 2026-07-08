@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Makes Building Easy. It Does Not Make Company-Building Easy.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, sans-serif; line-height: 1.85; color: #1a1a2e; background: #fafafa; max-width: 780px; margin: 0 auto; padding: 48px 24px 80px; font-size: 16px; }
+    h1 { font-size: 2.4rem; font-weight: 700; line-height: 1.2; color: #0f0f23; margin-bottom: 16px; }
+    h2 { font-size: 1.35rem; font-weight: 600; color: #2d1b69; margin-top: 56px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid #e8e0f8; }
+    h3 { font-size: 1.05rem; font-weight: 600; color: #4a1f8e; margin-top: 24px; margin-bottom: 8px; }
+    p { margin-bottom: 16px; color: #333; }
+    strong, b { color: #1a1a2e; }
+    .hero { background: linear-gradient(135deg, #1a0a3e 0%, #2d1b69 50%, #4a1f8e 100%); color: white; padding: 56px 40px; border-radius: 16px; margin-bottom: 48px; }
+    .hero h1 { color: white; font-size: 2.6rem; }
+    .hero .subtitle { color: #c4b5fd; font-size: 1.1rem; margin-top: 12px; line-height: 1.6; }
+    .hero .meta { color: #a78bfa; font-size: 0.85rem; margin-top: 20px; }
+    .thesis { background: #f5f0ff; border-left: 4px solid #7c3aed; padding: 20px 24px; margin: 28px 0; border-radius: 0 10px 10px 0; font-size: 1.05rem; color: #2d1b69; }
+    .thesis em { font-style: normal; font-weight: 600; color: #7c3aed; }
+    blockquote { background: #f8f6ff; border-left: 3px solid #c4b5fd; padding: 14px 20px; margin: 20px 0; color: #4a4470; font-style: italic; border-radius: 0 8px 8px 0; }
+    .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+    .comp-card { background: white; border: 1px solid #e8e0f8; border-radius: 10px; padding: 16px; }
+    .comp-card.old { border-top: 3px solid #fca311; }
+    .comp-card.new { border-top: 3px solid #7c3aed; }
+    .comp-card .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: #888; margin-bottom: 6px; }
+    .comp-card p { font-size: 0.9rem; margin-bottom: 0; }
+    ul, ol { margin-left: 24px; margin-bottom: 16px; }
+    li { margin-bottom: 6px; color: #444; }
+    .flow { background: #1a0a3e; color: #e0d8f0; padding: 20px 24px; border-radius: 10px; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; line-height: 1.8; margin: 20px 0; white-space: pre-wrap; }
+    .key-insight { background: white; border: 2px solid #7c3aed; border-radius: 12px; padding: 20px 24px; margin: 24px 0; text-align: center; }
+    .key-insight .number { font-size: 0.75rem; color: #7c3aed; text-transform: uppercase; letter-spacing: 2px; }
+    .key-insight .text { font-size: 1.15rem; font-weight: 600; color: #2d1b69; margin-top: 6px; }
+    .section-num { display: inline-block; background: #7c3aed; color: white; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-size: 0.8rem; font-weight: 600; margin-right: 10px; vertical-align: middle; }
+    .synthesis { background: linear-gradient(135deg, #f5f0ff, #ede9fe); border: 1px solid #d4c4f0; border-radius: 14px; padding: 28px; margin-top: 40px; }
+    .synthesis h2 { border: none; margin-top: 0; padding-bottom: 0; }
+    .warning { background: #fff7ed; border-left: 4px solid #f59e0b; padding: 14px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+    .chain { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 16px 0; }
+    .chain span { background: #ede9fe; padding: 4px 12px; border-radius: 6px; font-size: 0.85rem; color: #4a1f8e; font-weight: 500; }
+    .chain .arrow { background: none; color: #7c3aed; font-weight: bold; }
+    @media (max-width: 640px) { .comparison { grid-template-columns: 1fr; } .hero { padding: 36px 24px; } .hero h1 { font-size: 1.8rem; } }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>AI Makes Building Easy.<br>It Does Not Make Company-Building Easy.</h1>
+    <p class="subtitle">Lessons from Steve Blank on what actually becomes scarce when code becomes cheap.</p>
+    <p class="meta">Interpretation and analysis of the full conversation</p>
+    <p style="margin-top: 12px;"><a href="https://youtu.be/rwagAH96bQ8?si=gpOAod5cTDBp7650" style="color: #c4b5fd; text-decoration: underline;" target="_blank">Watch the original conversation</a></p>
+</div>
+
+<div class="thesis">
+    AI is making building dramatically easier, but it is not making company-building easier. The scarce capabilities are moving from coding toward <em>problem selection</em>, <em>customer understanding</em>, <em>business-model design</em>, <em>distribution</em>, <em>domain knowledge</em>, <em>judgment</em>, and the ability to <em>learn faster than competitors</em>.
+</div>
+
+<h2><span class="section-num">1</span> Entrepreneurship is a calling, not a career option</h2>
+<p>One of the most important parts of the conversation is the comparison between taking a prestigious job and starting a company.</p>
+<p>His argument is not that everyone should become an entrepreneur. Quite the opposite. If someone is comparing entrepreneurship with consulting as though they are comparing two equivalent job offers, they may not yet have the internal motivation required.</p>
+
+<div class="comparison">
+    <div class="comp-card old"><div class="label">Job mindset</div><p>"What is the best opportunity available to me?"</p></div>
+    <div class="comp-card new"><div class="label">Founder mindset</div><p>"There is something I cannot stop thinking about, and I need to see whether it can exist."</p></div>
+</div>
+
+<p>He compares founders to artists. An artist creates repeatedly despite the probability that individual works may fail. Similarly, a genuine founder has a persistent drive to create.</p>
+<p>However, he later adds an important correction: <strong>passion alone is insufficient</strong>. The artist who completely ignores the audience may become a starving artist. Entrepreneurship requires both creative conviction and connection with a market.</p>
+
+<div class="chain">
+    <span>Vision</span><span class="arrow">→</span><span>Creation</span><span class="arrow">→</span><span>Customer learning</span><span class="arrow">→</span><span>Adaptation</span><span class="arrow">→</span><span>Distribution</span><span class="arrow">→</span><span>Scale</span>
+</div>
+
+<p>The conversation explicitly rejects imitation of the visible behaviours of successful founders. Copying the clothes, vocabulary, routines or public persona of successful entrepreneurs does not reproduce the underlying capabilities that created their success.</p>
+
+<h2><span class="section-num">2</span> Risk is often psychologically exaggerated</h2>
+<p>Blank's military background strongly shaped his perception of entrepreneurial risk. After experiencing a war environment, he found it strange when people described startups as extraordinarily dangerous. His mental checklist:</p>
+<ul>
+    <li>Will you die?</li>
+    <li>Will you starve?</li>
+    <li>Could you recover financially?</li>
+    <li>Could you temporarily reduce your lifestyle?</li>
+    <li>Is the main risk actually embarrassment?</li>
+</ul>
+<p>The point isn't that entrepreneurial risk is imaginary. His point is that people often mix together physical risk, financial risk, career risk and social embarrassment, even though these have very different consequences.</p>
+
+<div class="warning">
+    <strong>His deeper message:</strong> fear of looking unsuccessful can prevent experimentation. He strongly rejects romanticising failure. His position is not "failure is wonderful." It is: failure is painful, but a healthy innovation ecosystem allows a competent person to learn, recover and try again.
+</div>
+
+<h2><span class="section-num">3</span> Resilience means recovery after actual failure</h2>
+<p>Blank repeatedly attacks the sanitised motivational version of resilience. His company lost approximately $35 million and failed. He describes becoming depressed, initially blaming others, and eventually accepting responsibility as CEO.</p>
+
+<div class="flow">Failure → emotional reaction → blame → ownership → analysis → reusable learning</div>
+
+<p>The valuable part was not the failure itself. The valuable part was converting failure into a better operating model.</p>
+
+<div class="warning">
+    <strong>Warning for leaders:</strong> Positive executive attention is not customer validation. Funding is not product-market fit. Press coverage is not product quality. Internal enthusiasm is not adoption.
+</div>
+
+<h2><span class="section-num">4</span> Startups search; established companies execute</h2>
+<p>This is the intellectual centre of Blank's work.</p>
+
+<div class="comparison">
+    <div class="comp-card old"><div class="label">Established company</div><p>Execute a known business model</p></div>
+    <div class="comp-card new"><div class="label">Startup</div><p>Search for a repeatable and scalable model</p></div>
+</div>
+
+<p>This explains why blindly importing large-company processes into exploratory innovation frequently fails. A startup's fundamental work is:</p>
+<div class="flow">Hypothesis → experiment → evidence → learning → change or continue</div>
+
+<h2><span class="section-num">5</span> Lean Startup does not mean "ask customers what to build"</h2>
+<p>Blank explicitly rejects the interpretation that customer development means conducting a giant focus group. The founder still needs a vision. Customer discovery exists to test the assumptions underneath the vision.</p>
+<p>Suppose someone says: "I think players want conversational game discovery." The Lean approach decomposes the hypothesis:</p>
+<ul>
+    <li>Do players actually struggle with discovery?</li>
+    <li>Which players struggle?</li>
+    <li>In what context?</li>
+    <li>How do they currently solve the problem?</li>
+    <li>Is the existing behaviour painful enough to change?</li>
+    <li>Does conversational interaction improve the outcome?</li>
+    <li>Is the improvement incremental over conventional search?</li>
+</ul>
+<p>That is what Blank means by turning hidden assumptions into testable hypotheses.</p>
+
+<h2><span class="section-num">6</span> The Lean Startup is three systems combined</h2>
+<ol>
+    <li><strong>Customer Development:</strong> Discover and validate customers, problems, behaviours and demand.</li>
+    <li><strong>Agile Engineering:</strong> Build incrementally and adapt quickly.</li>
+    <li><strong>Business Model Canvas:</strong> Understand the whole system: customers, value prop, channels, revenue, resources, costs.</li>
+</ol>
+<p>A startup is not simply an engineering project. A team can have an excellent model, a beautiful interface, sophisticated architecture, impressive benchmarks, and still have no business.</p>
+
+<div class="key-insight">
+    <div class="number">Key insight</div>
+    <div class="text">A product is not a company.</div>
+</div>
+
+<h2><span class="section-num">7</span> AI has collapsed the cost of building MVPs</h2>
+<p>Blank describes a major change: students now arrive with products that resemble what previous cohorts produced much later. The consequence is counterintuitive.</p>
+
+<div class="comparison">
+    <div class="comp-card old"><div class="label">Old bottleneck</div><p>Can we build it?</p></div>
+    <div class="comp-card new"><div class="label">New bottleneck</div><p>Should we build it, for whom, why will they adopt it, how will we distribute it, and can the economics work?</p></div>
+</div>
+
+<p>Teams can now build five solutions before understanding whether the problem is important. Customer validation and business-model learning have not accelerated at the same rate as development.</p>
+
+<h2><span class="section-num">8</span> AI changes the value of technical execution</h2>
+<p>The market value of merely translating specifications into routine code is likely to decline, while the value of deciding what systems should exist and making them reliable in the real world increases.</p>
+<p>The higher-value skills become:</p>
+<ul>
+    <li>Architecture and systems thinking</li>
+    <li>Domain expertise</li>
+    <li>Evaluation and reliability</li>
+    <li>Integration and security</li>
+    <li>Economics and data strategy</li>
+    <li>Workflow redesign</li>
+    <li>Customer understanding</li>
+</ul>
+
+<h2><span class="section-num">9</span> Product-market fit may evolve toward "agent-outcome fit"</h2>
+
+<div class="comparison">
+    <div class="comp-card old"><div class="label">Traditional software</div><p>Here is a dashboard. Here are tools. Use them to accomplish your work.</p></div>
+    <div class="comp-card new"><div class="label">Agentic software</div><p>Tell the system what you need. The system performs the workflow. Evaluate the result.</p></div>
+</div>
+
+<p>A successful agent product must satisfy four conditions:</p>
+<ol>
+    <li><strong>Desired outcome:</strong> Is the result genuinely valuable?</li>
+    <li><strong>Delegation acceptance:</strong> Is the user comfortable delegating?</li>
+    <li><strong>Reliability:</strong> Can the agent perform consistently enough?</li>
+    <li><strong>Economics:</strong> Is the cost sustainable?</li>
+</ol>
+
+<h2><span class="section-num">10</span> The demo-to-production gap remains enormous</h2>
+<p>An agent might work brilliantly several times and then fail unpredictably. For enterprise adoption, the relevant question isn't "Can the model do this?" It is:</p>
+
+<blockquote>"Can the complete system do this repeatedly, safely, observably and economically under real operating conditions?"</blockquote>
+
+<p>The hard engineering moves toward: evaluations, monitoring, auditability, security, permission boundaries, fallback behaviour, human escalation, data isolation, latency, cost control, recovery and reproducibility.</p>
+
+<h2><span class="section-num">11</span> Competitive moats are changing</h2>
+<p>If ten teams can create similar AI interfaces rapidly, the code itself becomes a weaker moat. Stronger potential moats:</p>
+<ul>
+    <li><strong>Proprietary data:</strong> Information competitors cannot easily obtain</li>
+    <li><strong>Distribution:</strong> Existing access to customers and trusted channels</li>
+    <li><strong>Domain knowledge:</strong> Deep understanding of specialised workflows</li>
+    <li><strong>Operational integration:</strong> Being embedded in real processes</li>
+    <li><strong>Trust and reliability:</strong> Particularly in regulated environments</li>
+    <li><strong>Learning loops:</strong> Systems that improve through real usage</li>
+</ul>
+
+<div class="key-insight">
+    <div class="number">The question</div>
+    <div class="text">"If they copy the interface tomorrow, what can they still not copy?"</div>
+</div>
+
+<h2><span class="section-num">12</span> AI "slop" is probably a transitional phase</h2>
+<p>When constraints suddenly disappear, people overuse the new freedom. Blank's view:</p>
+<div class="flow">New capability → explosion of experimentation → excess → market learning → quality standards → consolidation</div>
+
+<h2><span class="section-num">13</span> Curiosity may be more important than narrow expertise</h2>
+<p>Rather than staying within conventional technology marketing, Blank immersed himself in areas such as computational science and petroleum reservoir simulation. His advice:</p>
+
+<blockquote>Look where your peers aren't looking. The opportunity often lies at the intersection of new technical capability and neglected domain problem.</blockquote>
+
+<h2><span class="section-num">14</span> AI should amplify curiosity, not replace thinking</h2>
+<p>There is a difference between being able to generate an explanation and possessing a mental model strong enough to detect when the explanation is wrong.</p>
+<div class="flow">AI exploration → source checking → questioning → comparison → domain conversation → testing</div>
+
+<h2><span class="section-num">15</span> Mentors emerge through visible initiative</h2>
+<div class="flow">Initiative → visible potential → trust → increasing responsibility → mentorship</div>
+<p>Don't merely ask interesting people to mentor you. Give them enough evidence of how you think and work that a relationship has something to grow from.</p>
+
+<h2><span class="section-num">16</span> Pattern recognition is an entrepreneurial capability</h2>
+<p>Entrepreneurial pattern recognition asks:</p>
+<ul>
+    <li>What has changed?</li>
+    <li>What assumption is everyone still carrying from the old world?</li>
+    <li>What newly became possible?</li>
+    <li>Which constraint disappeared?</li>
+    <li>Where is behaviour lagging behind technology?</li>
+</ul>
+
+<h2><span class="section-num">17</span> Entrepreneurship must be experienced, not merely studied</h2>
+<p>A case study has already removed uncertainty. Real entrepreneurship contains incomplete information, interpersonal conflict, misleading signals, failed experiments and emotional pressure. Entrepreneurship is a full-contact activity, not an intellectual subject.</p>
+
+<h2><span class="section-num">18</span> Intelligence can become a disadvantage</h2>
+<div class="comparison">
+    <div class="comp-card old"><div class="label">Dangerous</div><p>High intelligence + weak humility = sophisticated hallucination</p></div>
+    <div class="comp-card new"><div class="label">Productive</div><p>High intelligence + empirical curiosity = rapid learning</p></div>
+</div>
+<p>Distrust an environment where your intelligence is never forced into contact with contradictory evidence.</p>
+
+<h2><span class="section-num">19</span> AI is a general transition, not merely a software trend</h2>
+<p>The impact extends simultaneously into software, hardware, biology, drug discovery, protein engineering, materials science and eventually robotics. Explore "parallel universes": disciplines outside your normal professional information bubble.</p>
+
+<h2><span class="section-num">20</span> AI governance is structurally difficult</h2>
+<p>A technology that crosses borders easily and is developed through commercial competition is difficult for any single jurisdiction to govern effectively. Private incentives can optimise toward growth and revenue rather than necessarily social welfare and long-term stability.</p>
+
+<h2><span class="section-num">21</span> Initiative matters more than waiting for permission</h2>
+<p>People who create change often cross organisational boundaries that others treat as fixed. That doesn't mean ignoring governance. It means understanding the actual constraint and finding the legitimate route through it.</p>
+
+<div class="synthesis">
+<h2>Synthesis: The Complete Model</h2>
+
+<div class="comparison" style="margin-top: 16px;">
+    <div class="comp-card old"><div class="label">The old technology advantage</div><p>Technical skill → build something difficult → technical scarcity creates advantage</p></div>
+    <div class="comp-card new"><div class="label">The emerging AI advantage</div><p>Find important problem → understand domain → form hypothesis → build rapidly → test with users → measure outcomes → integrate → build learning loops → distribute → scale reliably</p></div>
+</div>
+
+<div class="key-insight" style="margin-top: 24px;">
+    <div class="number">The most important equation</div>
+    <div class="text">AI capability ≠ product ≠ business ≠ organisational value</div>
+</div>
+
+<p style="margin-top: 20px;">Each transition requires a different discipline:</p>
+
+<div class="flow">AI capability → Product: engineering and UX
+Product → Adoption: customer discovery and workflow fit
+Adoption → Business value: economics and measurable outcomes
+Business value → Scale: distribution, operations and reliability
+Scale → Durable advantage: data, learning loops, trust and domain depth</div>
+
+<p><strong>Your advantage increasingly comes from knowing which problems deserve AI, designing the evidence needed to prove value, understanding the organisation deeply enough to get adoption, and building the governance and production system that allows the capability to scale.</strong></p>
+</div>
+
+</body>
+</html>
