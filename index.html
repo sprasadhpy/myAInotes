@@ -4,197 +4,131 @@ title: "My AI Notes"
 ---
 
 <style>
-  .site-header { margin-bottom: 0; }
-
-  .hero {
-    text-align: center;
-    padding: 60px 20px 40px;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  .hero h1 {
-    font-size: 2.4em;
-    font-weight: 700;
-    color: #1a1a2e;
-    margin-bottom: 10px;
-    line-height: 1.2;
-  }
-  .hero .subtitle {
-    font-size: 1.1em;
-    color: #666;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-  }
-
-  .intro-section {
-    display: flex;
-    align-items: flex-start;
-    gap: 50px;
-    padding: 50px 20px;
-    max-width: 960px;
-    margin: 0 auto;
-  }
-  .intro-left {
-    flex: 1;
-  }
-  .intro-left p {
-    font-size: 0.92em;
-    line-height: 1.7;
-    color: #333;
-    margin-bottom: 14px;
-  }
-  .intro-right {
-    flex: 0 0 240px;
-    text-align: center;
-  }
-  .intro-right img {
-    width: 220px;
-    border-radius: 10px;
-    margin-bottom: 16px;
-  }
-  .intro-right .links {
-    list-style: none;
-    padding: 0;
-    margin: 12px 0 0 0;
-    font-size: 0.88em;
-  }
-  .intro-right .links li {
-    margin-bottom: 6px;
-  }
-  .intro-right .links a {
-    color: #4a90d9;
-    text-decoration: none;
-  }
-  .intro-right .links a:hover {
-    text-decoration: underline;
-  }
-
-  .interests {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 20px 40px;
-  }
-  .interests h2 {
-    font-size: 1.3em;
-    color: #1a1a2e;
-    margin-bottom: 16px;
-  }
-  .interests-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 8px 30px;
-    font-size: 0.88em;
-    color: #444;
-    list-style: none;
-    padding: 0;
-  }
-  .interests-grid li {
-    padding: 4px 0;
-    border-left: 3px solid #e94560;
-    padding-left: 12px;
-  }
-
-  .diagram-section {
-    background: #1a1a2e;
-    padding: 50px 20px;
-    text-align: center;
-    border-top: 1px solid #e0e0e0;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  .diagram-section svg {
-    max-width: 750px;
-    width: 100%;
-    height: auto;
-  }
-
-  .research-section {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 50px 20px;
-  }
-  .research-section h2 {
-    font-size: 1.3em;
-    color: #1a1a2e;
-    margin-bottom: 16px;
-  }
-  .research-section p {
-    font-size: 0.92em;
-    line-height: 1.7;
-    color: #333;
-    margin-bottom: 14px;
-  }
-  .research-section ul {
-    font-size: 0.9em;
-    line-height: 1.8;
-    color: #333;
-    padding-left: 20px;
-  }
-
-  .blog-section {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 20px 50px;
-  }
-  .blog-section h2 {
-    font-size: 1.3em;
-    color: #1a1a2e;
-    margin-bottom: 20px;
-  }
-  .blog-section ul {
-    list-style: none;
-    padding: 0;
-  }
-  .blog-section li {
-    padding: 10px 0;
-    border-bottom: 1px solid #f0f0f0;
-    font-size: 0.88em;
-    line-height: 1.5;
-  }
-  .blog-section li a {
-    color: #1a1a2e;
-    font-weight: 600;
-    text-decoration: none;
-  }
-  .blog-section li a:hover {
-    color: #e94560;
-  }
-  .blog-section .meta {
-    color: #888;
-    font-size: 0.9em;
-  }
-  .blog-section .tag {
-    color: #4a90d9;
-    text-decoration: none;
-    font-size: 0.9em;
-  }
-  .blog-section .pdf-link {
-    color: #e94560;
-    text-decoration: none;
-    font-size: 0.9em;
-  }
-
-  .site-footer-custom {
-    text-align: center;
-    padding: 30px 20px;
-    border-top: 1px solid #e0e0e0;
-    font-size: 0.82em;
-    color: #999;
-  }
-  .site-footer-custom a {
-    color: #4a90d9;
-    text-decoration: none;
-  }
-
-  @media (max-width: 700px) {
-    .intro-section { flex-direction: column-reverse; gap: 30px; }
-    .intro-right { flex: auto; }
-    .hero h1 { font-size: 1.7em; }
-  }
+.site-header { margin-bottom: 0; }
+.hero {
+  text-align: center;
+  padding: 60px 20px 40px;
+  border-bottom: 1px solid #e0e0e0;
+}
+.hero h1 {
+  font-size: 2.4em;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.hero .subtitle {
+  font-size: 1.1em;
+  color: #666;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+.intro-section {
+  display: flex;
+  align-items: flex-start;
+  gap: 50px;
+  padding: 50px 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.intro-left {
+  flex: 1;
+}
+.intro-left p {
+  font-size: 0.92em;
+  line-height: 1.7;
+  color: #333;
+  margin-bottom: 14px;
+}
+.intro-right {
+  flex: 0 0 240px;
+  text-align: center;
+}
+.intro-right img {
+  width: 220px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+.intro-right .links {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0 0;
+  font-size: 0.88em;
+}
+.intro-right .links li {
+  margin-bottom: 6px;
+}
+.intro-right .links a {
+  color: #4a90d9;
+  text-decoration: none;
+}
+.intro-right .links a:hover {
+  text-decoration: underline;
+}
+.blog-section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
+.blog-section h2 {
+  font-size: 1.3em;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+}
+.blog-section ul {
+  list-style: none;
+  padding: 0;
+}
+.blog-section li {
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.88em;
+  line-height: 1.5;
+}
+.blog-section li a {
+  color: #1a1a2e;
+  font-weight: 600;
+  text-decoration: none;
+}
+.blog-section li a:hover {
+  color: #e94560;
+}
+.blog-section .meta {
+  color: #888;
+  font-size: 0.9em;
+}
+.blog-section .tag {
+  color: #4a90d9;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+.blog-section .pdf-link {
+  color: #e94560;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+.site-footer-custom {
+  text-align: center;
+  padding: 30px 20px;
+  border-top: 1px solid #e0e0e0;
+  font-size: 0.82em;
+  color: #999;
+}
+.site-footer-custom a {
+  color: #4a90d9;
+  text-decoration: none;
+}
+@media (max-width: 700px) {
+  .intro-section { flex-direction: column-reverse; gap: 30px; }
+  .intro-right { flex: auto; }
+  .hero h1 { font-size: 1.7em; }
+}
 </style>
 
 <!-- HERO -->
 <div class="hero">
   <h1>Building Intelligent Systems That Learn, Reason and Evolve</h1>
-  <p class="subtitle"> Systems Thinker &nbsp;|&nbsp; Applied AI Engineering &nbsp;|&nbsp; Computational Finance &nbsp;|&nbsp; Algorithmic Trading</p>
+  <p class="subtitle">Systems Thinker &nbsp;|&nbsp; Applied AI Engineering &nbsp;|&nbsp; Computational Finance &nbsp;|&nbsp; Algorithmic Trading</p>
 </div>
 
 <!-- INTRODUCTION -->
@@ -217,143 +151,116 @@ title: "My AI Notes"
   </div>
 </div>
 
-
-<!-- RECENT BLOG POSTS -->
-<!-- TABBED CONTENT SECTIONS -->
-<style>
-.tabs-section {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 50px 20px;
-}
-.tabs-nav {
-  display: flex;
-  gap: 0;
-  border-bottom: 2px solid #e0e0e0;
-  margin-bottom: 0;
-}
-.tabs-nav button {
-  background: none;
-  border: none;
-  padding: 12px 24px;
-  font-size: 0.92em;
-  font-weight: 600;
-  color: #888;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  transition: color 0.2s, border-color 0.2s;
-  font-family: inherit;
-}
-.tabs-nav button:hover {
-  color: #1a1a2e;
-}
-.tabs-nav button.active {
-  color: #e94560;
-  border-bottom-color: #e94560;
-}
-.tab-panel {
-  display: none;
-  padding: 24px 0;
-}
-.tab-panel.active {
-  display: block;
-}
-.tab-panel .section-intro {
-  font-size: 0.9em;
-  color: #555;
-  line-height: 1.7;
-  margin-bottom: 20px;
-  max-width: 720px;
-}
-.tab-panel ul {
-  list-style: none;
-  padding: 0;
-}
-.tab-panel li {
-  padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
-  font-size: 0.88em;
-  line-height: 1.5;
-}
-.tab-panel li a {
-  color: #1a1a2e;
-  font-weight: 600;
-  text-decoration: none;
-}
-.tab-panel li a:hover {
-  color: #e94560;
-}
-.tab-panel .meta {
-  color: #888;
-  font-size: 0.9em;
-}
-.tab-panel .tag {
-  color: #4a90d9;
-  text-decoration: none;
-  font-size: 0.9em;
-}
-.tab-panel .pdf-link {
-  color: #e94560;
-  text-decoration: none;
-  font-size: 0.9em;
-}
-@media (max-width: 600px) {
-  .tabs-nav button { padding: 10px 14px; font-size: 0.82em; }
-}
-</style>
-
-<div class="tabs-section">
-  <nav class="tabs-nav">
-    <button class="active" data-tab="research">AI Research & Engineering</button>
-    <button data-tab="founder">Founder Notes & Synthesis</button>
-  </nav>
-
-  <!-- TAB 1: AI Research & Engineering -->
-  <div class="tab-panel active" id="tab-research">
-    <ul>
-      <li><a href="#">Implementing Adaptive Compute in Prometheus: Learning When LLMs Should Think</a><span class="meta"> | June 28, 2026 | </span><a class="tag" href="/tags/Reasoning">Reasoning</a><a class="pdf-link" href="https://github.com/sprasadhpy/myAInotes/assets/adaptive_compute_routing.html" target="_blank" rel="noopener noreferrer"> HTML</a></li>
-      <li><a href="#">General Agents as World Models</a><span class="meta"> | July 2, 2025 | </span><a class="tag" href="/tags/Agents">Agents</a><a class="pdf-link" href="https://sprasadhpy.github.io/myAInotes/assets/July-2-2025-General-agents-world-models-4.pdf" target="_blank" rel="noopener noreferrer"> PDF</a></li>
-      <li><a href="#">Small LLMs as Agents</a><span class="meta"> | July 2, 2025 | </span><a class="tag" href="/tags/Agents">Agents</a><a class="pdf-link" href="https://sprasadhpy.github.io/myAInotes/assets/Small-LLMs-are-the-future-agents.pdf" target="_blank" rel="noopener noreferrer"> PDF</a></li>
-      <li><a href="#">Misinterpretability of Illusion in the Reasoning of LRMs</a><span class="meta"> | June 16, 2025 | </span><a class="tag" href="/tags/LLMs">LLMs</a><a class="pdf-link" href="https://sprasadhpy.github.io/myAInotes/assets/16062025.pdf" target="_blank" rel="noopener noreferrer"> PDF</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/10062025.html">Model Agnostic Meta Learning</a><span class="meta"> | June 10, 2025 | </span><a class="tag" href="/tags/LLMs">Deep Learning</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2062025.html">Reasoning via Internal Rewards</a><span class="meta"> | June 2, 2025 | </span><a class="tag" href="/tags/LLMs">LLMs</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2025-05-12.html">Faithful CoT</a><span class="meta"> | May 12, 2025 | </span><a class="tag" href="/tags/LLMs">LLMs</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2025-05-03.html">Much Ado About Proofing: DeepSeek Prover-V2</a><span class="meta"> | May 03, 2025 | </span><a class="tag" href="/tags/LLMs">LLMs</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/20250430.html">Why Do Multi-Agent LLM Systems Fail</a><span class="meta"> | April 30, 2025 | </span><a class="tag" href="/tags/LLMs">Agents</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/KnowSelf_Summary.html">Agentic Self-Awareness</a><span class="meta"> | April 15, 2025 | </span><a class="tag" href="/tags/LLMs">Agents</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2025:04:01.html">Investigation of R1 Zero-like Training</a><span class="meta"> | April 1, 2025 | </span><a class="tag" href="/tags/rl-training">RL Training</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/Futureagents_Converted.html">Future of Agents</a><span class="meta"> | January 6, 2025 | </span><a class="tag" href="/tags/Agents">Agents</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2024-12-03.html">LLM Powered Autonomous Agents</a><span class="meta"> | December 3, 2024 | </span><a class="tag" href="/tags/LLM-agents">Agents</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2024-12-01.html">Scaling Laws Summary</a><span class="meta"> | December 1, 2024 | </span><a class="tag" href="/tags/Scaling-Law">Scaling Law</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2024-10-15.html">Quantization of LLMs</a><span class="meta"> | October 15, 2024 | </span><a class="tag" href="/tags/LLMs">LLMs</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2024-10-14.html">Curated List of RAG Papers</a><span class="meta"> | October 14, 2024 | </span><a class="tag" href="/tags/Generative-AI">Generative AI</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/Panacea_new.html">Pareto Alignment via Preference Adaptation for LLMs</a><span class="meta"> | October 13, 2024 | </span><a class="tag" href="/tags/AI-alignment">AI Alignment</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2024-10-12.html">Evaluator's Reading List</a><span class="meta"> | October 12, 2024 | </span><a class="tag" href="/tags/AI-alignment">AI Alignment</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2024-10-10.html">Intriguing Properties of NNs</a><span class="meta"> | October 10, 2024 | </span><a class="tag" href="/tags/Deep-Learning">Deep Learning</a></li>
-      <li><a href="https://sprasadhpy.github.io/myAInotes/2024-10-09.html">Beyond Preferences in AI Alignment</a><span class="meta"> | October 9, 2024 | </span><a class="tag" href="/tags/AI-alignment">AI Alignment</a></li>
-    </ul>
-  </div>
-
-  <!-- TAB 2: Founder Notes & Synthesis -->
-  <div class="tab-panel" id="tab-founder">
-    <p class="section-intro">A personal collection of lessons, reflections, and synthesis on startups, founders, product thinking, business models, and building companies in the AI era. These notes are based on founder interviews, books, podcasts, essays, and long-form conversations. They are not intended as simple summaries; each note captures my interpretation of the ideas and the lessons I find useful.</p>
-    <ul>
-      <li><a href="/myAInotes/notes-and-synthesis/steve-blank-ai-era-lessons.html">Building Startups in the AI Era: Lessons from Steve Blank</a><span class="meta"> | July 8, 2026 | </span><a class="tag" href="/myAInotes/tags/Founders" style="color: #e94560;">Founders</a> <a class="tag" href="/myAInotes/tags/Startups" style="color: #e94560;">Startups</a></li>
-    </ul>
-  </div>
+<!-- AI RESEARCH & ENGINEERING -->
+<div class="blog-section">
+  <h2>AI Research &amp; Engineering</h2>
+  <ul>
+    <li>
+      <a href="#">Implementing Adaptive Compute in Prometheus: Learning When LLMs Should Think</a>
+      <span class="meta"> | June 28, 2026 | </span>
+      <a class="tag" href="/tags/Reasoning">Reasoning</a>
+      <a class="pdf-link" href="https://github.com/sprasadhpy/myAInotes/assets/adaptive_compute_routing.html" target="_blank" rel="noopener noreferrer"> HTML</a>
+    </li>
+    <li>
+      <a href="#">General Agents as World Models</a>
+      <span class="meta"> | July 2, 2025 | </span>
+      <a class="tag" href="/tags/Agents">Agents</a>
+      <a class="pdf-link" href="https://sprasadhpy.github.io/myAInotes/assets/July-2-2025-General-agents-world-models-4.pdf" target="_blank" rel="noopener noreferrer"> PDF</a>
+    </li>
+    <li>
+      <a href="#">Small LLMs as Agents</a>
+      <span class="meta"> | July 2, 2025 | </span>
+      <a class="tag" href="/tags/Agents">Agents</a>
+      <a class="pdf-link" href="https://sprasadhpy.github.io/myAInotes/assets/Small-LLMs-are-the-future-agents.pdf" target="_blank" rel="noopener noreferrer"> PDF</a>
+    </li>
+    <li>
+      <a href="#">Misinterpretability of Illusion in the Reasoning of LRMs</a>
+      <span class="meta"> | June 16, 2025 | </span>
+      <a class="tag" href="/tags/LLMs">LLMs</a>
+      <a class="pdf-link" href="https://sprasadhpy.github.io/myAInotes/assets/16062025.pdf" target="_blank" rel="noopener noreferrer"> PDF</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/10062025.html">Model Agnostic Meta Learning</a>
+      <span class="meta"> | June 10, 2025 | </span>
+      <a class="tag" href="/tags/LLMs">Deep Learning</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/2062025.html">Reasoning via Internal Rewards</a>
+      <span class="meta"> | June 2, 2025 | </span>
+      <a class="tag" href="/tags/LLMs">LLMs</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/2025-05-12.html">Faithful CoT</a>
+      <span class="meta"> | May 12, 2025 | </span>
+      <a class="tag" href="/tags/LLMs">LLMs</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/2025-05-03.html">Much Ado About Proofing: DeepSeek Prover-V2</a>
+      <span class="meta"> | May 03, 2025 | </span>
+      <a class="tag" href="/tags/LLMs">LLMs</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/20250430.html">Why Do Multi-Agent LLM Systems Fail</a>
+      <span class="meta"> | April 30, 2025 | </span>
+      <a class="tag" href="/tags/LLMs">Agents</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/KnowSelf_Summary.html">Agentic Self-Awareness</a>
+      <span class="meta"> | April 15, 2025 | </span>
+      <a class="tag" href="/tags/LLMs">Agents</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/2025:04:01.html">Investigation of R1 Zero-like Training</a>
+      <span class="meta"> | April 1, 2025 | </span>
+      <a class="tag" href="/tags/rl-training">RL Training</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/Futureagents_Converted.html">Future of Agents</a>
+      <span class="meta"> | January 6, 2025 | </span>
+      <a class="tag" href="/tags/Agents">Agents</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/2024-12-03.html">LLM Powered Autonomous Agents</a>
+      <span class="meta"> | December 3, 2024 | </span>
+      <a class="tag" href="/tags/LLM-agents">Agents</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/2024-12-01.html">Scaling Laws Summary</a>
+      <span class="meta"> | December 1, 2024 | </span>
+      <a class="tag" href="/tags/Scaling-Law">Scaling Law</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/2024-10-15.html">Quantization of LLMs</a>
+      <span class="meta"> | October 15, 2024 | </span>
+      <a class="tag" href="/tags/LLMs">LLMs</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/2024-10-14.html">Curated List of RAG Papers</a>
+      <span class="meta"> | October 14, 2024 | </span>
+      <a class="tag" href="/tags/Generative-AI">Generative AI</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/Panacea_new.html">Pareto Alignment via Preference Adaptation for LLMs</a>
+      <span class="meta"> | October 13, 2024 | </span>
+      <a class="tag" href="/tags/AI-alignment">AI Alignment</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/2024-10-12.html">Evaluator's Reading List</a>
+      <span class="meta"> | October 12, 2024 | </span>
+      <a class="tag" href="/tags/AI-alignment">AI Alignment</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/2024-10-10.html">Intriguing Properties of NNs</a>
+      <span class="meta"> | October 10, 2024 | </span>
+      <a class="tag" href="/tags/Deep-Learning">Deep Learning</a>
+    </li>
+    <li>
+      <a href="https://sprasadhpy.github.io/myAInotes/2024-10-09.html">Beyond Preferences in AI Alignment</a>
+      <span class="meta"> | October 9, 2024 | </span>
+      <a class="tag" href="/tags/AI-alignment">AI Alignment</a>
+    </li>
+  </ul>
 </div>
-
-<script>
-document.querySelectorAll('.tabs-nav button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tabs-nav button').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
-  });
-});
-</script>
 
 <!-- FOOTER -->
 <div class="site-footer-custom">
